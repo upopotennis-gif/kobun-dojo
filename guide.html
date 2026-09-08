@@ -1,0 +1,354 @@
+<title>古文文法道場 はじめかた</title>
+<style>
+  :root{
+    --ai:#2c3e66;
+    --ai-deep:#1d2c4d;
+    --yamabuki:#c98a1c;
+    --yamabuki-deep:#a06d13;
+    --wakatake:#3f8a63;
+    --wakatake-bg:#e6f0e8;
+    --kobai:#b8483f;
+    --kobai-bg:#f6e6e2;
+    --bg:#f4efe1;
+    --surface:#fffdf8;
+    --surface-2:#eae1c9;
+    --ink:#2a251c;
+    --ink-soft:#6d6553;
+    --line:#d9cca7;
+    --shadow:rgba(42,37,28,0.14);
+    --focus:#8a5a1f;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ai:#8fa3d6;
+      --ai-deep:#c2cfec;
+      --yamabuki:#e0ac47;
+      --yamabuki-deep:#f0c877;
+      --wakatake:#7fc39e;
+      --wakatake-bg:#1c3329;
+      --kobai:#e2938c;
+      --kobai-bg:#3a2320;
+      --bg:#141726;
+      --surface:#1c2038;
+      --surface-2:#262b4a;
+      --ink:#ece5d3;
+      --ink-soft:#a9a08b;
+      --line:#38406a;
+      --shadow:rgba(0,0,0,0.45);
+      --focus:#e0ac47;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ai:#8fa3d6;
+    --ai-deep:#c2cfec;
+    --yamabuki:#e0ac47;
+    --yamabuki-deep:#f0c877;
+    --wakatake:#7fc39e;
+    --wakatake-bg:#1c3329;
+    --kobai:#e2938c;
+    --kobai-bg:#3a2320;
+    --bg:#141726;
+    --surface:#1c2038;
+    --surface-2:#262b4a;
+    --ink:#ece5d3;
+    --ink-soft:#a9a08b;
+    --line:#38406a;
+    --shadow:rgba(0,0,0,0.45);
+    --focus:#e0ac47;
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Zen Maru Gothic','Hiragino Maru Gothic ProN',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .stage{
+    max-width:680px;
+    margin:0 auto;
+    padding:32px 18px 60px;
+    position:relative;
+  }
+  .stage::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0);
+    background-size:16px 16px;
+    opacity:.22;
+    mix-blend-mode:multiply;
+    pointer-events:none;
+    z-index:0;
+  }
+  :root:not([data-theme="light"]) .stage::before{ mix-blend-mode:screen; opacity:.10; }
+  :root[data-theme="dark"] .stage::before{ mix-blend-mode:screen; opacity:.10; }
+  .stage > *{ position:relative; z-index:1; }
+
+  .rod{ display:flex; align-items:center; gap:10px; margin:0 auto; }
+  .rod::before,.rod::after{ content:''; flex:1; height:5px; border-radius:3px; background:var(--ai-deep); }
+  .rod .knob{ width:14px; height:14px; border-radius:50%; background:var(--yamabuki); box-shadow:0 0 0 2px var(--surface); flex:none; }
+
+  .eyebrow{
+    text-align:center;
+    font-size:.8rem;
+    letter-spacing:.08em;
+    color:var(--ink-soft);
+    margin:18px 0 6px;
+  }
+  h1{
+    font-family:'Shippori Mincho', serif;
+    font-weight:800;
+    font-size:clamp(1.7rem, 1.1rem + 3.2vw, 2.5rem);
+    letter-spacing:.03em;
+    margin:0 0 10px;
+    text-align:center;
+    text-wrap:balance;
+  }
+  .tagline{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:.98rem;
+    line-height:1.8;
+    max-width:34em;
+    margin:0 auto 26px;
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:26px 24px;
+    box-shadow:0 3px 14px var(--shadow);
+  }
+  .card + .card{ margin-top:18px; }
+
+  .hero-card{
+    display:flex;
+    align-items:center;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .hero-main{ flex:1 1 260px; min-width:220px; }
+  .hero-main p{
+    margin:0 0 18px;
+    color:var(--ink-soft);
+    font-size:.92rem;
+    line-height:1.8;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-family:'Zen Maru Gothic',sans-serif;
+    font-weight:700;
+    font-size:1.02rem;
+    padding:15px 22px;
+    border-radius:10px;
+    border:1px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .12s ease, filter .12s ease;
+  }
+  @media (prefers-reduced-motion: reduce){ .btn{ transition:none; } }
+  .btn:active{ transform:translateY(1px); }
+  .btn-primary{
+    background:var(--yamabuki);
+    color:#2a1c04;
+    box-shadow:0 3px 0 var(--yamabuki-deep);
+    width:100%;
+  }
+  :root:not([data-theme="light"]) .btn-primary{ color:#241a02; }
+  :root[data-theme="dark"] .btn-primary{ color:#241a02; }
+  .btn-primary:hover{ filter:brightness(1.04); }
+  .btn-secondary{
+    background:transparent;
+    color:var(--ai);
+    border-color:var(--ai);
+    width:100%;
+    margin-top:10px;
+    font-size:.88rem;
+    padding:11px 16px;
+  }
+  .btn-secondary:hover{ background:var(--surface-2); }
+  .btn-secondary.copied{ border-color:var(--wakatake); color:var(--wakatake); }
+
+  .qr-box{
+    flex:none;
+    text-align:center;
+  }
+  .qr-box img{
+    width:132px;
+    height:132px;
+    display:block;
+    border-radius:8px;
+    border:1px solid var(--line);
+    padding:8px;
+    background:var(--surface);
+  }
+  .qr-box span{
+    display:block;
+    margin-top:8px;
+    font-size:.72rem;
+    color:var(--ink-soft);
+  }
+
+  h2{
+    font-family:'Shippori Mincho',serif;
+    font-size:1.15rem;
+    font-weight:700;
+    margin:0 0 16px;
+    text-wrap:balance;
+  }
+
+  .steps{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:grid;
+    gap:16px;
+  }
+  .steps li{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+  }
+  .steps .num{
+    flex:none;
+    width:34px; height:34px;
+    border-radius:50%;
+    background:var(--ai);
+    color:var(--surface);
+    font-family:'Shippori Mincho',serif;
+    font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.95rem;
+  }
+  .steps .step-body strong{
+    display:block;
+    font-size:.98rem;
+    margin-bottom:2px;
+  }
+  .steps .step-body span{
+    font-size:.85rem;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    border:1.5px solid var(--line);
+    background:var(--bg);
+    color:var(--ink);
+    border-radius:999px;
+    padding:7px 14px;
+    font-size:.82rem;
+  }
+
+  .tip-list{
+    margin:0;
+    padding-left:1.3em;
+    font-size:.9rem;
+    line-height:1.9;
+    color:var(--ink-soft);
+  }
+  .tip-list li{ margin-bottom:6px; }
+  .tip-list strong{ color:var(--ink); }
+
+  footer{
+    text-align:center;
+    font-size:.75rem;
+    color:var(--ink-soft);
+    margin-top:34px;
+    line-height:1.8;
+  }
+</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+
+<div class="stage">
+  <div class="rod"><span class="knob"></span><span class="knob"></span></div>
+  <p class="eyebrow">渡邊梢太の古文文法道場</p>
+  <h1>スマホひとつで、古文文法トレーニング</h1>
+  <p class="tagline">単元を選ぶだけで4択クイズと学習ガイドがすぐ始まります。アカウント登録・アプリのインストールは不要、ページを開くだけで無料で使えます。</p>
+
+  <div class="card hero-card">
+    <div class="hero-main">
+      <p>下のボタン、またはQRコードからアクセスしてください。ブックマークしておくと復習のたびに開きやすくなります。</p>
+      <a class="btn btn-primary" href="https://upopotennis-gif.github.io/kobun-dojo/" target="_blank" rel="noopener">古文文法道場を開く →</a>
+      <button type="button" class="btn btn-secondary" id="btn-copy">リンクをコピーする</button>
+    </div>
+    <div class="qr-box">
+      <img src="data:image/png;base64,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" alt="QRコード">
+      <span>スマホで読み取り</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>使い方は3ステップ</h2>
+    <ol class="steps">
+      <li>
+        <span class="num">一</span>
+        <span class="step-body"><strong>単元を選ぶ</strong><span>助動詞・敬語・活用の種類など、34の単元と読解問題から選べます。</span></span>
+      </li>
+      <li>
+        <span class="num">二</span>
+        <span class="step-body"><strong>「クイズを始める」を押す</strong><span>4択問題が10問、その場で始まります。タップするとすぐに正誤と解説がわかります。</span></span>
+      </li>
+      <li>
+        <span class="num">三</span>
+        <span class="step-body"><strong>解説を読んで復習する</strong><span>間違えた問題は解説をよく読み、「学習ガイド」でその単元の要点も確認しましょう。</span></span>
+      </li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>この道場について</h2>
+    <div class="chips">
+      <span class="chip">全34単元</span>
+      <span class="chip">読解問題つき</span>
+      <span class="chip">単元ごとの学習ガイド</span>
+      <span class="chip">アカウント登録不要</span>
+      <span class="chip">無料</span>
+      <span class="chip">スマホ・PC対応</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>活用のヒント</h2>
+    <ul class="tip-list">
+      <li><strong>同じ単元でも問題は毎回変わります。</strong>「違う10問に挑戦する」で繰り返し練習できます。</li>
+      <li><strong>先に学習ガイドを読んでから</strong>クイズに挑戦すると、要点を確認しながら進められます。</li>
+      <li><strong>読解問題</strong>では、竹取物語・徒然草など有名な古典作品の一節が出題されます。</li>
+      <li>通信環境があればいつでも使えます。<strong>予習・復習・すきま時間の演習</strong>にどうぞ。</li>
+    </ul>
+  </div>
+
+  <footer>渡邊梢太の古文文法道場 — 「解析古典文法 四訂版」の章立てを参考にした単元構成です。<br>説明文・例文・問題はすべて独自に作成しており、同書の本文は使用していません。</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var url = "https://upopotennis-gif.github.io/kobun-dojo/";
+  var btn = document.getElementById("btn-copy");
+  btn.addEventListener("click", function(){
+    var done = function(){
+      btn.textContent = "コピーしました ✓";
+      btn.classList.add("copied");
+      setTimeout(function(){
+        btn.textContent = "リンクをコピーする";
+        btn.classList.remove("copied");
+      }, 1800);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(done).catch(function(){
+        btn.textContent = "コピーできませんでした";
+      });
+    } else {
+      btn.textContent = "コピーできませんでした";
+    }
+  });
+})();
+</script>
