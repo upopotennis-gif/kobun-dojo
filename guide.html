@@ -1,4 +1,5 @@
-<title>古文文法道場 はじめかた</title>
+<meta charset="UTF-8">
+<title>渡邊梢太の古文道場 はじめかた</title>
 <style>
   :root{
     --ai:#2c3e66;
@@ -256,6 +257,28 @@
   .tip-list li{ margin-bottom:6px; }
   .tip-list strong{ color:var(--ink); }
 
+  .tool-eyebrow{
+    font-size:.76rem;
+    letter-spacing:.06em;
+    color:var(--yamabuki-deep);
+    font-weight:700;
+    margin:0 0 4px;
+  }
+  :root:not([data-theme="light"]) .tool-eyebrow{ color:var(--yamabuki); }
+  :root[data-theme="dark"] .tool-eyebrow{ color:var(--yamabuki); }
+  .tool-title{
+    margin:0 0 8px;
+    text-align:left;
+  }
+  .chip-group-label{
+    font-size:.8rem;
+    font-weight:700;
+    color:var(--ai);
+    margin:0 0 8px;
+  }
+  .chip-group-label:not(:first-of-type){ margin-top:16px; }
+  .chips + .chip-group-label{ margin-top:16px; }
+
   footer{
     text-align:center;
     font-size:.75rem;
@@ -269,18 +292,34 @@
 
 <div class="stage">
   <div class="rod"><span class="knob"></span><span class="knob"></span></div>
-  <p class="eyebrow">渡邊梢太の古文文法道場</p>
-  <h1>スマホひとつで、古文文法トレーニング</h1>
-  <p class="tagline">単元を選ぶだけで4択クイズと学習ガイドがすぐ始まります。アカウント登録・アプリのインストールは不要、ページを開くだけで無料で使えます。</p>
+  <p class="eyebrow">渡邊梢太の古文道場シリーズ</p>
+  <h1>スマホひとつで、古文トレーニング</h1>
+  <p class="tagline">基礎固めの「古文文法道場」と、入試レベルで鍛える「古文実戦道場」の2つがあります。単元・モードを選ぶだけで4択クイズがすぐ始まります。アカウント登録・アプリのインストールは不要、ページを開くだけで無料で使えます。</p>
 
   <div class="card hero-card">
     <div class="hero-main">
-      <p>下のボタン、またはQRコードからアクセスしてください。ブックマークしておくと復習のたびに開きやすくなります。</p>
+      <p class="tool-eyebrow">基礎固め・くり返し演習</p>
+      <h2 class="tool-title">① 古文文法道場</h2>
+      <p>全34単元+読解問題。単元を選ぶだけで4択クイズと学習ガイドがすぐ始まります。</p>
       <a class="btn btn-primary" href="https://upopotennis-gif.github.io/kobun-dojo/" target="_blank" rel="noopener">古文文法道場を開く →</a>
-      <button type="button" class="btn btn-secondary" id="btn-copy">リンクをコピーする</button>
+      <button type="button" class="btn btn-secondary btn-copy" data-url="https://upopotennis-gif.github.io/kobun-dojo/">リンクをコピーする</button>
     </div>
     <div class="qr-box">
-      <img src="data:image/png;base64,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" alt="QRコード">
+      <img src="data:image/png;base64,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" alt="QRコード(古文文法道場)">
+      <span>スマホで読み取り</span>
+    </div>
+  </div>
+
+  <div class="card hero-card">
+    <div class="hero-main">
+      <p class="tool-eyebrow">入試レベルの実戦演習</p>
+      <h2 class="tool-title">② 古文実戦道場</h2>
+      <p>助動詞の文法的意味を答える「助動詞道場」と、文法知識で現代語訳を選ぶ「現代語訳道場」。★1〜3の難易度混在で出題します。</p>
+      <a class="btn btn-primary" href="https://upopotennis-gif.github.io/kobun-dojo/jissen.html" target="_blank" rel="noopener">古文実戦道場を開く →</a>
+      <button type="button" class="btn btn-secondary btn-copy" data-url="https://upopotennis-gif.github.io/kobun-dojo/jissen.html">リンクをコピーする</button>
+    </div>
+    <div class="qr-box">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYAQAAAACv9dQhAAAB5ElEQVR4nO1a2WrEMAycEf7/X1bR5WS30L4UR0XrkNhxBCsGHSN5qfh1CObKoPBRhV/xrr4RQ7vpLAdlViJEu5U2q82+q/FlOD4INOhoGDQwmPyV/mU6PjUINUQSmcCro87ykIw6QmZKvMBBb51P2I/GklDDhWqP9Db85W/Jv85f+H7FGJ2/qG8rmyKJ4Ql9pJkMyk7U+E68JAvS2u+msxyWUUfGQ477laX3QgrD+Q89pTvrsaeF5xcn43D+g8u70mBileWGjdH+tdx2nPm45TiR9iwfVmV3N53lOH+mm0ysHJLCiKf1kYb1KasujficEcihcYuajQ/dk6JATf5sHxIefuIz4i7mUy8ZpnV2fJZdWlC3p23mo2RTnY/3x7SCcyKTu+Ts+IMss/St03ovPOSgPtJRRotAl1s5DUIEoOn1BbcRZeThS6kBjrafdaPMscwuayZ6HR5/VkyGxW7IVxMR0VBsp7MclMEOw9c6A7SN8fxnXY3U7Dg7A8oKleP586pCwhLVzloRjZitoG46yyPnp9wHpzSsstcBnZ2/cJHBoMzRh747nXbTWR6SoeHiFVcyIX1Wn0b53UYdCVZbDOZcn/N3XAk+InSyn6CM0/MXq09oppIc8U4UMTx/8fP/Mfw0vgDsCRzSTGSk7wAAAABJRU5ErkJggg==" alt="QRコード(古文実戦道場)">
       <span>スマホで読み取り</span>
     </div>
   </div>
@@ -290,7 +329,7 @@
     <ol class="steps">
       <li>
         <span class="num">一</span>
-        <span class="step-body"><strong>単元を選ぶ</strong><span>助動詞・敬語・活用の種類など、34の単元と読解問題から選べます。</span></span>
+        <span class="step-body"><strong>道場・単元(モード)を選ぶ</strong><span>文法道場なら34の単元と読解問題、実戦道場なら助動詞道場・現代語訳道場の単元から選べます。</span></span>
       </li>
       <li>
         <span class="num">二</span>
@@ -304,51 +343,62 @@
   </div>
 
   <div class="card">
-    <h2>この道場について</h2>
+    <h2>2つの道場について</h2>
+    <p class="chip-group-label">① 古文文法道場</p>
     <div class="chips">
       <span class="chip">全34単元</span>
       <span class="chip">読解問題つき</span>
       <span class="chip">単元ごとの学習ガイド</span>
       <span class="chip">アカウント登録不要</span>
       <span class="chip">無料</span>
-      <span class="chip">スマホ・PC対応</span>
+    </div>
+    <p class="chip-group-label">② 古文実戦道場</p>
+    <div class="chips">
+      <span class="chip">大学入試レベル</span>
+      <span class="chip">助動詞道場</span>
+      <span class="chip">現代語訳道場</span>
+      <span class="chip">★1〜3の難易度混在</span>
+      <span class="chip">アカウント登録不要</span>
+      <span class="chip">無料</span>
     </div>
   </div>
 
   <div class="card">
     <h2>活用のヒント</h2>
     <ul class="tip-list">
-      <li><strong>同じ単元でも問題は毎回変わります。</strong>「違う10問に挑戦する」で繰り返し練習できます。</li>
-      <li><strong>先に学習ガイドを読んでから</strong>クイズに挑戦すると、要点を確認しながら進められます。</li>
-      <li><strong>読解問題</strong>では、竹取物語・徒然草など有名な古典作品の一節が出題されます。</li>
+      <li><strong>同じ単元・モードでも問題は毎回変わります。</strong>プールからランダムに出題されるので、繰り返し練習できます。</li>
+      <li><strong>まず文法道場で基礎を固めてから</strong>、実戦道場で入試レベルの問題に挑戦するのがおすすめです。</li>
+      <li>実戦道場では、<strong>解答後に★の難易度</strong>が表示されるので、自分の理解度を確認しながら進められます。</li>
       <li>通信環境があればいつでも使えます。<strong>予習・復習・すきま時間の演習</strong>にどうぞ。</li>
     </ul>
   </div>
 
-  <footer>渡邊梢太の古文文法道場 — 「解析古典文法 四訂版」の章立てを参考にした単元構成です。<br>説明文・例文・問題はすべて独自に作成しており、同書の本文は使用していません。</footer>
+  <footer>渡邊梢太の古文道場シリーズ — 古文文法道場は「解析古典文法 四訂版」の章立てを参考にした単元構成です。<br>説明文・例文・問題はすべて独自に作成しており、参考にした書籍・入試問題の本文はそのまま使用していません。</footer>
 </div>
 
 <script>
 (function(){
   "use strict";
-  var url = "https://upopotennis-gif.github.io/kobun-dojo/";
-  var btn = document.getElementById("btn-copy");
-  btn.addEventListener("click", function(){
-    var done = function(){
-      btn.textContent = "コピーしました ✓";
-      btn.classList.add("copied");
-      setTimeout(function(){
-        btn.textContent = "リンクをコピーする";
-        btn.classList.remove("copied");
-      }, 1800);
-    };
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(url).then(done).catch(function(){
+  var buttons = document.querySelectorAll(".btn-copy");
+  buttons.forEach(function(btn){
+    var url = btn.getAttribute("data-url");
+    btn.addEventListener("click", function(){
+      var done = function(){
+        btn.textContent = "コピーしました ✓";
+        btn.classList.add("copied");
+        setTimeout(function(){
+          btn.textContent = "リンクをコピーする";
+          btn.classList.remove("copied");
+        }, 1800);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(done).catch(function(){
+          btn.textContent = "コピーできませんでした";
+        });
+      } else {
         btn.textContent = "コピーできませんでした";
-      });
-    } else {
-      btn.textContent = "コピーできませんでした";
-    }
+      }
+    });
   });
 })();
 </script>
