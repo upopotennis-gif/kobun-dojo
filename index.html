@@ -430,6 +430,34 @@
   }
 </style>
 
+<style>
+/* ==== 記録機能 追加分 ==== */
+.sub-actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+.stat-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px; margin-bottom:22px; }
+.stat-tile{ border:1px solid var(--line); border-radius:10px; padding:12px 14px; background:var(--bg); }
+.stat-tile .k{ display:block; font-size:.74rem; color:var(--ink-soft); letter-spacing:.06em; }
+.stat-tile .v{ display:block; font-size:1.5rem; font-weight:700; color:var(--ai); font-variant-numeric:tabular-nums; margin-top:2px; }
+.stat-tile .v small{ font-size:.8rem; font-weight:400; color:var(--ink-soft); margin-left:2px; }
+.stats-empty{ color:var(--ink-soft); padding:18px 0; }
+.stat-table{ width:100%; border-collapse:collapse; font-size:.9rem; }
+.stat-table th{ text-align:left; font-size:.72rem; letter-spacing:.08em; color:var(--ink-soft); border-bottom:1px solid var(--line); padding:6px 8px; font-weight:700; }
+.stat-table td{ border-bottom:1px solid var(--line); padding:8px; vertical-align:middle; }
+.stat-table td.num{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.rate-bar{ display:block; position:relative; height:8px; border-radius:4px; background:var(--line); min-width:70px; }
+.rate-bar i{ position:absolute; left:0; top:0; bottom:0; border-radius:4px; background:var(--wakatake); }
+.rate-bar i.low{ background:var(--kobai); }
+.rate-bar i.mid{ background:var(--yamabuki); }
+.cal{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; max-width:330px; }
+.cal span{ aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:.74rem;
+  border-radius:6px; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
+.cal span.head{ color:var(--ink-soft); font-size:.68rem; aspect-ratio:auto; padding-bottom:2px; }
+.cal span.on{ background:var(--wakatake); color:#fff; font-weight:700; }
+.cal span.today{ outline:2px solid var(--yamabuki); outline-offset:-2px; }
+.stats-section-title{ font-size:.95rem; font-weight:700; margin:26px 0 10px; color:var(--ai); }
+.wrongbox-line{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:6px; }
+.privacy-note{ font-size:.76rem; color:var(--ink-soft); margin-top:26px; line-height:1.7; }
+</style>
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
 
 <div class="stage">
@@ -463,6 +491,11 @@
         <div class="actions">
           <button type="button" class="btn btn-primary" id="btn-make-quiz" disabled>クイズを始める</button>
           <button type="button" class="btn btn-secondary" id="btn-view-guide" disabled>学習ガイドを見る</button>
+        </div>
+
+        <div class="sub-actions">
+          <button type="button" class="btn btn-secondary" id="btn-wrongbox">苦手ボックスから10問</button>
+          <button type="button" class="btn btn-ghost" id="btn-stats">これまでの記録</button>
         </div>
       </div>
     </section>
@@ -504,10 +537,27 @@
           <p class="result-message" id="result-message"></p>
         </div>
         <div class="actions">
-          <button type="button" class="btn btn-primary" id="btn-retry-quiz">同じ問題にもう一度挑戦</button>
+          <button type="button" class="btn btn-primary" id="btn-wrong-only" hidden>間違えた問題だけもう一度</button>
+          <button type="button" class="btn btn-secondary" id="btn-retry-quiz">同じ問題にもう一度挑戦</button>
           <button type="button" class="btn btn-secondary" id="btn-new-quiz">違う10問に挑戦する</button>
           <button type="button" class="btn btn-secondary" id="btn-guide-from-result">学習ガイドを見る</button>
           <button type="button" class="btn btn-ghost" id="btn-change-unit">別の単元を選ぶ</button>
+          <button type="button" class="btn btn-ghost" id="btn-stats-from-result">記録を見る</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-stats" hidden>
+      <div class="card">
+        <h2 class="card-title">これまでの記録</h2>
+        <div id="stats-body"></div>
+        <p class="privacy-note">
+          記録はこの端末のブラウザの中だけに保存されます。先生や他の人に送られることはありません。
+          ブラウザの履歴やサイトデータを消すと記録も消えます。
+        </p>
+        <div class="actions" style="margin-top:18px">
+          <button type="button" class="btn btn-secondary" id="btn-stats-back">単元選択に戻る</button>
+          <button type="button" class="btn btn-ghost" id="btn-stats-reset">記録を消す</button>
         </div>
       </div>
     </section>
@@ -22496,7 +22546,9 @@
    "quiz-feedback","feedback-verdict","feedback-explanation","feedback-translation","feedback-translation-text",
    "btn-next-question",
    "result-frac","result-message","btn-retry-quiz","btn-new-quiz","btn-guide-from-result","btn-change-unit",
-   "guide-content","btn-guide-back"
+   "guide-content","btn-guide-back",
+   "view-stats","stats-body","btn-stats","btn-stats-back","btn-stats-reset","btn-stats-from-result",
+   "btn-wrongbox","btn-wrong-only"
   ].forEach(function(id){ els[id.replace(/-([a-z])/g, function(_,c){return c.toUpperCase();})] = document.getElementById(id); });
 
   var quizData = [];
@@ -22506,9 +22558,130 @@
   var results = []; // 'correct' | 'wrong' per question
   var selectedUnit = null;
   var lastReadingIndex = null;
+  var isWrongReview = false;   // いま解いているのが復習セットかどうか
+
+
+  // ===================== 学習記録（この端末のブラウザ内だけに保存） =====================
+  var STORE_KEY = "kobunDojo.v1";
+  var RECENT_MAX = 30;   // 単元ごとに「直近に出した問題」を何問覚えておくか
+  var DAYS_MAX  = 400;   // 実施日を何日分残すか
+
+  function emptyStore(){ return { units:{}, wrong:{}, recent:{}, days:[] }; }
+
+  var store = (function(){
+    try{
+      var raw = window.localStorage.getItem(STORE_KEY);
+      if(!raw) return emptyStore();
+      var o = JSON.parse(raw);
+      return {
+        units:  o.units  || {},
+        wrong:  o.wrong  || {},
+        recent: o.recent || {},
+        days:   o.days   || []
+      };
+    }catch(e){ return emptyStore(); }
+  })();
+
+  var storageOK = true;
+  function saveStore(){
+    try{ window.localStorage.setItem(STORE_KEY, JSON.stringify(store)); }
+    catch(e){ storageOK = false; }
+  }
+
+  // 問題文から安定したIDを作る（プールの並び順が変わってもずれない）
+  function qid(text){
+    var h = 5381, s = String(text);
+    for(var i=0;i<s.length;i++){ h = ((h*33) ^ s.charCodeAt(i)) >>> 0; }
+    return h.toString(36);
+  }
+
+  // ID -> 問題 の逆引き表（誤答ボックスの復元に使う）
+  var QID_MAP = {};
+  (function buildQidMap(){
+    Object.keys(QUESTION_POOLS).forEach(function(uid){
+      (QUESTION_POOLS[uid]||[]).forEach(function(q){
+        QID_MAP[qid(q.question)] = { unitId: uid, q: q };
+      });
+    });
+    (READING_SETS||[]).forEach(function(set){
+      (set.questions||[]).forEach(function(q){
+        QID_MAP[qid(q.question)] = { unitId: "__reading__", q: q };
+      });
+    });
+  })();
+
+  function unitLabelOf(uid){
+    var found = uid;
+    UNITS.forEach(function(g){
+      g.items.forEach(function(it){ if(it.id === uid) found = it.label; });
+    });
+    return found;
+  }
+
+  function todayKey(){
+    var d = new Date();
+    function p(n){ return (n<10?"0":"") + n; }
+    return d.getFullYear() + "-" + p(d.getMonth()+1) + "-" + p(d.getDate());
+  }
+
+  function recordAnswer(unitId, questionText, isCorrect){
+    var id = qid(questionText);
+    var box = store.wrong[unitId] || [];
+    var at = box.indexOf(id);
+    if(isCorrect){
+      if(at >= 0) box.splice(at, 1);          // 正解したら苦手ボックスから外す
+    } else if(at < 0){
+      box.push(id);
+    }
+    if(box.length) store.wrong[unitId] = box; else delete store.wrong[unitId];
+  }
+
+  function recordQuizFinished(unitId, asked, correct){
+    var u = store.units[unitId] || { attempts:0, asked:0, correct:0, last:"" };
+    u.attempts += 1;
+    u.asked    += asked;
+    u.correct  += correct;
+    u.last      = todayKey();
+    store.units[unitId] = u;
+    if(store.days.indexOf(u.last) < 0){
+      store.days.push(u.last);
+      if(store.days.length > DAYS_MAX) store.days = store.days.slice(-DAYS_MAX);
+    }
+    saveStore();
+  }
+
+  function rememberAsked(unitId, questions){
+    var seen = store.recent[unitId] || [];
+    questions.forEach(function(q){
+      var id = qid(q.question);
+      var at = seen.indexOf(id);
+      if(at >= 0) seen.splice(at, 1);
+      seen.push(id);
+    });
+    if(seen.length > RECENT_MAX) seen = seen.slice(-RECENT_MAX);
+    store.recent[unitId] = seen;
+    saveStore();
+  }
+
+  function wrongBoxCount(){
+    var n = 0;
+    Object.keys(store.wrong).forEach(function(k){ n += store.wrong[k].length; });
+    return n;
+  }
+
+  function wrongBoxQuestions(limit){
+    var out = [];
+    Object.keys(store.wrong).forEach(function(uid){
+      store.wrong[uid].forEach(function(id){
+        var hit = QID_MAP[id];
+        if(hit) out.push(hit.q);
+      });
+    });
+    return shuffleArray(out).slice(0, limit || 10);
+  }
 
   function switchView(name){
-    ["setup","quiz","result","guide"].forEach(function(v){
+    ["setup","quiz","result","guide","stats"].forEach(function(v){
       els["view"+v[0].toUpperCase()+v.slice(1)].hidden = (v !== name);
     });
   }
@@ -22598,13 +22771,43 @@
     }
     var pool = QUESTION_POOLS[unit.id];
     if(!pool || !pool.length) return null;
-    var picked = shuffleArray(pool).slice(0, 10).map(shuffleChoices);
-    return { passage: "", source: "", questions: picked };
+
+    // 直近に出した問題をいったん後回しにして、同じ問題の再出現を減らす
+    var seen = store.recent[unit.id] || [];
+    var fresh = pool.filter(function(q){ return seen.indexOf(qid(q.question)) < 0; });
+    var picked;
+    if(fresh.length >= 10){
+      picked = shuffleArray(fresh).slice(0, 10);
+    } else {
+      // 未出題が足りなくなったら一巡したとみなし、記憶を流して全体から選び直す
+      picked = shuffleArray(fresh).concat(
+        shuffleArray(pool.filter(function(q){ return fresh.indexOf(q) < 0; }))
+      ).slice(0, 10);
+      store.recent[unit.id] = [];
+    }
+    rememberAsked(unit.id, picked);
+    return { passage: "", source: "", questions: picked.map(shuffleChoices) };
+  }
+
+  // 任意の問題リストでクイズを始める（復習・苦手ボックス用）
+  function startQuizWith(questions, title){
+    if(!questions || !questions.length) return false;
+    isWrongReview = true;
+    quizData = questions.map(shuffleChoices);
+    quizPassage = "";
+    currentIndex = 0; score = 0; results = [];
+    renderQuizDots();
+    els.quizUnit.textContent = title;
+    els.quizPassage.hidden = true;
+    renderQuestion();
+    switchView("quiz");
+    return true;
   }
 
   function startQuiz(){
     clearError();
     if(!selectedUnit) return;
+    isWrongReview = false;
     var result = pickQuizForUnit(selectedUnit);
     if(!result){
       showError("「" + selectedUnit.label + "」の問題は準備中です。別の単元をお試しください。");
@@ -22681,6 +22884,9 @@
 
     if(isCorrect) score++;
     results[currentIndex] = isCorrect ? "correct" : "wrong";
+    var owner = QID_MAP[qid(q.question)];
+    recordAnswer(owner ? owner.unitId : (selectedUnit ? selectedUnit.id : "__other__"), q.question, isCorrect);
+    saveStore();
     updateDots();
     els.quizScore.textContent = "正解 " + score;
 
@@ -22717,6 +22923,17 @@
     else if(ratio >= 0.4) msg = "もう少しです。解説を読み直して、同じ単元にもう一度挑戦してみましょう。";
     else msg = "まずは基礎から。学習ガイドで要点を確認してから、もう一度挑戦してみましょう。";
     els.resultMessage.textContent = msg;
+
+    if(selectedUnit && !isWrongReview){
+      recordQuizFinished(selectedUnit.id, total, score);
+    } else {
+      saveStore();
+    }
+
+    var wrongCount = results.filter(function(r){ return r === "wrong"; }).length;
+    els.btnWrongOnly.hidden = (wrongCount === 0);
+    if(wrongCount) els.btnWrongOnly.textContent = "間違えた" + wrongCount + "問だけもう一度";
+
     switchView("result");
   }
 
@@ -22727,7 +22944,7 @@
     switchView("quiz");
   });
   els.btnNewQuiz.addEventListener("click", function(){ startQuiz(); });
-  els.btnChangeUnit.addEventListener("click", function(){ clearError(); switchView("setup"); });
+  els.btnChangeUnit.addEventListener("click", function(){ clearError(); refreshWrongBoxButton(); switchView("setup"); });
   els.btnGuideFromResult.addEventListener("click", function(){ showGuide(); });
   els.btnGuideBack.addEventListener("click", function(){ clearError(); switchView("setup"); });
 
@@ -22753,6 +22970,157 @@
     }
     els.guideContent.innerHTML = renderMarkdown(md);
   }
+
+
+  // ===================== 記録画面 =====================
+  function pct(n, d){ return d ? Math.round(n / d * 100) : 0; }
+
+  function streakDays(){
+    if(!store.days.length) return 0;
+    var set = {};
+    store.days.forEach(function(d){ set[d] = true; });
+    var n = 0, cur = new Date();
+    function key(d){
+      function p(x){ return (x<10?"0":"") + x; }
+      return d.getFullYear() + "-" + p(d.getMonth()+1) + "-" + p(d.getDate());
+    }
+    if(!set[key(cur)]) cur.setDate(cur.getDate() - 1);   // 今日まだなら昨日から数える
+    while(set[key(cur)]){ n++; cur.setDate(cur.getDate() - 1); }
+    return n;
+  }
+
+  function calendarHTML(){
+    var now = new Date();
+    var year = now.getFullYear(), month = now.getMonth();
+    var first = new Date(year, month, 1).getDay();
+    var last = new Date(year, month+1, 0).getDate();
+    var set = {};
+    store.days.forEach(function(d){ set[d] = true; });
+    function p(n){ return (n<10?"0":"") + n; }
+    var html = '<div class="cal">';
+    ["日","月","火","水","木","金","土"].forEach(function(w){
+      html += '<span class="head">' + w + '</span>';
+    });
+    for(var i=0;i<first;i++) html += '<span></span>';
+    for(var d=1; d<=last; d++){
+      var key = year + "-" + p(month+1) + "-" + p(d);
+      var cls = [];
+      if(set[key]) cls.push("on");
+      if(d === now.getDate()) cls.push("today");
+      html += '<span class="' + cls.join(" ") + '">' + d + '</span>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function escapeHTML(s){
+    var div = document.createElement("div");
+    div.textContent = s;
+    return div.innerHTML;
+  }
+
+  function renderStats(){
+    var uids = Object.keys(store.units);
+    var totalAttempts = 0, totalAsked = 0, totalCorrect = 0;
+    uids.forEach(function(u){
+      totalAttempts += store.units[u].attempts;
+      totalAsked    += store.units[u].asked;
+      totalCorrect  += store.units[u].correct;
+    });
+
+    var html = "";
+
+    if(!storageOK){
+      html += '<p class="stats-empty">このブラウザでは記録を保存できない設定になっています（プライベートモードなど）。'
+           +  'その場合でも、いま解いている分の「間違えた問題だけもう一度」は使えます。</p>';
+    }
+
+    if(!totalAttempts){
+      html += '<p class="stats-empty">まだ記録がありません。単元を選んで10問解くと、ここに正答率と学習した日が残ります。</p>';
+      els.statsBody.innerHTML = html;
+      return;
+    }
+
+    html += '<div class="stat-grid">'
+         +  '<div class="stat-tile"><span class="k">挑戦した回数</span><span class="v">' + totalAttempts + '<small>回</small></span></div>'
+         +  '<div class="stat-tile"><span class="k">解いた問題</span><span class="v">' + totalAsked + '<small>問</small></span></div>'
+         +  '<div class="stat-tile"><span class="k">通算の正答率</span><span class="v">' + pct(totalCorrect, totalAsked) + '<small>%</small></span></div>'
+         +  '<div class="stat-tile"><span class="k">連続学習日数</span><span class="v">' + streakDays() + '<small>日</small></span></div>'
+         +  '</div>';
+
+    var wn = wrongBoxCount();
+    html += '<div class="stats-section-title">苦手ボックス</div>';
+    if(wn){
+      html += '<div class="wrongbox-line"><span>間違えたまま正解していない問題が <strong>' + wn + '問</strong> あります。</span>'
+           +  '<button type="button" class="btn btn-primary" id="btn-wrongbox-2">ここから10問解く</button></div>';
+    } else {
+      html += '<p class="stats-empty">いまは空です。間違えた問題がここにたまり、正解すると消えます。</p>';
+    }
+
+    uids.sort(function(a,b){
+      return pct(store.units[a].correct, store.units[a].asked) - pct(store.units[b].correct, store.units[b].asked);
+    });
+    html += '<div class="stats-section-title">単元ごとの成績（正答率の低い順）</div>';
+    html += '<div style="overflow-x:auto"><table class="stat-table"><thead><tr>'
+         +  '<th>単元</th><th class="num">挑戦</th><th class="num">正答率</th><th style="width:90px"></th><th class="num">最終</th>'
+         +  '</tr></thead><tbody>';
+    uids.forEach(function(uid){
+      var u = store.units[uid];
+      var r = pct(u.correct, u.asked);
+      var cls = r < 50 ? "low" : (r < 80 ? "mid" : "");
+      html += '<tr><td>' + escapeHTML(unitLabelOf(uid)) + '</td>'
+           +  '<td class="num">' + u.attempts + '回</td>'
+           +  '<td class="num">' + r + '%</td>'
+           +  '<td><span class="rate-bar"><i class="' + cls + '" style="width:' + r + '%"></i></span></td>'
+           +  '<td class="num">' + (u.last || "-").slice(5).replace("-", "/") + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+
+    html += '<div class="stats-section-title">今月の学習した日</div>' + calendarHTML();
+
+    els.statsBody.innerHTML = html;
+
+    var btn2 = document.getElementById("btn-wrongbox-2");
+    if(btn2) btn2.addEventListener("click", openWrongBox);
+  }
+
+  function openWrongBox(){
+    clearError();
+    var qs = wrongBoxQuestions(10);
+    if(!qs.length){
+      showError("苦手ボックスは空です。まずは単元を選んで挑戦してみましょう。");
+      switchView("setup");
+      return;
+    }
+    startQuizWith(qs, "苦手ボックス(" + qs.length + "問)");
+  }
+
+  function showStats(){ clearError(); renderStats(); switchView("stats"); }
+
+  els.btnStats.addEventListener("click", showStats);
+  els.btnStatsFromResult.addEventListener("click", showStats);
+  els.btnStatsBack.addEventListener("click", function(){ clearError(); switchView("setup"); });
+  els.btnWrongbox.addEventListener("click", openWrongBox);
+
+  els.btnStatsReset.addEventListener("click", function(){
+    if(!window.confirm("これまでの記録と苦手ボックスをすべて消します。よろしいですか？")) return;
+    store = emptyStore();
+    try{ window.localStorage.removeItem(STORE_KEY); }catch(e){}
+    renderStats();
+  });
+
+  els.btnWrongOnly.addEventListener("click", function(){
+    var wrong = quizData.filter(function(_, i){ return results[i] === "wrong"; });
+    if(!wrong.length) return;
+    startQuizWith(wrong, "間違えた問題の解き直し(" + wrong.length + "問)");
+  });
+
+  function refreshWrongBoxButton(){
+    var n = wrongBoxCount();
+    els.btnWrongbox.textContent = n ? ("苦手ボックスから10問(" + n + "問たまっています)") : "苦手ボックスから10問";
+    els.btnWrongbox.disabled = (n === 0);
+  }
+  refreshWrongBoxButton();
 
   els.btnMakeQuiz.addEventListener("click", function(){ startQuiz(); });
   els.btnViewGuide.addEventListener("click", function(){ showGuide(); });
