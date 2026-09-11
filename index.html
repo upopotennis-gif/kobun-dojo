@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="「解析古典文法」の章立てに沿って単元を選ぶと、4択クイズと学習ガイドがすぐに始まります。">
 <title>渡邊梢太の古文文法道場</title>
 <style>
   :root{
@@ -456,9 +462,22 @@
 .stats-section-title{ font-size:.95rem; font-weight:700; margin:26px 0 10px; color:var(--ai); }
 .wrongbox-line{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:6px; }
 .privacy-note{ font-size:.76rem; color:var(--ink-soft); margin-top:26px; line-height:1.7; }
+
+/* ==== 狭い画面（スマホ）の調整 ==== */
+@media (max-width:400px){
+  h1{ font-size:1.5rem; letter-spacing:.01em; }
+  .stage{ padding:20px 14px 48px; }
+  .card{ padding:18px 15px; }
+  .chip{ font-size:.82rem; padding:8px 12px; }
+  .stat-grid{ grid-template-columns:repeat(2,1fr); }
+}
+#btn-next-question{ scroll-margin-bottom:24px; }
 </style>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+
+</head>
+<body>
 
 <div class="stage">
   <header class="masthead">
@@ -22901,6 +22920,14 @@
     }
     els.quizFeedback.hidden = false;
     els.btnNextQuestion.hidden = false;
+    // 解説とボタンが画面の外に出ないように寄せる（スクロールさせない）
+    // 「視差効果を減らす」設定の端末では smooth が無視されるので、その場合は即時に動かす
+    try{
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      els.btnNextQuestion.scrollIntoView({ block: "end", behavior: reduceMotion ? "auto" : "smooth" });
+    }catch(e){
+      els.btnNextQuestion.scrollIntoView(false);
+    }
     els.btnNextQuestion.textContent = (currentIndex === quizData.length-1) ? "結果を見る" : "次の問題へ";
   }
 
@@ -23127,3 +23154,6 @@
 
 })();
 </script>
+
+</body>
+</html>
