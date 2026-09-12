@@ -239,6 +239,16 @@
     transition:transform .12s ease, filter .12s ease;
   }
   @media (prefers-reduced-motion: reduce){ button.btn{ transition:none; } }
+
+  /* ==== 狭い画面（スマホ）の調整 ==== */
+  @media (max-width:400px){
+    h1{ font-size:1.5rem; letter-spacing:.01em; }
+    .stage{ padding:20px 14px 48px; }
+    .card{ padding:18px 15px; }
+    .chip{ font-size:.82rem; padding:8px 12px; }
+  }
+  #btn-next{ scroll-margin-bottom:24px; }
+
   button.btn:active{ transform:translateY(1px); }
   button.btn:disabled{ opacity:.5; cursor:not-allowed; transform:none; }
   .btn-primary{
@@ -7568,6 +7578,12 @@
     $("q-source").textContent = q.source ? ("出典: " + q.source) : "";
     $("q-feedback").hidden = false;
     $("btn-next").hidden = false;
+    // 解説とボタンが画面の外に出ないように寄せる（スクロールさせない）
+    // 「視差効果を減らす」設定の端末では smooth が無視されるので、その場合は即時に動かす
+    try{
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      $("btn-next").scrollIntoView({ block: "end", behavior: reduceMotion ? "auto" : "smooth" });
+    }catch(e){ $("btn-next").scrollIntoView(false); }
     $("q-score").textContent = String(state.score);
     renderDots();
   }
