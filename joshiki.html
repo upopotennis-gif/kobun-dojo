@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="暦・官職・住まい・装束・恋愛・信仰など、古文を読むための常識を4択クイズで確かめます。">
+<title>渡邊梢太の古典常識道場</title>
+<style>
+  :root{
+    --ai:#2c3e66;
+    --ai-deep:#1d2c4d;
+    --yamabuki:#c98a1c;
+    --yamabuki-deep:#a06d13;
+    --wakatake:#3f8a63;
+    --wakatake-bg:#e6f0e8;
+    --kobai:#b8483f;
+    --kobai-bg:#f6e6e2;
+    --bg:#f4efe1;
+    --surface:#fffdf8;
+    --surface-2:#eae1c9;
+    --ink:#2a251c;
+    --ink-soft:#6d6553;
+    --line:#d9cca7;
+    --shadow:rgba(42,37,28,0.14);
+    --focus:#8a5a1f;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ai:#8fa3d6;
+      --ai-deep:#c2cfec;
+      --yamabuki:#e0ac47;
+      --yamabuki-deep:#f0c877;
+      --wakatake:#7fc39e;
+      --wakatake-bg:#1c3329;
+      --kobai:#e2938c;
+      --kobai-bg:#3a2320;
+      --bg:#141726;
+      --surface:#1c2038;
+      --surface-2:#262b4a;
+      --ink:#ece5d3;
+      --ink-soft:#a9a08b;
+      --line:#38406a;
+      --shadow:rgba(0,0,0,0.45);
+      --focus:#e0ac47;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ai:#8fa3d6;
+    --ai-deep:#c2cfec;
+    --yamabuki:#e0ac47;
+    --yamabuki-deep:#f0c877;
+    --wakatake:#7fc39e;
+    --wakatake-bg:#1c3329;
+    --kobai:#e2938c;
+    --kobai-bg:#3a2320;
+    --bg:#141726;
+    --surface:#1c2038;
+    --surface-2:#262b4a;
+    --ink:#ece5d3;
+    --ink-soft:#a9a08b;
+    --line:#38406a;
+    --shadow:rgba(0,0,0,0.45);
+    --focus:#e0ac47;
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Zen Maru Gothic','Hiragino Maru Gothic ProN',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .stage{
+    max-width:680px;
+    margin:0 auto;
+    padding:28px 18px 60px;
+    position:relative;
+  }
+  .stage::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0);
+    background-size:16px 16px;
+    opacity:.22;
+    mix-blend-mode:multiply;
+    pointer-events:none;
+    z-index:0;
+  }
+  :root:not([data-theme="light"]) .stage::before{ mix-blend-mode:screen; opacity:.10; }
+  :root[data-theme="dark"] .stage::before{ mix-blend-mode:screen; opacity:.10; }
+
+  .stage > *{ position:relative; z-index:1; }
+
+  .rod{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:0 auto;
+  }
+  .rod::before,.rod::after{
+    content:'';
+    flex:1;
+    height:5px;
+    border-radius:3px;
+    background:var(--ai-deep);
+  }
+  .rod .knob{
+    width:14px; height:14px; border-radius:50%;
+    background:var(--yamabuki);
+    box-shadow:0 0 0 2px var(--surface);
+    flex:none;
+  }
+
+  header.masthead{ text-align:center; padding:6px 0 22px; }
+  header.masthead .rod{ margin-bottom:16px; }
+  h1{
+    font-family:'Shippori Mincho', serif;
+    font-weight:800;
+    font-size:clamp(1.6rem, 1.1rem + 3vw, 2.3rem);
+    letter-spacing:.03em;
+    margin:0 0 8px;
+    text-wrap:balance;
+  }
+  header.masthead p{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:.92rem;
+    line-height:1.75;
+  }
+
+  section{ display:block; }
+  section[hidden]{ display:none !important; }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:22px 20px;
+    box-shadow:0 3px 14px var(--shadow);
+  }
+  .card + .card{ margin-top:16px; }
+
+  .steps{
+    list-style:none;
+    margin:0 0 20px;
+    padding:0;
+    display:grid;
+    gap:8px;
+    font-size:.9rem;
+    color:var(--ink-soft);
+  }
+  .steps li{ display:flex; gap:10px; align-items:baseline; }
+  .steps .num{
+    font-family:'Shippori Mincho',serif;
+    color:var(--yamabuki-deep);
+    font-weight:700;
+    flex:none;
+    width:1.4em;
+  }
+
+  label.field-label{
+    display:block;
+    font-weight:700;
+    margin-bottom:4px;
+    font-size:.95rem;
+  }
+  .field-hint{
+    font-size:.8rem;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+  }
+
+  .unit-group{ margin-bottom:18px; }
+  .unit-group:last-child{ margin-bottom:0; }
+  .unit-group h3{
+    font-family:'Shippori Mincho',serif;
+    font-size:.95rem;
+    font-weight:700;
+    color:var(--ai);
+    margin:0 0 8px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .chip{
+    border:1.5px solid var(--line);
+    background:var(--bg);
+    color:var(--ink);
+    border-radius:999px;
+    padding:8px 14px;
+    font-size:.84rem;
+    line-height:1.4;
+    cursor:pointer;
+    font-family:'Zen Maru Gothic',sans-serif;
+    text-align:left;
+  }
+  .chip:hover{ border-color:var(--ai); }
+  .chip.active{ background:var(--ai); color:var(--surface); border-color:var(--ai); font-weight:700; }
+
+  .selected-unit-box{
+    margin-top:18px;
+    padding:12px 14px;
+    background:var(--surface-2);
+    border-radius:8px;
+    font-size:.88rem;
+  }
+  .selected-unit-box strong{
+    font-family:'Shippori Mincho',serif;
+    color:var(--ai);
+  }
+
+  textarea:focus-visible, button:focus-visible, .choice:focus-visible, .chip:focus-visible, input:focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:2px;
+  }
+
+  .actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:20px;
+  }
+  button.btn{
+    font-family:'Zen Maru Gothic',sans-serif;
+    font-weight:700;
+    font-size:1.02rem;
+    padding:15px 18px;
+    border-radius:10px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .12s ease, filter .12s ease;
+  }
+  @media (prefers-reduced-motion: reduce){ button.btn{ transition:none; } }
+  button.btn:active{ transform:translateY(1px); }
+  button.btn:disabled{ opacity:.5; cursor:not-allowed; transform:none; }
+  .btn-primary{
+    background:var(--yamabuki);
+    color:#2a1c04;
+    box-shadow:0 3px 0 var(--yamabuki-deep);
+  }
+  :root:not([data-theme="light"]) .btn-primary{ color:#241a02; }
+  :root[data-theme="dark"] .btn-primary{ color:#241a02; }
+  .btn-primary:hover:not(:disabled){ filter:brightness(1.04); }
+  .btn-secondary{
+    background:transparent;
+    color:var(--ai);
+    border-color:var(--ai);
+  }
+  .btn-secondary:hover:not(:disabled){ background:var(--surface-2); }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink-soft);
+    border:none;
+    text-decoration:underline;
+    padding:8px;
+    font-size:.9rem;
+  }
+
+  #error-banner[hidden]{ display:none !important; }
+  #error-banner{
+    background:var(--kobai-bg);
+    border:1px solid var(--kobai);
+    color:var(--kobai);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:.88rem;
+    margin-bottom:14px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:flex-start;
+  }
+  #error-banner button{
+    background:none; border:none; color:inherit; font-weight:700; cursor:pointer; font-size:1rem; line-height:1;
+  }
+
+  .quiz-progress{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:6px;
+    font-family:'Shippori Mincho',serif;
+  }
+  .quiz-progress .count{ font-size:1.1rem; font-weight:700; font-variant-numeric:tabular-nums; }
+  .quiz-progress .score{ font-size:.85rem; color:var(--ink-soft); font-family:'Zen Maru Gothic',sans-serif; }
+  .quiz-unit{
+    font-size:.8rem;
+    color:var(--ink-soft);
+    margin:0 0 14px;
+  }
+  .passage-box{
+    background:var(--surface-2);
+    border-radius:8px;
+    padding:14px 16px;
+    margin:0 0 18px;
+  }
+  .passage-box .label{
+    font-weight:700;
+    color:var(--ai);
+    display:block;
+    margin-bottom:6px;
+    font-size:.78rem;
+    letter-spacing:.04em;
+  }
+  .passage-box p{
+    font-family:'Shippori Mincho',serif;
+    font-size:.98rem;
+    line-height:1.9;
+    margin:0;
+    white-space:pre-wrap;
+  }
+  .dots{ display:flex; gap:5px; margin-bottom:18px; flex-wrap:wrap; }
+  .dots span{ width:9px; height:9px; border-radius:50%; background:var(--line); }
+  .dots span.done-correct{ background:var(--wakatake); }
+  .dots span.done-wrong{ background:var(--kobai); }
+  .dots span.current{ background:var(--yamabuki); }
+
+  .question-text{
+    font-family:'Shippori Mincho',serif;
+    font-size:clamp(1.05rem, .9rem + 1vw, 1.3rem);
+    line-height:1.85;
+    margin:0 0 20px;
+    text-wrap:balance;
+  }
+
+  .choices{ display:grid; gap:10px; }
+  .choice{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-align:left;
+    width:100%;
+    background:var(--bg);
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+    font-family:'Zen Maru Gothic',sans-serif;
+    font-size:1rem;
+    line-height:1.6;
+    color:var(--ink);
+    cursor:pointer;
+  }
+  .choice:hover:not(:disabled){ border-color:var(--ai); }
+  .choice .badge{
+    flex:none;
+    width:28px; height:28px;
+    border-radius:50%;
+    background:var(--surface-2);
+    color:var(--ink-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:.85rem;
+    font-family:'Shippori Mincho',serif;
+  }
+  .choice:disabled{ cursor:default; }
+  .choice.correct{ background:var(--wakatake-bg); border-color:var(--wakatake); }
+  .choice.correct .badge{ background:var(--wakatake); color:#fff; }
+  .choice.incorrect{ background:var(--kobai-bg); border-color:var(--kobai); }
+  .choice.incorrect .badge{ background:var(--kobai); color:#fff; }
+
+  .feedback{
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px dashed var(--line);
+  }
+  .feedback .verdict{
+    font-family:'Shippori Mincho',serif;
+    font-weight:800;
+    font-size:1.15rem;
+    margin:0 0 10px;
+  }
+  .feedback .verdict.correct{ color:var(--wakatake); }
+  .feedback .verdict.incorrect{ color:var(--kobai); }
+  .feedback .explanation{ font-size:.95rem; line-height:1.8; margin:0 0 12px; }
+  .feedback .translation{
+    background:var(--surface-2);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:.9rem;
+    line-height:1.8;
+  }
+  .feedback .translation .label{
+    font-weight:700;
+    color:var(--ai);
+    display:block;
+    margin-bottom:4px;
+    font-size:.78rem;
+    letter-spacing:.04em;
+  }
+
+  .result-head{ text-align:center; padding:8px 0 22px; }
+  .stamp{
+    width:118px; height:118px;
+    margin:0 auto 16px;
+    border-radius:50%;
+    border:3px solid var(--kobai);
+    box-shadow:inset 0 0 0 3px var(--surface), 0 3px 10px var(--shadow);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transform:rotate(-5deg);
+    color:var(--kobai);
+    font-family:'Shippori Mincho',serif;
+  }
+  .stamp .frac{ font-size:1.7rem; font-weight:800; line-height:1; font-variant-numeric:tabular-nums; }
+  .stamp .of{ font-size:.7rem; margin-top:2px; }
+  .result-message{ font-size:.98rem; line-height:1.8; color:var(--ink-soft); max-width:32em; margin:0 auto; }
+
+  .guide-content{
+    font-size:.98rem;
+    line-height:1.95;
+  }
+  .guide-content h1,.guide-content h2,.guide-content h3{
+    font-family:'Shippori Mincho',serif;
+    margin:1.2em 0 .5em;
+    line-height:1.5;
+  }
+  .guide-content h1{ font-size:1.25rem; }
+  .guide-content h2{ font-size:1.12rem; }
+  .guide-content h3{ font-size:1.02rem; }
+  .guide-content p{ margin:0 0 .9em; }
+  .guide-content ul,.guide-content ol{ margin:0 0 1em; padding-left:1.4em; }
+  .guide-content li{ margin-bottom:.4em; }
+  .guide-content strong{ color:var(--ai); }
+  .guide-content code{ background:var(--surface-2); padding:.1em .3em; border-radius:4px; }
+  .thinking{ color:var(--ink-soft); }
+
+  footer{
+    text-align:center;
+    font-size:.75rem;
+    color:var(--ink-soft);
+    margin-top:34px;
+    line-height:1.7;
+  }
+
+
+/* ==== 記録機能 追加分 ==== */
+.sub-actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+.stat-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px; margin-bottom:22px; }
+.stat-tile{ border:1px solid var(--line); border-radius:10px; padding:12px 14px; background:var(--bg); }
+.stat-tile .k{ display:block; font-size:.74rem; color:var(--ink-soft); letter-spacing:.06em; }
+.stat-tile .v{ display:block; font-size:1.5rem; font-weight:700; color:var(--ai); font-variant-numeric:tabular-nums; margin-top:2px; }
+.stat-tile .v small{ font-size:.8rem; font-weight:400; color:var(--ink-soft); margin-left:2px; }
+.stats-empty{ color:var(--ink-soft); padding:18px 0; }
+.stat-table{ width:100%; border-collapse:collapse; font-size:.9rem; }
+.stat-table th{ text-align:left; font-size:.72rem; letter-spacing:.08em; color:var(--ink-soft); border-bottom:1px solid var(--line); padding:6px 8px; font-weight:700; }
+.stat-table td{ border-bottom:1px solid var(--line); padding:8px; vertical-align:middle; }
+.stat-table td.num{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.rate-bar{ display:block; position:relative; height:8px; border-radius:4px; background:var(--line); min-width:70px; }
+.rate-bar i{ position:absolute; left:0; top:0; bottom:0; border-radius:4px; background:var(--wakatake); }
+.rate-bar i.low{ background:var(--kobai); }
+.rate-bar i.mid{ background:var(--yamabuki); }
+.cal{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; max-width:330px; }
+.cal span{ aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:.74rem;
+  border-radius:6px; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
+.cal span.head{ color:var(--ink-soft); font-size:.68rem; aspect-ratio:auto; padding-bottom:2px; }
+.cal span.on{ background:var(--wakatake); color:#fff; font-weight:700; }
+.cal span.today{ outline:2px solid var(--yamabuki); outline-offset:-2px; }
+.stats-section-title{ font-size:.95rem; font-weight:700; margin:26px 0 10px; color:var(--ai); }
+.wrongbox-line{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:6px; }
+.privacy-note{ font-size:.76rem; color:var(--ink-soft); margin-top:26px; line-height:1.7; }
+
+/* ==== 狭い画面（スマホ）の調整 ==== */
+@media (max-width:400px){
+  h1{ font-size:1.5rem; letter-spacing:.01em; }
+  .stage{ padding:20px 14px 48px; }
+  .card{ padding:18px 15px; }
+  .chip{ font-size:.82rem; padding:8px 12px; }
+  .stat-grid{ grid-template-columns:repeat(2,1fr); }
+}
+#btn-next-question{ scroll-margin-bottom:24px; }
+
+/* ==== 道場の切り替え ==== */
+nav.sister{ display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin:0 0 18px; }
+nav.sister a{ font-size:.82rem; padding:6px 14px; border-radius:999px; border:1px solid var(--line);
+  color:var(--ink-soft); text-decoration:none; background:var(--surface); }
+nav.sister a:hover{ border-color:var(--ai); color:var(--ai); }
+nav.sister a[aria-current]{ background:var(--ai); border-color:var(--ai); color:var(--surface); font-weight:700; }
+
+
+/* ==== 単語道場・常識道場 追加分 ==== */
+nav.sister{ display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin:0 0 18px; }
+nav.sister a{ font-size:.82rem; padding:6px 14px; border-radius:999px; border:1px solid var(--line);
+  color:var(--ink-soft); text-decoration:none; background:var(--surface); }
+nav.sister a:hover{ border-color:var(--ai); color:var(--ai); }
+nav.sister a[aria-current]{ background:var(--ai); border-color:var(--ai); color:var(--surface); font-weight:700; }
+.q-prompt{ font-size:.84rem; color:var(--ink-soft); margin:0 0 8px; }
+.question-text .bosen, .translation .bosen{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:.3em; text-decoration-color:var(--yamabuki); font-weight:700; }
+.question-text.big{ font-size:clamp(1.6rem, 1.2rem + 2vw, 2.1rem); text-align:center; letter-spacing:.08em; }
+.q-source{ font-size:.8rem; color:var(--ink-soft); text-align:right; margin:-12px 0 18px; }
+.feedback .word-head{ font-family:'Shippori Mincho',serif; font-weight:700; color:var(--ai); margin:0 0 6px; }
+.feedback .explanation{ white-space:pre-line; }
+.feedback .meta-note{ font-size:.76rem; color:var(--ink-soft); margin:10px 0 0; }
+.range-box{ margin-top:18px; padding-top:16px; border-top:1px dashed var(--line); }
+.range-row{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.range-row input{ width:5.2em; font:inherit; font-size:1rem; padding:8px 10px; border-radius:8px;
+  border:1.5px solid var(--line); background:var(--bg); color:var(--ink); font-variant-numeric:tabular-nums; }
+.range-row .chip{ margin-left:4px; }
+.word-table{ width:100%; border-collapse:collapse; font-size:.9rem; line-height:1.6; }
+.word-table th{ text-align:left; font-size:.72rem; color:var(--ink-soft); border-bottom:1px solid var(--line); padding:6px; }
+.word-table td{ border-bottom:1px solid var(--line); padding:8px 6px; vertical-align:top; }
+.word-table td.no{ color:var(--ink-soft); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.word-table td.w{ font-family:'Shippori Mincho',serif; font-weight:700; width:8.5em; }
+.word-table td.w small{ display:block; font-weight:500; color:var(--ink-soft); font-size:.74rem; line-height:1.5; }
+.guide-content table{ border-collapse:collapse; font-size:.9rem; margin:0 0 1em; line-height:1.55; }
+.guide-content th, .guide-content td{ border:1px solid var(--line); padding:6px 8px; }
+.guide-content th{ background:var(--surface-2); }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+</head>
+<body>
+
+<div class="stage">
+  <header class="masthead">
+    <div class="rod"><span class="knob"></span><span class="knob"></span></div>
+    <h1>渡邊梢太の古典常識道場</h1>
+    <p>暦・官職・住まい・装束・恋愛・信仰など、古文を読むときに前提になる平安時代の常識を、4択クイズで確かめます。アカウント登録は不要です。</p>
+    <div class="rod" style="margin-top:16px"><span class="knob"></span><span class="knob"></span></div>
+  </header>
+
+  <nav class="sister" aria-label="道場の切り替え"><a href="./">文法道場</a><a href="tango.html">単語道場</a><a href="joshiki.html" aria-current="page">常識道場</a></nav>
+
+  <div id="error-banner" hidden>
+    <span id="error-text"></span>
+    <button type="button" id="error-close" aria-label="閉じる">×</button>
+  </div>
+
+  <main id="app">
+
+    <section id="view-setup">
+      <div class="card">
+        <ol class="steps">
+          <li><span class="num">一</span>単元を選ぶ（先に「学習ガイド」で要点を読むのがおすすめ）</li>
+          <li><span class="num">二</span>「クイズを始める」を押して4択に挑戦</li>
+        </ol>
+
+        <div id="unit-groups"></div>
+
+        
+
+        <div class="selected-unit-box" id="selected-unit-box" hidden>
+          選択中: <strong id="selected-unit-label"></strong>
+          <span id="selected-unit-count" style="color:var(--ink-soft)"></span>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-make-quiz" disabled>クイズを始める</button>
+          <button type="button" class="btn btn-secondary" id="btn-view-guide" disabled>学習ガイドを見る</button>
+        </div>
+
+        <div class="sub-actions">
+          <button type="button" class="btn btn-secondary" id="btn-wrongbox">苦手ボックスから10問</button>
+          <button type="button" class="btn btn-ghost" id="btn-stats">これまでの記録</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-quiz" hidden>
+      <div class="card">
+        <div class="quiz-progress">
+          <span class="count" id="quiz-count">問 1 / 10</span>
+          <span class="score" id="quiz-score">正解 0</span>
+        </div>
+        <p class="quiz-unit" id="quiz-unit"></p>
+        <div class="dots" id="quiz-dots"></div>
+        <p class="q-prompt" id="quiz-prompt" hidden></p>
+        <p class="question-text" id="quiz-question"></p>
+        <p class="q-source" id="quiz-source" hidden></p>
+        <div class="choices" id="quiz-choices"></div>
+
+        <div class="feedback" id="quiz-feedback" hidden>
+          <p class="verdict" id="feedback-verdict"></p>
+          <p class="word-head" id="feedback-head" hidden></p>
+          <p class="explanation" id="feedback-explanation"></p>
+          <div class="translation" id="feedback-translation" hidden>
+            <span class="label">現代語訳</span>
+            <span id="feedback-translation-text"></span>
+          </div>
+          <p class="meta-note" id="feedback-meta" hidden></p>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-next-question" hidden>次の問題へ</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-result" hidden>
+      <div class="card">
+        <div class="result-head">
+          <div class="stamp"><span class="frac" id="result-frac">0/10</span><span class="of">正解</span></div>
+          <p class="result-message" id="result-message"></p>
+        </div>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-wrong-only" hidden>間違えた問題だけもう一度</button>
+          <button type="button" class="btn btn-secondary" id="btn-retry-quiz">同じ問題にもう一度挑戦</button>
+          <button type="button" class="btn btn-secondary" id="btn-new-quiz">違う10問に挑戦する</button>
+          <button type="button" class="btn btn-secondary" id="btn-guide-from-result">学習ガイドを見る</button>
+          <button type="button" class="btn btn-ghost" id="btn-change-unit">別の単元を選ぶ</button>
+          <button type="button" class="btn btn-ghost" id="btn-stats-from-result">記録を見る</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-stats" hidden>
+      <div class="card">
+        <h2 class="card-title">これまでの記録</h2>
+        <div id="stats-body"></div>
+        <p class="privacy-note">
+          記録はこの端末のブラウザの中だけに保存されます。先生や他の人に送られることはありません。
+          ブラウザの履歴やサイトデータを消すと記録も消えます。
+        </p>
+        <div class="actions" style="margin-top:18px">
+          <button type="button" class="btn btn-secondary" id="btn-stats-back">単元選択に戻る</button>
+          <button type="button" class="btn btn-ghost" id="btn-stats-reset">記録を消す</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-guide" hidden>
+      <div class="card">
+        <div class="guide-content" id="guide-content"></div>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-guide-quiz">この範囲でクイズを始める</button>
+          <button type="button" class="btn btn-secondary" id="btn-guide-back">単元選択に戻る</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>渡邊梢太の古典常識道場 — 説明文・問題・解説はすべて独自に作成しています。<br>平安時代中期の宮廷を基準にしています。時代や資料によって異なる事柄があります。</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var CONFIG = {"storeKey":"kobunJoshiki.v1","unitWord":"単元","lowScoreMessage":"まずは学習ガイドで要点を確認してから、もう一度挑戦してみましょう。","maxNo":0};
+  var UNITS = [{"chapter":"時間と暦","items":[{"id":"koyomi","label":"暦と季節・月の異名","hint":"陰暦のしくみ、四季と月の異名、朔日・晦日や十六夜など月の呼び名を学ぶ"},{"id":"jikoku","label":"時刻・方角と十二支","hint":"十二支による時刻と方角、暁・宵など一日の時間帯を表す語、干支のしくみを学ぶ"},{"id":"gyouji","label":"年中行事","hint":"白馬節会・賀茂祭・重陽・追儺など、平安時代の宮中の年中行事と月日を学ぶ"}]},{"chapter":"宮廷と身分","items":[{"id":"kanshoku","label":"内裏と官職・身分","hint":"宮中の建物と、帝・貴族の官職や身分の呼び名"},{"id":"koukyuu","label":"後宮と女性たち","hint":"后妃の序列、女房・乳母、後宮の殿舎の呼び名"}]},{"chapter":"住まいと装い","items":[{"id":"sumai","label":"住まいと調度","hint":"寝殿造の建物・建具・調度と庭のつくり"},{"id":"shouzoku","label":"装束と容姿・美意識","hint":"男女の装束の名前と場面、平安の美の基準、容姿をほめる語"}]},{"chapter":"恋・病・死","items":[{"id":"ren-ai","label":"恋愛と結婚","hint":"噂から結婚までの流れ、通い婚のしきたり、恋の場面の重要語"},{"id":"shi-yamai","label":"病・死と出家","hint":"物の怪と祈祷、死と喪のしきたり、出家と死の婉曲表現"}]},{"chapter":"信仰と教養","items":[{"id":"shinkou","label":"信仰と陰陽道","hint":"物忌・方違へ・夢・物の怪・穢れと祓へ・物詣で"},{"id":"bukkyou","label":"仏教と来世観","hint":"宿世・因果応報・末法と極楽往生・僧と寺・出家と無常観"},{"id":"asobi","label":"旅・交通と教養・遊び","hint":"牛車と行幸・関所と東下り・漢詩文と仮名・管弦と物合・手紙"}]}];
+  var POOL = [{"g":"koyomi","q":"陰暦で「春」にあたる月の組み合わせはどれか。","c":["一月・二月・三月","二月・三月・四月","三月・四月・五月","十二月・一月・二月"],"a":0,"e":"陰暦では一〜三月が春、四〜六月が夏、七〜九月が秋、十〜十二月が冬。現在の感覚で三〜五月を春とするのは誤り。十二月は陰暦では冬の最後の月にあたり、春には入らない。"},{"g":"koyomi","q":"陰暦で、秋の始まりとなる月はどれか。","c":["八月","九月","六月","七月"],"a":3,"e":"秋は七月から九月まで。七月七日の七夕も暦の上では秋の行事になる。八月は秋のまんなか、九月は秋の終わりの月であり、六月は夏の最後の月にあたる。"},{"g":"koyomi","q":"「睦月(むつき)」は何月の異名か。","c":["二月","十一月","六月","一月"],"a":3,"e":"睦月は一月の異名。二月は如月、十一月は霜月、六月は水無月である。どれも「〜月」の形で字面だけでは区別しにくいので、十二か月を順番に唱えて覚えておくとよい。"},{"g":"koyomi","q":"二月の異名はどれか。","c":["弥生","睦月","如月","卯月"],"a":2,"e":"二月は如月(きさらぎ)。弥生は三月、睦月は一月、卯月は四月である。春の三か月は睦月・如月・弥生の順に並ぶので、まとめて唱えて覚えると取り違えにくい。"},{"g":"koyomi","q":"「弥生(やよい)」は何月の異名か。","c":["四月","二月","三月","五月"],"a":2,"e":"弥生は三月の異名で、春の最後の月にあたる。四月は卯月、二月は如月、五月は皐月である。三月の末日は春の終わりの日として、過ぎゆく春を惜しむ思いとともに描かれることがある。"},{"g":"koyomi","q":"五月の異名はどれか。","c":["皐月","卯月","水無月","文月"],"a":0,"e":"五月は皐月(さつき)。卯月は四月、水無月は六月、文月は七月である。陰暦五月は長雨の季節にあたるので、五月雨(さみだれ)という語と結びつけて覚えるとよい。"},{"g":"koyomi","q":"「水無月(みなづき)」は何月の異名か。","c":["十月","十二月","六月","一月"],"a":2,"e":"水無月は六月の異名で、夏の最後の月にあたる。「水が無い」という字面から乾いた冬の月と考えがちだが誤り。十月は神無月、十二月は師走、一月は睦月である。"},{"g":"koyomi","q":"七月の異名「文月」の読みはどれか。","c":["ぶんげつ","ふでづき","ふみづき","あやづき"],"a":2,"e":"文月は「ふみづき」と読み、秋の最初の月である七月の異名。月の異名は訓読みの和語なので、「ぶんげつ」のように漢字の音で読まないように注意する。「ふでづき」「あやづき」という読みもない。"},{"g":"koyomi","q":"「葉月(はづき)」は何月の異名か。","c":["四月","九月","八月","十一月"],"a":2,"e":"葉月は八月の異名で、秋のまんなかの月。「葉」の字から若葉の季節を思い浮かべて四月と誤りやすいが、四月は卯月である。九月は長月、十一月は霜月。"},{"g":"koyomi","q":"九月の異名はどれか。","c":["葉月","長月","霜月","神無月"],"a":1,"e":"九月は長月(ながつき)で、秋の最後の月。葉月は八月、神無月は十月、霜月は十一月である。秋から冬へは葉月・長月・神無月・霜月と続くので、順番ごと押さえておく。"},{"g":"koyomi","q":"「神無月(かんなづき)」は何月の異名か。","c":["六月","九月","十二月","十月"],"a":3,"e":"神無月は十月の異名で、冬の最初の月にあたる。字の形が似ている水無月は六月なので混同しないこと。九月は長月、十二月は師走である。"},{"g":"koyomi","q":"十二月の異名「師走」の読みはどれか。","c":["しそう","しばしり","もろばしり","しわす"],"a":3,"e":"師走は「しわす」と読み、冬の最後の月である十二月の異名。その末日が一年の最後の日になる。「しそう」のような音読みや、字の意味から作った「しばしり」などの読みはしない。"},{"g":"koyomi","q":"「朔日」の読みとして正しいものはどれか。","c":["つごもり","みそか","もちづき","ついたち"],"a":3,"e":"朔日は「ついたち」と読み、月の第一日のこと。「月立ち」から来た語とされ、陰暦ではほぼ新月の日にあたる。つごもり・みそかは月の最終日、もちづきは十五夜の満月である。"},{"g":"koyomi","q":"「つごもり」の意味として正しいものはどれか。","c":["月の最後の日","月の最初の日","月のなかばの日","年の最初の日"],"a":0,"e":"つごもりは「月隠(つきごも)り」から来た語で、月の最後の日をいい、漢字では晦日と書く。十二月の最後の日は特に「大つごもり」という。月の最初の日は朔日(ついたち)である。"},{"g":"koyomi","q":"「望月(もちづき)」とはどのような月か。","c":["陰暦十五日の夜の満月","陰暦三日の夜の細い月","陰暦二十日の夜更けの月","陰暦一日の見えない月"],"a":0,"e":"望月は陰暦十五日ごろの満月のこと。陰暦は月の満ち欠けで日を数えるので、十五日はほぼ満月になる。三日の細い月は三日月、二十日の月は更待月、一日はほぼ新月で月は見えない。"},{"g":"koyomi","q":"「十六夜」の読みはどれか。","c":["いざよい","じゅうろくや","いさりび","よいまち"],"a":0,"e":"十六夜は「いざよい」と読む。満月の翌晩の月は前夜より少し遅れて出るので、ためらう意の古語「いさよふ」にちなんでこう呼ぶ。「いさりび」は漁火のことで別の語である。"},{"g":"koyomi","q":"陰暦十七日の夜の月を何と呼ぶか。","c":["居待月","立待月","寝待月","更待月"],"a":1,"e":"十七日の月は立待月。十六夜よりさらに月の出が遅れるが、立って待っているうちに出ることから名がついた。居待月は十八日、寝待月は十九日、更待月は二十日の月である。"},{"g":"koyomi","q":"「居待月(いまちづき)」は陰暦で何日の夜の月か。","c":["十六日","二十日","十八日","十三日"],"a":2,"e":"居待月は十八日の月。月の出がさらに遅くなるので、座って待つことからこう呼ぶ。十六日の月は十六夜、二十日の月は更待月。十三日はまだ満月の前で、居待月とは関係がない。"},{"g":"koyomi","q":"陰暦十九日の夜の月は「寝待月」とも、ほかの名でも呼ばれる。その別名はどれか。","c":["望月","小望月","夕月夜","臥待月"],"a":3,"e":"十九日の月は、横になって待つことから寝待月・臥待月(ふしまちづき)と呼ぶ。望月は十五日の満月、小望月は満月の前夜の月、夕月夜は夕方に出ている月やその夜のことで、十九日の月ではない。"},{"g":"koyomi","q":"次の月を、陰暦で月の出が早い順に並べたものはどれか。","c":["居待月→立待月→寝待月→更待月","立待月→居待月→寝待月→更待月","立待月→寝待月→居待月→更待月","更待月→寝待月→居待月→立待月"],"a":1,"e":"満月を過ぎると月の出は一晩ごとに遅くなる。十七日の立待月、十八日の居待月、十九日の寝待月、二十日の更待月の順で、立つ・座る・寝る・夜更けまで、と待つ姿勢がだんだん楽になっていく。"},{"g":"koyomi","q":"「有明の月」の意味として正しいものはどれか。","c":["夕方の西の空に出ている細い月","夜が明けても空に残っている月","雲にかすんでぼんやり見える月","夜更けになってやっと昇る月"],"a":1,"e":"有明の月は、夜が明けてもまだ空に残っている月のこと。陰暦十六日を過ぎると月の出も入りも遅くなるため、明け方の空に月が残る。夕方の西空の細い月は三日月など、かすんだ月は朧月である。"},{"g":"koyomi","q":"陰暦で「閏月(うるうづき)」を設ける目的として正しいものはどれか。","c":["月の満ち欠けと日付のずれを直すため","暦の月日と実際の季節のずれを直すため","年中行事の日取りを増やして整えるため","大の月と小の月の数をそろえるため"],"a":1,"e":"月の満ち欠けによる十二か月は約三百五十四日で、太陽の一年より十日ほど短い。放っておくと季節と月がずれていくので、数年に一度同じ月をくり返して一年を十三か月にする。日付は月の満ち欠けに合っているので直す必要はない。"},{"g":"koyomi","q":"「節分」の本来の意味として正しいものはどれか。","c":["立春・立夏・立秋・立冬それぞれの前日","春分・夏至・秋分・冬至それぞれの当日","各季節の最後の月のそれぞれの最終日","一年の最後の日である十二月の大つごもり"],"a":0,"e":"節分は季節を分ける日の意で、本来は立春・立夏・立秋・立冬の前日をいい、のちに特に立春の前日を指すようになった。春分や冬至は季節のなかばにあたる日で、節分ではない。"},{"g":"koyomi","q":"『古今和歌集』の巻頭の歌は「年の内に春は来にけり」と始まる。この歌が詠んでいる状況として正しいものはどれか。","c":["年が改まる前に、立春の日が来てしまった","立春を過ぎたのに、まだ寒さが続いている","元日と立春の日が、ちょうど同じ日になった","年が明けたのに、梅の花がまだ咲かない"],"a":0,"e":"陰暦では元日と立春が一致せず、十二月のうちに立春が来ることがある。この歌はその年内立春を、まだ年は改まらないのに春が来たと面白がって詠んだもの。元日と立春が重なったのではない。"},{"g":"koyomi","q":"数え年で年齢を数える場合、十二月に生まれた子は、翌月の正月を迎えた時点で何歳か。","c":["一歳","零歳","三歳","二歳"],"a":3,"e":"数え年では生まれた年を一歳とし、正月を迎えるごとに一つ年をとる。十二月に生まれた子は生まれた時点で一歳、翌月の正月で二歳になる。誕生日ごとに年をとる満年齢とは数え方が違う。"},{"g":"koyomi","q":"「五月雨(さみだれ)」は陰暦五月に降る長雨である。この雨の季節は四季のどれにあたるか。","c":["春","夏","秋","冬"],"a":1,"e":"陰暦では四〜六月が夏なので、五月の長雨である五月雨は夏の雨になる。現在の暦でいえばおよそ梅雨のころにあたる。「五月」という字から、現在の感覚で春の雨と考えないように注意する。"},{"g":"koyomi","q":"陰暦八月十五日の夜の月を「中秋の名月」と呼ぶのはなぜか。","c":["八月が一年の十二か月のまんなかにあたるから","八月十五日が秋分の日と必ず重なっているから","八月が秋の三か月のまんなかにあたるから","八月が秋の最初の月で月が最も美しいから"],"a":2,"e":"秋は七・八・九月の三か月で、八月はそのまんなかにあたる。そのなかばの十五夜なので中秋という。一年のまんなかは六月と七月の境であり、秋分と十五夜が毎年重なるわけでもない。"},{"g":"koyomi","q":"月の最終日を表す「三十日」の読みとして正しいものはどれか。","c":["みそじ","みそか","はつか","やそか"],"a":1,"e":"三十日は「みそか」と読み、月の最終日の意でも使う。晦日と書いて「みそか」と読むこともある。「みそじ」は三十歳、「はつか」は二十日、「やそか」は八十日のことで、いずれも別の語である。"},{"g":"koyomi","q":"陰暦の一か月の日数として正しいものはどれか。","c":["三十日または三十一日","二十九日または三十日","どの月も必ず三十日","二十八日から三十一日"],"a":1,"e":"陰暦は新月から次の新月までを一か月とする。その周期は約二十九日半なので、三十日の大の月と二十九日の小の月を組み合わせる。三十一日の月や二十八日の月があるのは現在の太陽暦である。"},{"g":"koyomi","q":"陰暦で「夏」にあたる月の異名の組み合わせはどれか。","c":["卯月・皐月・水無月","弥生・卯月・皐月","皐月・水無月・文月","水無月・文月・葉月"],"a":0,"e":"陰暦の夏は四・五・六月で、異名では卯月・皐月・水無月になる。現在の感覚で三月の弥生を入れたり、七月の文月を夏に入れたりしがちだが、弥生は春の最後、文月は秋の最初の月である。"},{"g":"jikoku","q":"十二支を順に並べたとき、「寅」の次に来るものはどれか。","c":["辰","卯","丑","巳"],"a":1,"e":"十二支は子・丑・寅・卯・辰・巳・午・未・申・酉・戌・亥の順。寅の次は卯で、丑は寅の一つ前、辰・巳はさらに後ろになる。時刻も方角もこの順番がもとになるので、まず確実に唱えられるようにする。"},{"g":"jikoku","q":"「子(ね)の刻」は、現在のおよそ何時を中心とする時刻か。","c":["正午","午前6時","午前0時","午後6時"],"a":2,"e":"十二支の時刻は子から始まり、子の刻は午前0時を中心とした前後二時間、つまり午後11時から午前1時ごろ。正午を中心とするのは午の刻、午前6時ごろは卯の刻、午後6時ごろは酉の刻である。"},{"g":"jikoku","q":"正午を中心とする二時間を表す時刻はどれか。","c":["子の刻","未の刻","午の刻","巳の刻"],"a":2,"e":"子の刻の反対側、十二支の七番目にあたる午の刻が正午を中心とする時刻。巳の刻は午前10時ごろ、未の刻は午後2時ごろで、午をはさんで前後に並ぶ。子の刻は真夜中である。"},{"g":"jikoku","q":"「午前」「午後」という語の「午」がもとにしているものはどれか。","c":["真夜中を中心とする子の刻","日の出のころにあたる卯の刻","日の入りのころにあたる酉の刻","正午を中心とする午の刻"],"a":3,"e":"午前は「午の刻より前」、午後は「午の刻より後」の意味で、正午ごろの午の刻が境になっている。十二支の時刻は子の刻から数え始めるが、午前・午後の区切りは子ではなく午である。"},{"g":"jikoku","q":"「寅(とら)の刻」は、現在のおよそ何時ごろか。","c":["午前4時ごろ","午前6時ごろ","午前2時ごろ","午後4時ごろ"],"a":0,"e":"子の刻(午前0時)から二時間ずつ進むので、丑が午前2時、寅が午前4時ごろになる。午前6時ごろは卯の刻、午前2時ごろは丑の刻、午後4時ごろは申の刻。寅の刻はまだ夜が明けていない時間である。"},{"g":"jikoku","q":"「酉(とり)の刻」は、現在のおよそ何時ごろか。","c":["午前6時ごろ","午後4時ごろ","午後8時ごろ","午後6時ごろ"],"a":3,"e":"酉は十二支の十番目で、午の刻(正午)から三つ後の午後6時ごろにあたり、夕暮れの時間帯である。午前6時ごろは反対側の卯の刻、午後4時ごろは申の刻、午後8時ごろは戌の刻になる。"},{"g":"jikoku","q":"午後8時ごろを中心とする時刻はどれか。","c":["亥の刻","酉の刻","申の刻","戌の刻"],"a":3,"e":"午後6時ごろの酉の刻の次が戌の刻で、午後8時ごろを中心とする。亥の刻は午後10時ごろ、申の刻は午後4時ごろ。戌の刻は日が暮れて間もない宵のころにあたる。"},{"g":"jikoku","q":"十二支で表す一つの時刻は、現在の時間でおよそどれくらいの長さか。","c":["約一時間","約三十分","約二時間","約三時間"],"a":2,"e":"一日二十四時間を十二支で十二に分けるので、一つの時刻はおよそ二時間になる。その二時間をさらに四つに分けて「一つ」「二つ」…と数えたので、約三十分はその細かい区切り一つ分の長さにあたる。"},{"g":"jikoku","q":"「丑三つ」とは、現在のおよそ何時ごろか。","c":["午前2時〜2時半ごろ","午前3時〜3時半ごろ","午前1時〜1時半ごろ","午後3時〜3時半ごろ"],"a":0,"e":"丑の刻は午前1時から3時ごろまで。これを四つに分けた三つ目が丑三つで、午前2時から2時半ごろにあたる。「三つ」を三時と考えて午前3時とするのは誤り。夜がもっとも深く寝静まった時間である。"},{"g":"jikoku","q":"次の文の時刻は、現在のおよそ何時ごろか。「申(さる)の刻ばかりに、牛車を出だす。」","c":["午前10時ごろ","午後2時ごろ","午後4時ごろ","午後8時ごろ"],"a":2,"e":"申は十二支の九番目で、午の刻(正午)から二つ後の午後4時ごろを中心とする時刻。「ばかり」は「ごろ」の意。午後2時ごろは未の刻、午後8時ごろは戌の刻、午前10時ごろは巳の刻である。"},{"g":"jikoku","q":"十二支で方角を表すとき、「子」はどの方角か。","c":["南","東","西","北"],"a":3,"e":"方角は子を北として、十二支を時計回りに割り当てる。卯が東、午が南、酉が西になる。時刻でも方角でも子が数え始めの位置になっていると結びつけて覚えるとよい。"},{"g":"jikoku","q":"十二支で「卯」が表す方角はどれか。","c":["西","南","北東","東"],"a":3,"e":"子(北)から時計回りに三つ進んだ卯は東にあたる。西は卯の反対側の酉、南は午。北東は丑と寅の間で「艮(うしとら)」という。時刻の卯が日の出のころであることと、東とを結びつけると覚えやすい。"},{"g":"jikoku","q":"十二支で「酉」が表す方角はどれか。","c":["西","東","南","北西"],"a":0,"e":"酉は子から時計回りに九つ進んだ位置で、西にあたる。東はその反対側の卯、南は午、北西は戌と亥の間で「乾(いぬい)」という。時刻の酉が日暮れのころであることと、日が沈む西とが対応している。"},{"g":"jikoku","q":"北東の方角を表す「艮」の読みはどれか。","c":["たつみ","うしとら","いぬい","ひつじさる"],"a":1,"e":"北東は北(子)と東(卯)の間にある丑と寅を合わせて「うしとら」と呼び、艮の字をあてる。たつみは巽で東南、いぬいは乾で北西、ひつじさるは坤で南西である。"},{"g":"jikoku","q":"「巽(たつみ)」が表す方角はどれか。","c":["東南","南西","北西","北東"],"a":0,"e":"巽は辰と巳を合わせた「たつみ」で、東(卯)と南(午)の間の東南を指す。南西は坤(ひつじさる)、北西は乾(いぬい)、北東は艮(うしとら)。二つの十二支がどの方角の間にあるかを考えれば判断できる。"},{"g":"jikoku","q":"南西の方角を十二支で表したものはどれか。","c":["辰巳","未申","戌亥","丑寅"],"a":1,"e":"南(午)と西(酉)の間にあるのは未と申で、南西を「ひつじさる」と呼び、坤の字をあてる。辰巳は東南、戌亥は北西、丑寅は北東である。十二支の並び順を方角の円に当てはめて考える。"},{"g":"jikoku","q":"陰陽道で、鬼が出入りするとして忌まれた「鬼門」はどの方角か。","c":["南西","東南","北東","北西"],"a":2,"e":"鬼門は北東、すなわち艮(うしとら)の方角で、災いが入りこむとして忌まれた。その反対側の南西(坤)は裏鬼門と呼ばれるので、取り違えないように注意する。東南は巽、北西は乾である。"},{"g":"jikoku","q":"「子午線」とは、どの二つの方角を結ぶ線か。","c":["東と西","北東と南西","北西と東南","北と南"],"a":3,"e":"子は北、午は南を表すので、子午線は北と南を結ぶ線、つまり経線のことである。東と西は卯と酉の方角にあたる。現代の語にも十二支の方角が残っている例として覚えておくとよい。"},{"g":"jikoku","q":"「暁(あかつき)」が表す時間帯として正しいものはどれか。","c":["日が昇ってすっかり明るいころ","夜明け前のまだ暗いころ","日が暮れてまもない夜の初め","日が沈んで空が赤く染まるころ"],"a":1,"e":"暁は夜の終わりの部分で、夜明け前のまだ暗いうちを指す。現代語の印象から明るい朝を思い浮かべがちだが誤り。日が暮れてまもない夜の初めは宵、日が沈むころは夕暮れや入相という。"},{"g":"jikoku","q":"「東雲」の読みはどれか。","c":["ひがしぐも","しののめ","あけぼの","とううん"],"a":1,"e":"東雲は「しののめ」と読み、東の空がほのかに明るくなりはじめる明け方をいう。暗い暁から夜明けへ移るころの語である。あけぼのも近い時間帯を表す語だが、「曙」と書く別の語で、東雲の読みではない。"},{"g":"jikoku","q":"『枕草子』の冒頭「春はあけぼの」の「あけぼの」が表す時間帯として正しいものはどれか。","c":["夜がほのぼのと明けはじめるころ","夜が明けきって朝日が昇ったころ","日が沈みかけて空が赤いころ","夜が更けて月が高く昇るころ"],"a":0,"e":"あけぼのは、夜がほのぼのと明けはじめるころ。暗い暁のあと、東の空が白んでくる時間帯で、清少納言はそのころの山際の空の色の移り変わりに春の趣を見た。朝日が昇りきった後のことではない。"},{"g":"jikoku","q":"「入相(いりあい)の鐘」が鳴るのは、一日のうちのいつごろか。","c":["日が沈む夕暮れのころ","夜明け前の暗いころ","日が高く昇った昼ごろ","夜が更けた真夜中"],"a":0,"e":"入相は日が山の端に入るころ、つまり夕暮れのことで、入相の鐘は寺で夕方につく鐘である。「相」の字からは意味がつかみにくいので、日が「入る」ころと覚えておくとよい。夜明け前は暁という。"},{"g":"jikoku","q":"「宵(よい)」が表す時間帯として正しいものはどれか。","c":["夜がすっかり更けた真夜中のころ","日が暮れてまもない夜の初めのころ","夜明けが近づいたまだ暗いころ","日が傾きかけた午後の遅いころ"],"a":1,"e":"宵は日が暮れて間もない、夜の初めのころ。夜は宵・夜半(よわ)・暁の順に進むので、真夜中は夜半、夜明け前のまだ暗いころは暁という。日が沈む前の午後の時間は宵とは呼ばない。"},{"g":"jikoku","q":"「夜半(よわ)」の意味として正しいものはどれか。","c":["真夜中","夜の初め","夜明け前","夕暮れ"],"a":0,"e":"夜半は夜のなかば、つまり真夜中のことで、「よわ」と読み「夜半の月」などと使う。夜の初めは宵、夜明け前は暁、日が沈むころは夕暮れや入相という。「半」の字を手がかりに夜のまんなかと覚える。"},{"g":"jikoku","q":"平安時代の通い婚で、男性が女性のもとから帰るのは、ふつう一日のうちのいつごろとされたか。","c":["宵","昼","暁","夕暮れ"],"a":2,"e":"男性は宵に女性のもとを訪れ、夜明け前のまだ暗い暁のうちに帰るのが習いだった。明るくなって人目につく前に去るためである。帰ったあとに女性へ贈る手紙を後朝(きぬぎぬ)の文という。宵は訪れる時間である。"},{"g":"jikoku","q":"十干と十二支を順に組み合わせてできる干支は、全部で何通りか。","c":["六十通り","百二十通り","二十二通り","十二通り"],"a":0,"e":"十干(十個)と十二支(十二個)を、甲子・乙丑…と一つずつ進めて組み合わせると、六十通りで最初の甲子に戻る。すべての組み合わせを作るわけではないので百二十にはならない。二十二は二つを足しただけの数である。"},{"g":"jikoku","q":"干支の最初である「甲子」の読みはどれか。","c":["きのとね","ひのえね","きのえね","みずのえね"],"a":2,"e":"甲は「きのえ」、子は「ね」で、甲子は「きのえね」と読む。十干は木・火・土・金・水に兄(え)と弟(と)を組み合わせた読み方で、乙は「きのと」、丙は「ひのえ」、壬は「みずのえ」である。"},{"g":"jikoku","q":"「還暦」の意味として正しいものはどれか。","c":["生まれた年と同じ十二支の年がめぐってくること","生まれた年と同じ干支の年がめぐってくること","数え年で百歳の長寿を迎えて祝いをすること","年が改まって新しい暦を使いはじめること"],"a":1,"e":"干支は六十通りなので、六十年たつと生まれた年と同じ干支に戻る。暦が還ることから還暦という。十二支だけなら十二年ごとに同じになるので、干支の一巡とは区別する必要がある。"},{"g":"jikoku","q":"「壬申(じんしん)の乱」の「壬申」が表しているものはどれか。","c":["乱が起きた月の異名","乱を起こした人物の名","乱が起きた場所の方角","乱が起きた年の干支"],"a":3,"e":"干支は年を表すのにも使われ、壬申の乱は壬申の年に起きた争乱という意味である。月の異名は睦月・如月などの和語で、干支とは別のもの。方角は十二支や艮・巽などで表し、十干は用いない。"},{"g":"jikoku","q":"「たそがれ」は「誰(た)そ彼」、つまり「あれは誰か」という言葉から来たとされる。この語が表す時間帯として正しいものはどれか。","c":["明るくて遠くの人も見分けられる昼","薄暗くて人の顔が見分けにくい夕方","月が明るく人影のはっきり見える夜","夜が明けて人々が起きだす早朝"],"a":1,"e":"日が沈んで薄暗くなり、向こうにいる人が誰かわからず「誰そ彼」とたずねるころ、という意味で夕方を指す。明るい昼や月の明るい夜は人の見分けがつくので、語のなりたちに合わない。"},{"g":"gyouji","q":"「白馬節会」の読みはどれか。","c":["しろうまのせちえ","あおうまのせちえ","はくばのせつえ","あおうまのせつかい"],"a":1,"e":"白馬節会は「あおうまのせちえ」と読む。字は「白馬」でも読みは「あおうま」なので注意する。また「節会」は「せちえ」と読み、「せつえ」「せつかい」とは読まない。正月七日の宮中行事である。"},{"g":"gyouji","q":"正月七日の白馬節会の内容として正しいものはどれか。","c":["天皇が馬場で競馬を見てその年の吉凶を占う","天皇が庭に引き出された馬を見て邪気を払う","貴族たちが馬に乗って野に出て若菜を摘む","諸国から献上された馬に天皇が初めて乗る"],"a":1,"e":"白馬節会では、庭に引き出された馬を天皇が見て、その年の邪気を払うとされ、あわせて宴が催された。天皇が自ら馬に乗る行事ではない。野に出て若菜を摘むのは子の日の遊びなど別の行事である。"},{"g":"gyouji","q":"「子の日の遊び」の説明として正しいものはどれか。","c":["十二月最後の子の日に家を清め、新年を迎える準備をする","三月最初の子の日に水辺で身を清め、けがれを払う","正月最初の子の日に野に出て小松を引き、長寿を願う","五月最初の子の日に菖蒲を軒に葺き、邪気を払う"],"a":2,"e":"子の日の遊びは、正月の最初の子の日に野に出て小松を根ごと引いたり若菜を摘んだりして、長寿を願う行事。水辺で身を清めて祓えをするのは三月の上巳、菖蒲を軒に葺くのは五月の端午である。"},{"g":"gyouji","q":"「君がため春の野に出でて若菜摘む」という歌で、春の野で若菜を摘む目的として当時考えられていたものはどれか。","c":["部屋に飾ることで、春の訪れを祝える","神社に供えることで、豊作を約束される","食べることで邪気を払い、長生きできる","染め物に使うことで、春の衣装が作れる"],"a":2,"e":"正月に若菜を摘んで食べると、邪気を払い長寿が得られると考えられていた。この歌も、相手の長寿を願って若菜を摘み、贈る気持ちを詠んでいる。後世の七草粥はこの習俗につながるものである。"},{"g":"gyouji","q":"「節会(せちえ)」の説明として正しいものはどれか。","c":["節日などに天皇が群臣を集めて開く公式の宴","季節の変わり目に家々で祖先の霊を祭る行事","年の初めに貴族が互いの屋敷を訪れる挨拶","季節ごとに寺から僧を招いて行う読経の法会"],"a":0,"e":"節会は、元日や正月七日、新嘗祭の翌日などの節日や公の行事の日に、天皇が群臣を集めて催す宴のこと。元日の節会や白馬節会もその一つである。祖先の霊を祭るのは盂蘭盆で、僧を招く読経は仏事である。"},{"g":"gyouji","q":"春に行われた「県召除目(あがためしのじもく)」の内容として正しいものはどれか。","c":["国司など地方の官職を任命する儀式","大臣など都の官職を任命する儀式","元服した若者を天皇に披露する儀式","官人の一年の働きを評価する儀式"],"a":0,"e":"除目は官職を任命する儀式。県召除目の「県(あがた)」は地方の意で、国司など地方官の任命が中心になる。都の官職を任命するのは秋の司召除目である。任官を望む人々にとって、除目は一大事だった。"},{"g":"gyouji","q":"秋に行われ、主に都の官職を任命した儀式はどれか。","c":["司召除目","県召除目","豊明節会","白馬節会"],"a":0,"e":"司召除目(つかさめしのじもく)は秋に行われ、都で勤める官を任命する。春の県召除目が地方官の任命であるのと対にして覚える。豊明節会は十一月の新嘗祭の翌日の宴、白馬節会は正月七日の行事である。"},{"g":"gyouji","q":"官職を任命する儀式「除目」の読みはどれか。","c":["じょもく","じもく","のぞめ","じょがん"],"a":1,"e":"除目は「じもく」と読む。「除」の字はふつう「じょ」と読むため「じょもく」と誤りやすいが、この語では「じ」と読む。「除」はここでは官職に任じるという意味で、取り除く意味ではない。"},{"g":"gyouji","q":"「上巳(じょうし)」の行事が行われる日はどれか。","c":["五月五日","正月七日","九月九日","三月三日"],"a":3,"e":"上巳はもともと三月最初の巳の日の行事で、のちに三月三日に定まった。水辺で祓えをする日で、後世の桃の節句につながる。五月五日は端午、九月九日は重陽、正月七日は白馬節会の日である。"},{"g":"gyouji","q":"次の場面で行われている行事はどれか。「三月の初めの巳の日、海辺に出て陰陽師に祓えをさせ、人形(ひとがた)を舟に乗せて流した。」","c":["六月の大祓","大晦日の追儺","七月の盂蘭盆","上巳の祓え"],"a":3,"e":"三月の最初の巳の日に水辺で身のけがれを人形に移して流すのは、上巳の祓えである。『源氏物語』須磨の巻にも描かれる。大祓も祓えだが六月と十二月の晦日の行事で、追儺は鬼を払う儀式、盂蘭盆は仏事である。"},{"g":"gyouji","q":"四月八日に、釈迦の誕生を祝って仏像に香水(こうずい)を注ぐ仏事はどれか。","c":["盂蘭盆","灌仏会","仏名会","乞巧奠"],"a":1,"e":"灌仏会(かんぶつえ)は四月八日、釈迦の誕生を祝い、誕生仏の像に香水を注ぐ行事で、「灌」は注ぐの意。盂蘭盆は七月の祖先供養、仏名会は十二月に仏の名を唱えて罪を払う法会、乞巧奠は七夕の行事である。"},{"g":"gyouji","q":"賀茂祭が「葵祭」とも呼ばれる理由として正しいものはどれか。","c":["葵の花が咲きそろう時期を選んで祭を行ったから","祭の行列が葵という名の大路を通って進んだから","神前に葵の葉で包んだ供え物をささげたから","祭の日に人々が冠や牛車などに葵を飾ったから"],"a":3,"e":"賀茂祭では、勅使の行列や見物の人々が冠や牛車などに葵をかけて飾ったので、のちに葵祭とも呼ばれるようになった。祭は陰暦四月に行われ、都の人々が行列の見物に集まった。花の時期や道の名とは関係がない。"},{"g":"gyouji","q":"平安時代の文章で、特に断りなく「祭」とだけ書かれている場合、ふつう指しているのはどれか。","c":["賀茂祭","祇園御霊会","石清水祭","春日祭"],"a":0,"e":"平安時代の貴族にとって、特に断りのない「祭」は四月の賀茂祭のことだった。『枕草子』や『源氏物語』でも「祭のころ」「祭の日」とあれば賀茂祭と考えてよい。ほかの祭は名を添えて区別して書かれる。"},{"g":"gyouji","q":"五月五日の端午に、邪気を払うために軒に葺いた植物はどれか。","c":["葵","菊","菖蒲","桃"],"a":2,"e":"端午の日には、香りの強い菖蒲(しょうぶ・あやめ)を軒に葺いて邪気を払った。葵は四月の賀茂祭、菊は九月の重陽、桃は三月の上巳と結びつく植物なので、行事と植物の組み合わせで区別する。"},{"g":"gyouji","q":"香料を錦の袋に入れ、菖蒲や五色の糸で飾って柱などに掛け、邪気を払ったものを何というか。","c":["人形","着せ綿","薬玉","若菜"],"a":2,"e":"薬玉(くすだま)は端午のころに作り、柱や御簾に掛けて邪気を払った。人形(ひとがた)は祓えでけがれを移して流すもの、着せ綿は重陽の菊にかぶせる綿、若菜は正月に摘んで食べる草である。"},{"g":"gyouji","q":"七夕の行事「乞巧奠」の読みはどれか。","c":["きっこうでん","こつこうてん","きっこうてん","こっこうでん"],"a":0,"e":"乞巧奠は「きっこうでん」と読む。「乞」は願い求める、「巧」は技の巧みさ、「奠」は供え物をして祭ることで、技芸の上達を願う七夕の行事の名になっている。「てん」と清音で読まないように注意する。"},{"g":"gyouji","q":"乞巧奠で人々が星に祈った内容として正しいものはどれか。","c":["秋の実りが豊かで飢えることがないこと","疫病を起こす鬼が都に入りこまないこと","裁縫や書・音楽などの技芸が上達すること","亡くなった祖先の霊が安らかであること"],"a":2,"e":"七月七日の乞巧奠では、織女星にちなんで、裁縫をはじめ書や音楽などの技芸の上達を願い、供え物をした。疫病の鬼を払うのは十二月晦日の追儺、祖先の霊を供養するのは七月十五日を中心とする盂蘭盆である。"},{"g":"gyouji","q":"七月十五日を中心に、祖先の霊を供養する仏事はどれか。","c":["灌仏会","大祓","重陽","盂蘭盆"],"a":3,"e":"盂蘭盆(うらぼん)は七月十五日を中心に祖先の霊を供養する仏事で、現在のお盆のもとになった。陰暦七月なので季節は秋である。灌仏会は四月の釈迦誕生の行事、大祓は罪やけがれを払う神事である。"},{"g":"gyouji","q":"九月九日を「重陽(ちょうよう)」と呼ぶ理由として正しいものはどれか。","c":["太陽が一年でもっとも高く昇る日に重なるから","昼と夜の長さがちょうど同じになる日だから","陽の数とされる奇数で最大の九が重なる日だから","月と太陽が同じ方角に重なって見える日だから"],"a":2,"e":"中国の考え方で奇数は陽の数とされ、その最大の九が月と日に重なる九月九日を重陽という。太陽が最も高くなる夏至や、昼夜の長さが等しい秋分とは関係がない。菊を用いて長寿を願う日である。"},{"g":"gyouji","q":"重陽の行事「菊の着せ綿」の説明として正しいものはどれか。","c":["菊の花びらを綿に包んで枕に入れ、よい夢を見る","前夜に菊に綿をかぶせ、露と香を移した綿で体を拭う","菊の花を干して綿の代わりに冬の衣の中に詰める","菊の根元を綿で覆って霜から守り、翌年も咲かせる"],"a":1,"e":"重陽の前夜、菊の花に真綿をかぶせておき、菊の露と香りを含んだ綿で顔や体を拭うと、老いを払い長寿が得られると考えられた。『紫式部日記』にも菊の着せ綿を贈られる場面がある。"},{"g":"gyouji","q":"宮中で舞姫が舞う「五節(ごせち)の舞」が行われるのは何月か。","c":["十一月","五月","九月","正月"],"a":0,"e":"五節の舞は十一月、新嘗祭の時期に行われ、選ばれた舞姫が舞った。「五節」の字から五月五日の端午と結びつけがちだが誤り。九月は重陽、正月は元日の節会や白馬節会などが行われる月である。"},{"g":"gyouji","q":"「新嘗祭」の読みはどれか。","c":["しんなめさい","あらなめさい","にいなえさい","にいなめさい"],"a":3,"e":"新嘗祭は「にいなめさい」と読む。「新(にい)」は新しい、「嘗(なめ)」は味わうの意で、その年の新しい穀物を神に供える祭であることを表す。「新」を「あら」「しん」と読んだり、「なえ」と読んだりしない。"},{"g":"gyouji","q":"十一月に行われる新嘗祭の内容として正しいものはどれか。","c":["天皇がその年の新穀を神に供え、自らも食べる","天皇が田に出て苗を植え、その年の豊作を祈る","天皇が伊勢へ使者を送り、国家の平安を祈る","天皇が諸国の米を検分し、翌年の税を定める"],"a":0,"e":"新嘗祭は、天皇がその年に収穫された新しい穀物を神々に供え、自らも食べて収穫に感謝する祭である。田植えは秋の行事ではなく、税を定める政務とも別である。翌日には豊明節会が催された。"},{"g":"gyouji","q":"新嘗祭の翌日に宮中で催され、五節の舞が舞われた宴はどれか。","c":["白馬節会","豊明節会","元日節会","端午節会"],"a":1,"e":"豊明節会(とよのあかりのせちえ)は新嘗祭の翌日に行われる宴で、天皇が新穀を群臣とともに食し、五節の舞姫の舞が披露された。白馬節会は正月七日、元日節会は正月一日、端午節会は五月五日の宴である。"},{"g":"gyouji","q":"「追儺(ついな)」の説明として正しいものはどれか。","c":["正月七日の朝に、野に出て若菜を摘み無病を願う","十二月晦日の夜に、疫病などをもたらす鬼を追い払う","六月晦日の日に、人形にけがれを移して川に流す","七月十五日ごろに、祖先の霊のために供え物をする"],"a":1,"e":"追儺は十二月晦日の夜に宮中で行われ、疫病などの災いをもたらす鬼を追い払う儀式である。後世の節分の豆まきはこの流れをくむとされる。人形を流すのは祓え、祖先に供え物をするのは盂蘭盆である。"},{"g":"gyouji","q":"「なやらい」「おにやらい」とも呼ばれる行事を漢字で書いたものはどれか。","c":["大祓","重陽","上巳","追儺"],"a":3,"e":"追儺は「ついな」と読み、「なやらい」「おにやらい」とも呼ぶ。「やらふ」は追い払う意の古語で、鬼を追い払う行事であることを表す。大祓は「おおはらえ」、重陽は「ちょうよう」、上巳は「じょうし」と読む。"},{"g":"gyouji","q":"平安時代の宮中で「大祓(おおはらえ)」が行われたのはいつか。","c":["三月と九月の朔日","正月と七月の十五日","五月と十一月の晦日","六月と十二月の晦日"],"a":3,"e":"大祓は、半年の間にたまった人々の罪やけがれを払う神事で、六月と十二月の晦日に行われた。一年を前半と後半に分け、それぞれの終わりに行うと考えればよい。三月の上巳の祓えと混同しないように注意する。"},{"g":"gyouji","q":"陰暦で「秋」に行われる行事の組み合わせはどれか。","c":["端午と乞巧奠","上巳と灌仏会","乞巧奠と重陽","重陽と五節の舞"],"a":2,"e":"陰暦の秋は七〜九月なので、七月七日の乞巧奠(七夕)と九月九日の重陽が秋の行事になる。五月の端午と四月の灌仏会は夏、三月の上巳は春、十一月の五節の舞は冬の行事である。"},{"g":"gyouji","q":"行事と、それが行われる陰暦の月の組み合わせとして正しいものはどれか。","c":["盂蘭盆―八月","灌仏会―四月","追儺―正月","新嘗祭―十月"],"a":1,"e":"灌仏会は四月八日の行事である。盂蘭盆は七月、追儺は十二月の晦日、新嘗祭は十一月に行われる。追儺は年の変わり目の行事なので正月と取り違えやすく、盂蘭盆は現在の月遅れのお盆と混同しやすい。"},{"g":"gyouji","q":"平安時代の宮中で、夏の装束や調度に改める「更衣(ころもがえ)」が行われた日はどれか。","c":["四月一日","五月五日","六月一日","三月三日"],"a":0,"e":"陰暦では四月から夏になるので、その初日の四月一日に夏の装束や調度に改めた。冬のものに改めるのは十月一日である。現在の衣替えの時期から六月一日と考えないように注意する。五月五日は端午、三月三日は上巳である。"},{"g":"kanshoku","q":"「大内裏」と「内裏」の関係として適当なものはどれか。","c":["大内裏と内裏は、同じ区域を指す別名である","大内裏は帝の住まい、内裏は后の住まいである","内裏の中に、官庁を集めた大内裏がある","大内裏の中に、帝の住まいである内裏がある"],"a":3,"e":"大内裏（宮城）は朝堂院や諸官庁を含む広い区域で、その中に帝の住む内裏がある。内側と外側を逆に覚えないこと。后妃が住むのは内裏の中の後宮で、大内裏と内裏を住む人で分けるわけではない。"},{"g":"kanshoku","q":"内裏の正殿で、節会などの公的な儀式が行われる「紫宸殿」の読みはどれか。","c":["しえいでん","ししんでん","むらさきでん","しじんでん"],"a":1,"e":"紫宸殿（ししんでん）は内裏の正殿で、節会などの儀式の場。「南殿」とも呼び、南庭には左近の桜・右近の橘が植えられている。帝が日常を過ごすのは清涼殿で、別の建物である。"},{"g":"kanshoku","q":"帝が日常の生活を送った内裏の殿舎はどれか。","c":["紫宸殿","清涼殿","弘徽殿","大極殿"],"a":1,"e":"清涼殿は帝がふだん暮らす殿舎で、殿上の間もここにある。紫宸殿は儀式を行う正殿、大極殿は大内裏の朝堂院の正殿、弘徽殿は後宮の殿舎で后妃が住んだ。"},{"g":"kanshoku","q":"「殿上人（てんじょうびと）」の説明として適当なものはどれか。","c":["清涼殿の殿上の間に昇ることを許された人","昇殿を許されず、庭などで仕える下級の官人","位が三位以上で、国政の中心を担う上級貴族","帝の外出のときに弓矢を持って警護する武官"],"a":0,"e":"殿上人は清涼殿の殿上の間への昇殿を許された人で、主に四位・五位と六位の蔵人。三位以上の上級貴族は上達部（公卿）、昇殿を許されない者は地下と呼び、殿上人とは区別する。"},{"g":"kanshoku","q":"「上達部」の読みはどれか。","c":["かみたちべ","じょうたつぶ","かんだちめ","うえだちめ"],"a":2,"e":"上達部（かんだちめ）は公卿のことで、摂政・関白・大臣・大納言・中納言・参議と、三位以上の人を指す。「上達」を字音で読んだり「かみ」と読んだりしないよう、語ごと覚えておく。"},{"g":"kanshoku","q":"次のうち、上達部（公卿）に含まれる官職はどれか。","c":["伊予守","蔵人頭","近衛少将","大納言"],"a":3,"e":"大納言は上達部に含まれる。蔵人頭と近衛少将は殿上人の中の要職だが、位は四位・五位で公卿ではない。伊予守は国司の長官で、中流貴族が任じられる受領の官である。"},{"g":"kanshoku","q":"殿上人の中心となる位階はどれか。","c":["四位・五位","一位・二位","七位・八位","三位以上"],"a":0,"e":"殿上人は主に四位・五位の人で、六位でも蔵人は昇殿を許された。三位以上は上達部（公卿）にあたる。七位・八位などの下級官人は、ふつう昇殿を許されない地下である。"},{"g":"kanshoku","q":"古文で「院」と呼ばれる人物として最も適当なものはどれか。","c":["伊勢神宮に仕える未婚の皇女","次の帝となる予定の皇子","帝の政治を補佐する大臣","位を譲って退いた前の帝"],"a":3,"e":"「院」は譲位した帝、つまり上皇（出家していれば法皇）を指し、御所の名で「〜院」と呼ばれることも多い。次の帝となる皇子は東宮（春宮）、伊勢に仕える皇女は斎宮である。"},{"g":"kanshoku","q":"「法皇」の説明として適当なものはどれか。","c":["帝の位にある僧","出家した上皇","退位した皇后","出家した皇太子"],"a":1,"e":"法皇は上皇が出家した姿で、「太上法皇」の略。退位した帝である点は上皇と同じで、仏門に入ったかどうかで呼び分ける。皇太子や皇后が出家しても法皇とは言わない。"},{"g":"kanshoku","q":"「春宮」の読みはどれか。","c":["とうぐう","はるみや","ちゅうぐう","しゅんぐう"],"a":0,"e":"「春宮」は「東宮」と同じく「とうぐう」と読み、皇太子を指す。五行説で東が春に当たるため、この字も使う。「ちゅうぐう」は后の一つである中宮の読みで、別の人物になる。"},{"g":"kanshoku","q":"次の官職を上位から並べたものとして適当なものはどれか。","c":["中納言→大納言→参議","大納言→参議→中納言","大納言→中納言→参議","参議→大納言→中納言"],"a":2,"e":"大臣の下は大納言・中納言・参議の順で、ここまでが国政を議する上達部に入る。「中」の字から中納言を大納言より上と誤ったり、参議を納言より上に置いたりしないこと。"},{"g":"kanshoku","q":"帝が幼いときに、帝に代わって政治を行う職はどれか。","c":["摂政","蔵人頭","関白","太政大臣"],"a":0,"e":"幼い帝に代わって政務を執るのが摂政。関白は成人した帝を補佐する職で、両者は帝が成人しているかどうかで使い分けられる。太政大臣は最高の官だが、それだけで政務を代行するわけではない。"},{"g":"kanshoku","q":"大臣を上位から並べたものとして適当なものはどれか。","c":["左大臣→太政大臣→右大臣→内大臣","太政大臣→左大臣→右大臣→内大臣","太政大臣→内大臣→左大臣→右大臣","太政大臣→右大臣→左大臣→内大臣"],"a":1,"e":"太政大臣が最上位だが、常に置かれるとは限らない。その下が左大臣、右大臣で、左が右より上。内大臣はその下に置かれた大臣である。「内」を中心・上位の意と誤解しないこと。"},{"g":"kanshoku","q":"六位の官人で、清涼殿への昇殿を許されていない人は、身分の上で何と呼ばれるか。","c":["蔵人","上達部","地下","殿上人"],"a":2,"e":"昇殿を許されない官人を地下（じげ）という。六位でも蔵人に任じられれば昇殿でき、殿上人として扱われる。上達部は三位以上などの公卿で、ここには当たらない。"},{"g":"kanshoku","q":"古文で「宰相」と呼ばれる官職はどれか。","c":["参議","蔵人頭","関白","中納言"],"a":0,"e":"「宰相」は参議の唐名で、参議が近衛中将を兼ねると「宰相の中将」と呼ばれる。関白は政務を補佐する最高の職だが宰相とは呼ばない。中納言の唐名は「黄門」である。"},{"g":"kanshoku","q":"『源氏物語』などに登場する「頭中将（とうのちゅうじょう）」とは、どのような人か。","c":["近衛府の長官を務める大将","春宮坊の長官を務める人","蔵人頭と近衛中将を兼ねる人","中納言と近衛中将を兼ねる人"],"a":2,"e":"頭中将は蔵人頭と近衛中将を兼ねる人。帝の側近の筆頭と宮中警護の要職を兼ね、出世が約束された立場だった。蔵人頭が弁官を兼ねる場合は「頭弁」と呼ぶ。近衛府の長官は大将である。"},{"g":"kanshoku","q":"「蔵人（くろうど）」の主な仕事として適当なものはどれか。","c":["后妃のそば近くに仕え、衣服の世話を担う","内裏の門を守り、行幸の警護などを担う","地方の国に赴き、税の徴収などを担う","帝のそばに仕え、命令の伝達などを担う"],"a":3,"e":"蔵人は蔵人所の官人で、帝の身辺の雑事や命令・奏上の取り次ぎを担い、六位でも昇殿が許された。地方で税を扱うのは国司、門の警護は衛府、后妃に仕えるのは女房である。"},{"g":"kanshoku","q":"「近衛府（このえふ）」の主な役目はどれか。","c":["内裏の警護や行幸のお供","国司の任命と勤務の評価","天文や暦を作り占うこと","宮中の儀式で音楽を奏すること"],"a":0,"e":"近衛府は左右に分かれ、内裏の警護や帝の行幸の供を務めた武官の役所で、大将・中将・少将などの官がある。暦や占いは陰陽寮の仕事で、官職の任命は除目で行う。"},{"g":"kanshoku","q":"「随身（ずいじん）」の説明として適当なものはどれか。","c":["貴人の出家に付き従って仏道に入る僧侶","貴人の子に乳を与えて養い育てる女性","貴人の家の事務や経理を取り仕切る家来","貴人の外出に付き従う近衛の官人"],"a":3,"e":"随身は朝廷から貴人に付けられた護衛で、近衛府の官人が務め、弓矢を持って外出の供をした。乳を与えて子を育てる女性は乳母、家の事務を取り仕切るのは家司である。"},{"g":"kanshoku","q":"「受領（ずりょう）」の説明として適当なものはどれか。","c":["帝の命令を伝える蔵人所の長官","地方の寺院を治める位の高い僧","昇殿を許された四位・五位の貴族","任国に赴いて政務を執る国司の長"],"a":3,"e":"受領は実際に任国へ下って政治を行う国司の最上席者で、多くは守（かみ）。財を蓄える者も多く、中流貴族の代表的な立場だった。昇殿を許された人は殿上人、蔵人所を取り仕切るのは蔵人頭である。"},{"g":"kanshoku","q":"「伊予守」「和泉守」などの「守」の読みはどれか。","c":["もり","かみ","しゅ","すけ"],"a":1,"e":"国司の長官を「守（かみ）」という。国司の四等官は守・介・掾・目（かみ・すけ・じょう・さかん）で、「すけ」は次官の介の読み。『土佐日記』の紀貫之も土佐守を務めた。"},{"g":"kanshoku","q":"春に行われた「県召（あがためし）の除目」で主に任命されたのはどれか。","c":["伊勢の斎宮や斎院","大臣などの上達部","国司などの地方官","后や女御などの妃"],"a":2,"e":"県召の除目は春に行われ、主に国司など地方の官を任命した。都の官を任じるのは秋の司召の除目である。后妃は除目で決めるものではなく、斎宮・斎院は占い（卜定）で選ばれた。"},{"g":"kanshoku","q":"「除目（じもく）」とは何か。","c":["官人を罷免する儀式","新年を祝う宴の儀式","官職を任じる儀式","位階を授ける儀式"],"a":2,"e":"除目は大臣以外の官職を任命する儀式。「除」は古い官を除いて新しい官に就ける意とされる。位階を授けるのは叙位で、除目と混同しやすいが、除目は官職の任命である。"},{"g":"kanshoku","q":"『枕草子』は「すさまじきもの（興ざめなもの）」の例に「除目に司得ぬ人の家」を挙げる。興ざめなのはなぜか。","c":["任官を期待した人々の当てが外れるから","官職を得た主人が任国へ去り、家が寂しいから","帝の使いが来ず、除目の日取りが延びたから","位の高い客が大勢集まって家が騒がしいから"],"a":0,"e":"「司得ぬ」は官職を得られないこと。任官を期待して集まった人々が、よい知らせが来ずに落胆して散っていく様子が興ざめだという。官職を得て任国へ去る話や、除目が延期される話ではない。"},{"g":"kanshoku","q":"「宿直」の古文での読みはどれか。","c":["やどい","とのい","よとぎ","しゅくちょく"],"a":1,"e":"宿直（とのい、歴史的仮名遣いは「とのゐ」）は、宮中や役所に夜泊まり込んで勤務や警護をすること。「しゅくちょく」は現代語の読み。「よとぎ」は夜通しそばに付き添う意の別の語である。"},{"g":"kanshoku","q":"「在原業平朝臣」などの「朝臣」の読みはどれか。","c":["ちょうしん","あそん","あさおみ","あさとみ"],"a":1,"e":"朝臣は「あそん（あそみ）」と読む。もとは天武天皇が定めた八色の姓の一つで、平安時代には五位以上の人の名に添えて敬意を表した。『百人一首』の作者名にも多く見られる。"},{"g":"kanshoku","q":"古文の「おほやけ」の意味として適当なものはどれか。","c":["朝廷や帝","寺の住職","大きな屋敷","一家の主人"],"a":0,"e":"語源は「大宅（大きな家）」とされるが、古文の「おほやけ」は朝廷や帝、また公的な事柄を表す。対になるのは私的なことを表す「わたくし」。字面から大きな屋敷と訳すと文意が通らない。"},{"g":"kanshoku","q":"宮中の場面で「うへ渡らせたまふ」とあるとき、「うへ」は誰を指すか。","c":["関白","帝","中宮","女房"],"a":1,"e":"宮中を舞台とする文で「うへ（上）」とだけあれば、ふつう帝を指す。『枕草子』でも中宮は「宮」、帝は「うへ」と呼び分けている。貴族の家では「上」が奥方を指すこともあるので場面で判断する。"},{"g":"kanshoku","q":"「うちに参りたまふ」の「うち」の意味として適当なものはどれか。","c":["寺の奥","屋敷の奥","自宅","宮中"],"a":3,"e":"「うち（内・内裏）」は宮中を指し、転じて帝を表すこともある。「うちに参る」は宮中へ出仕すること。現代語の「うち（自分の家）」の感覚で訳すと、場面を取り違える。"},{"g":"kanshoku","q":"古文で「おとど」と呼ばれる人物として最も適当なものはどれか。","c":["受領","随身","大臣","蔵人"],"a":2,"e":"「おとど」は「大臣」「大殿」とも書き、主に大臣や、それに準じる高貴な人を敬って呼ぶ語。「〇〇のおとど」の形も多い。蔵人・随身・受領は、いずれも大臣よりずっと下の身分である。"},{"g":"koukyuu","q":"平安中期の後宮で、妃の地位を上位から並べたものとして適当なものはどれか。","c":["中宮→更衣→女御","女御→中宮→更衣","更衣→女御→中宮","中宮→女御→更衣"],"a":3,"e":"后（中宮・皇后）が最上位で、その下に女御、さらに更衣が続く。女御は主に大臣など上流貴族の娘、更衣は大納言以下の家の娘が多かった。『源氏物語』の桐壺更衣の苦しみも、この序列と関わる。"},{"g":"koukyuu","q":"帝の妃の呼び名「更衣」の読みはどれか。","c":["きがえ","こうい","さらごろも","こうえ"],"a":1,"e":"更衣は「こうい（歴史的仮名遣いは「かうい」）」と読む。もとは帝の衣替えに奉仕する役の名で、のちに女御に次ぐ妃の呼び名となった。衣替えの意味の読みと混同しないこと。"},{"g":"koukyuu","q":"内侍司（ないしのつかさ）で、長官の尚侍に次ぐ官はどれか。","c":["命婦","典侍","采女","掌侍"],"a":1,"e":"内侍司の官は上から尚侍・典侍・掌侍の順で、典侍が次官にあたる。掌侍はさらにその下の官。命婦や采女も宮中に仕える女性だが、内侍司の次官の名ではない。"},{"g":"koukyuu","q":"一条天皇の時代、藤原彰子が中宮に立てられたとき、すでに后であった藤原定子はどう呼ばれるようになったか。","c":["皇太后","皇后","尚侍","女御"],"a":1,"e":"定子は中宮であったが、彰子の立后に際して皇后と称され、一人の帝に皇后と中宮の二人の后が並ぶことになった。皇太后は先帝の后などの称で、女御や尚侍は后より下の立場である。"},{"g":"koukyuu","q":"「御息所」の読みはどれか。","c":["みやすんどころ","みいきどころ","おんいきどころ","ごそくしょ"],"a":0,"e":"御息所は「みやすんどころ（みやすどころ）」と読む。本来は帝の休息所に仕える女性の意で、帝の寵を受けた女御・更衣、とくに皇子や皇女を産んだ妃などを指す。字音で読まないこと。"},{"g":"koukyuu","q":"『源氏物語』の「六条御息所」は、もとどのような立場の女性だったか。","c":["亡くなった東宮の妃","帝に仕える内侍司の長官","伊勢神宮に仕える皇女","光源氏の乳母の娘"],"a":0,"e":"六条御息所は亡き東宮（前坊）の妃で、「御息所」は東宮の妃にも使われる。伊勢の斎宮となったのは娘であり、御息所自身は娘に付き添って伊勢へ下った。内侍司の長官は尚侍である。"},{"g":"koukyuu","q":"「尚侍」の読みはどれか。","c":["ないしのかみ","なおじ","ないしのすけ","しょうじ"],"a":0,"e":"尚侍は「ないしのかみ」と読み、内侍司の長官を指す。「ないしのすけ」は次官の典侍の読みで、長官・次官を「かみ・すけ」と呼ぶ対応で覚えるとよい。『源氏物語』の朧月夜も尚侍となった。"},{"g":"koukyuu","q":"平安中期の「尚侍」の立場として適当なものはどれか。","c":["帝の子に乳を与え、成長した後も後見を務めた","帝への取り次ぎを担い、妃に近い扱いも受けた","貴族の家に仕え、家政の一切を取り仕切った","伊勢神宮に仕え、帝の代わりに神を祭り続けた"],"a":1,"e":"尚侍は内侍司の長官で、本来は帝への奏上や命令の伝達を担う女官。平安中期には有力貴族の娘が任じられ、妃に準じる扱いを受けることもあった。神を祭るのは斎宮、乳を与えるのは乳母である。"},{"g":"koukyuu","q":"古文の「女房」の意味として最も適当なものはどれか。","c":["寺に入って修行する尼","貴族の家に生まれた姫","宮仕えをしている女性","夫と連れ添っている妻"],"a":2,"e":"古文の「女房」は、宮中や貴族の家に仕え、房（部屋）を与えられた女性をいう。現代語の「妻」の意味で読むと、平安の宮廷の場面を取り違える。仕える身分の女性であることを押さえる。"},{"g":"koukyuu","q":"女房に与えられた部屋「局」の読みはどれか。","c":["きょく","へや","つぼね","つぼみ"],"a":2,"e":"局（つぼね）は、殿舎の中を仕切ってつくった女房の私室。宮仕えの女房は局で寝起きし、ここで来客に応対することもあった。のちには、その部屋を持つ女房自身を指す呼び方にもなった。"},{"g":"koukyuu","q":"「清少納言」という女房名の「清」は、何に由来するか。","c":["清らかな人柄","清涼殿という殿舎","清原という氏","清水寺との縁"],"a":2,"e":"清少納言の「清」は、父である清原元輔の氏「清原」の一字を取ったもの。女房名は、氏の一字や、父・夫などの官職名、任国の名を組み合わせて付けることが多く、本名ではない。"},{"g":"koukyuu","q":"「和泉式部」のような女房名に、国名や官職名が入っている主な理由はどれか。","c":["父や夫など身内の官職にちなむから","本人が朝廷からその官職を得たから","仕える后の住む殿舎の名だから","本人がその国の出身で育ったから"],"a":0,"e":"女房名は、父や夫などの官職名や任国の名にちなむことが多い。和泉式部の「和泉」は夫が和泉守だったことによる。女性本人が式部などの官職に就いたわけでも、その国の出身というわけでもない。"},{"g":"koukyuu","q":"古文で貴人の子を養い育てる女性を指す「乳母」の読みはどれか。","c":["ちのと","にゅうぼ","めのと","うばめ"],"a":2,"e":"乳母は古文では「めのと」と読む。その子は「乳母子（めのとご）」と呼ばれ、この形でもよく出る。字音で「にゅうぼ」と読んだり、似た音の語と混ぜたりしないよう、語ごと覚える。"},{"g":"koukyuu","q":"『源氏物語』で光源氏の腹心として仕える惟光は、源氏の乳母の子である。このような立場の人を何というか。","c":["家司","乳母子","随身","養い子"],"a":1,"e":"乳母の子を乳母子（めのとご）という。主人と幼いころから共に育つため信頼が厚く、惟光も源氏の忍び歩きの手引きなどを務めた。随身は近衛の護衛、家司は家の事務を担う職員である。"},{"g":"koukyuu","q":"帝の代わりに伊勢神宮に仕えるため選ばれた、未婚の皇女（または女王）を何というか。","c":["中宮","斎院","東宮","斎宮"],"a":3,"e":"伊勢神宮に奉仕する未婚の皇女・女王が斎宮で、帝の代替わりなどで交代した。都の賀茂神社に仕えるのは斎院で、「宮」と「院」を取り違えやすい。中宮は后、東宮は皇太子である。"},{"g":"koukyuu","q":"「斎院」が奉仕した神社はどれか。","c":["春日大社","賀茂神社","石清水八幡宮","伊勢神宮"],"a":1,"e":"斎院は京都の賀茂神社（上賀茂・下鴨）に奉仕する未婚の皇女・女王で、紫野の斎院御所に住み、賀茂の祭（葵祭）にも関わった。伊勢神宮に仕えるのは斎宮である。"},{"g":"koukyuu","q":"「入内」の読みはどれか。","c":["じゅだい","じゅない","いりうち","にゅうない"],"a":0,"e":"入内は「じゅだい」と読み、后や女御となる女性が正式に内裏に入ること。有力貴族は娘を入内させ、皇子が生まれれば外戚として力を得た。「にゅうない」と字のままに読まないこと。"},{"g":"koukyuu","q":"古文の「北の方」の意味として適当なものはどれか。","c":["北国から来た女性","屋敷の北側に仕える女房","母方の祖母にあたる人","身分の高い人の正妻"],"a":3,"e":"「北の方」は大臣など身分の高い人の正妻を敬っていう語。寝殿造の北の対に住んだことに由来するとされる。北側で働く女房や方角の意味に取らず、人物を指す語として覚える。"},{"g":"koukyuu","q":"『源氏物語』の「弘徽殿の女御」という呼び名で、「弘徽殿」が示しているものはどれか。","c":["仕えている女房の名","生まれ育った土地の名前","与えられた住まいの殿舎","父の官職と家の名前"],"a":2,"e":"後宮の妃は、住まいとして与えられた殿舎の名で呼ばれることが多い。「弘徽殿の女御」も弘徽殿に住む女御の意。父や夫の官職にちなむのは女房名の付け方で、妃の呼び名とは別である。"},{"g":"koukyuu","q":"「藤壺」と呼ばれる後宮の殿舎の正式名はどれか。","c":["凝華舎","昭陽舎","淑景舎","飛香舎"],"a":3,"e":"藤壺の正式名は飛香舎。淑景舎は桐壺、凝華舎は梅壺、昭陽舎は梨壺の正式名で、いずれも庭に植えた植物にちなむ通称をもつ。『源氏物語』の藤壺の宮もこの殿舎の名で呼ばれる。"},{"g":"koukyuu","q":"「藤壺」「桐壺」などの「壺」の意味として適当なものはどれか。","c":["建物に囲まれた中庭","水をためる大きな器","殿舎の奥の小さな部屋","庭に掘った小さな池"],"a":0,"e":"「壺」は殿舎に囲まれた中庭（坪）のこと。そこに植えられた藤や桐・梅・梨から、飛香舎を藤壺、淑景舎を桐壺などと呼んだ。器や池の意味ではなく、部屋そのものを指すわけでもない。"},{"g":"koukyuu","q":"後宮の殿舎「弘徽殿」の読みはどれか。","c":["ぐきでん","ひろきでん","こうびでん","こきでん"],"a":3,"e":"弘徽殿は「こきでん」と読む。清涼殿の北にあって帝の住まいに近く、後宮の中でも格の高い殿舎だった。『源氏物語』では右大臣の娘の弘徽殿の女御が住み、桐壺更衣と対立した。"},{"g":"koukyuu","q":"『源氏物語』の桐壺更衣は、帝のもとへ参上するたびに、ほかの妃たちの前を通らねばならず嫌がらせを受けた。住まいの淑景舎（桐壺）が内裏のどこにあったからか。","c":["大内裏の外の南の端","紫宸殿の南にある庭の前","清涼殿から遠い北東の隅","清涼殿のすぐ北側の隣"],"a":2,"e":"淑景舎は内裏の北東の隅にあり、帝の住む清涼殿から遠い殿舎だった。そのため更衣は多くの妃の殿舎の前を通って参上し、通り道で意地悪をされた。清涼殿の北隣にあるのは弘徽殿である。"},{"g":"koukyuu","q":"後宮の殿舎は、内裏の中でおもにどこに集まっていたか。","c":["紫宸殿の南にある庭の周り","紫宸殿や清涼殿より北側","朝堂院を囲む回廊の中","大内裏の外の東の京"],"a":1,"e":"後宮は内裏の北側、紫宸殿や清涼殿の後方に広がる区域で、七殿五舎と呼ばれる后妃の殿舎が並んだ。「後」は奥・北を表す。紫宸殿の南庭は儀式の場で、妃が住む所ではない。"},{"g":"koukyuu","q":"貴族の家で「乳母（めのと）」が担った役割として適当なものはどれか。","c":["子に和歌や漢詩を教え、学問の師を務める","主人の外出に付き添い、身辺の警護をする","子に乳を与え育て、成長後も後見となる","家の財産を管理し、荘園の経営を任される"],"a":2,"e":"乳母は貴人の子に乳を与えて養育し、成長した後も親代わりの後見として深く関わった。乳母の家族もその家に仕えることが多い。学問の師、荘園の管理人、警護役とは役割が異なる。"},{"g":"koukyuu","q":"紫式部が女房として仕えた后はどれか。","c":["藤原詮子","藤原威子","藤原定子","藤原彰子"],"a":3,"e":"紫式部は一条天皇の中宮彰子（藤原道長の娘）に仕えた。清少納言が仕えたのは定子（藤原道隆の娘）で、二人の仕えた后を取り違えやすい。詮子は一条天皇の母、威子は後一条天皇の中宮である。"},{"g":"koukyuu","q":"清涼殿の中にあり、后妃が帝のもとへ参上したときに控える部屋を何というか。","c":["上の御局","昼の御座","夜の御殿","殿上の間"],"a":0,"e":"上の御局は清涼殿の中に設けられた后妃の控えの部屋で、帝のもとへ参上したときに用いた。殿上の間は殿上人の詰め所、夜の御殿は帝の寝所、昼の御座は帝が昼に座る所である。"},{"g":"koukyuu","q":"『枕草子』で、清少納言が仕えた主人を「宮の御前」と呼ぶとき、その人はどのような立場か。","c":["斎宮","東宮","帝","中宮"],"a":3,"e":"『枕草子』の「宮」「宮の御前」は、清少納言が仕えた中宮定子を指す。后を「宮」と敬って呼ぶのは宮廷の習わしで、この作品では東宮や斎宮のことではない。帝は「うへ」と呼ばれる。"},{"g":"koukyuu","q":"宮仕えの女房が「里に出づ」とあるとき、「里」とはどこか。","c":["自分の実家","田舎の村里","主人の別荘","寺の宿坊"],"a":0,"e":"宮仕えをする人にとって「里」は、宮中に対する自分の家、つまり実家のこと。女房は病気や物忌みなどで里に下がり、后や女御も出産のため実家に戻った。田舎の村と訳すと場面が合わない。"},{"g":"koukyuu","q":"次のうち、後宮の殿舎ではないものはどれか。","c":["承香殿","紫宸殿","弘徽殿","麗景殿"],"a":1,"e":"紫宸殿は内裏の正殿で儀式の場であり、後宮の殿舎ではない。承香殿・弘徽殿・麗景殿は後宮の七殿に数えられ、妃たちが住んだ。名前に「殿」が付くことだけで区別しないこと。"},{"g":"sumai","q":"寝殿造で、主人が住み、敷地の中央に南向きに建つ中心の建物はどれか。","c":["中門廊","寝殿","釣殿","対の屋"],"a":1,"e":"寝殿は寝殿造の中心で、主人が住み儀式も行う南向きの建物。その東・西・北に対の屋が配され、渡殿でつながる。釣殿は池に臨む建物、中門廊は対の屋から南へ延びる廊である。"},{"g":"sumai","q":"「対の屋（たいのや）」の説明として適当なものはどれか。","c":["屋敷の門の脇にある、従者の控えの建物","寝殿の中にある、壁で塗り込めた小部屋","寝殿の東西や北に建ち、家族が住む建物","池の上に張り出し、納涼や遊びに使う建物"],"a":2,"e":"対の屋は寝殿の東・西・北に建てられ、妻や子など家族が住んだ。北の対に正妻が住んだことから「北の方」の語が生まれたとされる。池に臨む建物は釣殿、壁で囲った部屋は塗籠である。"},{"g":"sumai","q":"「透渡殿（すきわたどの）」の説明として適当なものはどれか。","c":["池に張り出して建てられた小さな建物","築地の内側に沿って巡らされた垣","壁で囲まれ、物を納める閉じた部屋","壁がなく吹き放しになった渡り廊下"],"a":3,"e":"渡殿は建物どうしをつなぐ渡り廊下で、そのうち壁や戸がなく両側が吹き放しのものを透渡殿という。「透」は向こうが透けて見える意。池に張り出す建物は釣殿、閉じた部屋は塗籠である。"},{"g":"sumai","q":"寝殿造で、池に臨んで建ち、納涼や宴に使われた建物はどれか。","c":["渡殿","対の屋","塗籠","釣殿"],"a":3,"e":"釣殿は中門廊の南端などに設けられ、池に面して涼んだり管弦の遊びをしたりする建物。「釣」の字から魚釣り専用の小屋と思わないこと。対の屋は住まい、渡殿は廊下、塗籠は閉じた部屋である。"},{"g":"sumai","q":"寝殿の中心部分を指す「母屋」の読みはどれか。","c":["もや","おもや","ははや","ぼおく"],"a":0,"e":"寝殿造の母屋は「もや」と読み、建物の中心部の空間を指す。その周囲を廂（ひさし）が取り巻き、さらに外側に簀子がめぐる。現代語の「おもや（主屋）」と混同しないこと。"},{"g":"sumai","q":"寝殿の内側から外側へ向かって並べたものとして適当なものはどれか。","c":["廂→母屋→簀子","簀子→廂→母屋","母屋→簀子→廂","母屋→廂→簀子"],"a":3,"e":"中央の母屋を廂の間が囲み、その外側に板敷きの縁側である簀子（すのこ）がある。男性の客は簀子や廂に通されることが多く、どこまで内へ入れるかが親しさの度合いを表した。"},{"g":"sumai","q":"簀子の外側の縁に取り付けられた手すりを何というか。","c":["透垣","長押","高欄","格子"],"a":2,"e":"高欄（こうらん）は簀子の外側の縁に設けた手すりで、寄りかかって庭を眺める場面にも出る。透垣は庭の垣根、格子は柱の間にはめる建具、長押は柱と柱をつなぐ横木である。"},{"g":"sumai","q":"寝殿造の建具「格子」の説明として適当なものはどれか。","c":["長い布を垂らして部屋を仕切る帳","木を縦横に組んだ柱の間の建具","建物の隅にある両開きの板の扉","左右に引いて開け閉めする板の戸"],"a":1,"e":"格子は細い木を縦横に組んだ建具で、柱の間にはめ、朝に上げて夜に下ろした。使い方は蔀とよく似ている。布の仕切りは壁代、引き戸は遣戸、両開きの板戸は妻戸である。"},{"g":"sumai","q":"『源氏物語』夕顔の巻にも見える「半蔀（はじとみ）」の説明として適当なものはどれか。","c":["部屋の半分だけを仕切る低い屏風","左右に半分ずつ引いて開ける引き戸","上半分だけを吊り上げて開ける蔀","簀子の半分ほどの高さの手すり"],"a":2,"e":"蔀（しとみ）は格子の裏に板を張った戸で、半蔀は上半分を吊り上げて開け、下半分は固定したもの。「半」は上下に分けた半分の意で、左右に分ける意味ではない。引き戸は遣戸、手すりは高欄である。"},{"g":"sumai","q":"寝殿の四隅などに設けられた、両開きの板戸はどれか。","c":["遣戸","妻戸","蔀","格子"],"a":1,"e":"妻戸は建物の隅などに付いた両開きの板戸で、人の出入りに使った。遣戸は横に引く戸、格子や蔀は上げ下ろしする建具である。「妻」を配偶者の意に取らず、建物の端を表す字と覚える。"},{"g":"sumai","q":"「遣戸（やりど）」の説明として適当なものはどれか。","c":["上に吊り上げて開ける格子戸","溝に沿って横に引いて開く戸","布を掛けて垂らしただけの戸","蝶番で外へ押して開ける板戸"],"a":1,"e":"遣戸は敷居の溝をすべらせて横に引く戸で、現在の引き戸にあたる。「遣る」は押しやる意で、戸をすべらせる動きを表す。両開きの戸は妻戸、吊り上げて開けるのは蔀や格子である。"},{"g":"sumai","q":"「御簾」の読みはどれか。","c":["みす","みすだれ","ごれん","おすだれ"],"a":0,"e":"御簾は「みす」と読み、細く割った竹を編んだすだれを敬っていう語。廂と簀子の境などに掛けて、外からの視線を遮った。「御」を「ご」「お」と読んだり、「すだれ」と読んだりしないこと。"},{"g":"sumai","q":"男性が簀子に座り、女性は御簾の内側にいて、女房を介して言葉を交わしている。この場面から読み取れることとして適当なものはどれか。","c":["男性が女性の兄として迎えられている","女性が男性の訪問を拒んで追い返した","女性が男性に直接姿を見せていない","二人はすでに夫婦として暮らしている"],"a":2,"e":"身分ある女性は御簾や几帳の奥にいて、家族以外の男性にはふつう顔を見せない。取り次ぎの女房を介して話すのは、まだ親しい間柄ではないことを示す。追い返したのなら言葉を交わす場面にならない。"},{"g":"sumai","q":"「几帳（きちょう）」の説明として適当なものはどれか。","c":["台に立てた横木に布を掛けた移動式の仕切り","数枚の板をつなぎ折りたたんで立てる仕切り","竹を細く割って編み、軒先に掛けるすだれ","母屋と廂の境に垂らして壁の代わりにする布"],"a":0,"e":"几帳は土台に柱を立て、横木に帷子（かたびら）という布を垂らした仕切りで、持ち運んで女性の姿を隠すのに使った。折りたたむのは屏風、壁の代わりに垂らすのは壁代、すだれは御簾である。"},{"g":"sumai","q":"母屋と廂の境などに垂らして、壁の代わりとした布を何というか。","c":["屏風","御簾","壁代","几帳"],"a":2,"e":"壁代（かべしろ）は、壁の少ない寝殿造で、母屋と廂の境などに上から垂らして仕切りとした布。名前のとおり「壁の代わり」である。移動式の布の仕切りは几帳、竹のすだれは御簾である。"},{"g":"sumai","q":"平安時代の「障子（そうじ）」について説明したものとして適当なものはどれか。","c":["襖のように、部屋を仕切る建具を広く指した","庭と建物を仕切る、竹で編んだ垣根を指した","今と同じく、紙を貼った明かり取りの戸だけを指した","窓にかける、布を垂らした日よけを指した"],"a":0,"e":"平安時代の障子（歴史的仮名遣いは「さうじ」）は、襖障子や衝立障子など、視線や風を遮る建具を広く指した。今の紙貼りの明かり取りに限られないので、多くは「ふすま」と訳すと場面に合う。"},{"g":"sumai","q":"何枚かの面をつなぎ、折り曲げて立て、風よけや仕切りにする調度はどれか。","c":["几帳","屏風","御簾","壁代"],"a":1,"e":"屏風は数枚の面をつなぎ合わせ、折り曲げて立てる調度で、風を防ぎ部屋を仕切った。絵を描いたものも多く、その絵に添える屏風歌も詠まれた。布を台に掛けた移動式の仕切りは几帳である。"},{"g":"sumai","q":"「御帳台（みちょうだい）」の説明として適当なものはどれか。","c":["簀子に置き、客を迎えて座らせる敷物","廂に置き、衣装や道具をしまう箱","母屋に置き、帳を垂らした寝所・座所","庭に置き、月を眺めるための低い台"],"a":2,"e":"帳台は母屋の中に据えた台で、四隅の柱から帳（とばり）を垂らし、貴人の寝所や昼の座所とした。敬って御帳台という。客を座らせる敷物は円座（わらふだ）や茵（しとね）である。"},{"g":"sumai","q":"清涼殿の「昼の御座」の「御座」の読みはどれか。","c":["ござ","おまし","おまえ","みざ"],"a":1,"e":"「昼の御座」は「ひのおまし」と読み、帝が昼に座る所。「御座（おまし）」は貴人の座席や居所を敬っていう語で、物語にもよく出る。「ござ」などと字音で読まないように注意する。"},{"g":"sumai","q":"『枕草子』に「火桶の火も白き灰がちになりて」とある。「火桶（ひおけ）」とはどのようなものか。","c":["夜道を照らす、手に持つ灯り","香をたくのに使う、小さな器","湯を沸かすのに使う、鉄の釜","木をくりぬいた丸い火鉢"],"a":3,"e":"火桶は桐などの木をくりぬいて作った丸い火鉢で、持ち運びができる。『枕草子』では、冬の昼に寒さがゆるみ、火桶の火が白い灰ばかりになるのを「わろし」と評している。角形で据え置きのものは炭櫃である。"},{"g":"sumai","q":"床に据えて使う角形の大きな火鉢「炭櫃」の読みはどれか。","c":["すびつ","たんびつ","すみかご","たんき"],"a":0,"e":"炭櫃は「すびつ」と読み、床に据えて使う角形の大きな火鉢のこと。持ち運べる丸い木製の火鉢が火桶で、形と使い方で区別する。『枕草子』の雪の朝の段にも「炭櫃に火おこして」と出てくる。"},{"g":"sumai","q":"座ったときにひじを掛けて体をもたせかける道具を何というか。","c":["脇息","文机","硯箱","円座"],"a":0,"e":"脇息（きょうそく）は座った脇に置き、ひじを掛けてくつろぐための台。物語では、病気や物思いで脇息に寄りかかる姿がよく描かれる。円座（わらふだ）は敷物、文机は書き物をする机である。"},{"g":"sumai","q":"「遣水（やりみず）」の説明として適当なものはどれか。","c":["庭木に水をやるための手桶","庭に水を引き入れて流した小川","客に手を洗わせるための水差し","屋根から雨水を流すための樋"],"a":1,"e":"遣水は外から水を引き入れ、庭の中を曲がりくねって流れ池に注ぐようにした小川。「遣る」は向こうへ行かせる意で、庭木に水をやる意ではない。夏の涼しさを感じさせる景物としても描かれる。"},{"g":"sumai","q":"「前栽」の読みと意味の組み合わせとして適当なものはどれか。","c":["せんさい・縁側の鉢植え","まえざい・門前の並木","ぜんさい・門の前の畑","せんざい・庭の植え込み"],"a":3,"e":"前栽は「せんざい」と読み、寝殿の前の庭に草木を植えたところ、またその草木をいう。秋の草花を植えた前栽は物語の定番の景色である。読みの濁る位置を誤りやすいので注意する。"},{"g":"sumai","q":"「築地（ついじ）」の説明として適当なものはどれか。","c":["石を積み上げて造った、池の護岸","柴を束ねて、低く結い回した垣根","土を盛って高くした、庭の築山","土を固めて築き、屋根をかけた塀"],"a":3,"e":"築地は泥土を突き固めて築き、上に屋根をのせた塀で、屋敷の周囲を囲った。崩れた築地は、手入れのされない家の様子を表すことが多い。庭に土を盛った山は築山、柴で結った垣は柴垣である。"},{"g":"sumai","q":"板や竹を、間をすかして組んだ垣を何というか。","c":["透垣","遣戸","築地","高欄"],"a":0,"e":"透垣（すいがい）は、板や竹を間をあけて組んだ垣で、向こうが透けて見える。垣の隙間から中をのぞき見る場面にも出る。土で築いた塀は築地、簀子の手すりは高欄、横に引く戸は遣戸である。"},{"g":"sumai","q":"寝殿造の「中門（ちゅうもん）」の説明として適当なものはどれか。","c":["屋敷を囲む築地に開く正面の門","内裏の紫宸殿の南庭に開く門","寺院の本堂の裏手に設けた門","表門の内側で、中門廊に開く門"],"a":3,"e":"中門は、東西の対の屋から南へ延びる中門廊の途中に開く門で、表門を入った先にある。築地に開く外側の門は表門で、中門とは位置が違う。「中」は表門と建物の中間にある意と押さえる。"},{"g":"sumai","q":"周りを壁で塗り込めた、母屋の中の閉じた部屋を何というか。","c":["塗籠","帳台","局","廂"],"a":0,"e":"塗籠（ぬりごめ）は周囲を壁で囲った部屋で、衣装や道具を納めたり寝所にしたりした。『竹取物語』では、媼がかぐや姫を塗籠の内に抱えて守る。局は女房の部屋、帳台は帳を垂らした寝所・座所である。"},{"g":"sumai","q":"古文の「灯台（とうだい）」とは何か。","c":["門の脇に置き、客を迎えるために火をたく籠","油を入れた皿に灯心をひたし、火をともす台","軒下につるし、中にろうそくを立てる紙の灯り","岬に建てて、夜の海を行く船に光で知らせる塔"],"a":1,"e":"古文の灯台は、細い柱の上に油皿を置き、灯心に火をともした室内の照明具。現代語の海の灯台とは別物である。「灯台もと暗し」も、この灯台の足元が暗いことを言うとされる。"},{"g":"sumai","q":"宮中や貴族の邸でともす灯火「大殿油」の読みはどれか。","c":["だいでんゆ","おおとのゆ","おおとなぶら","おおどのあかり"],"a":2,"e":"大殿油は「おおとなぶら（歴史的仮名遣いは「おほとなぶら」）」と読み、宮中や貴人の家でともす灯火のこと。「大殿油まゐる」は灯火をともす意で、夜の場面によく出てくる。"},{"g":"shouzoku","q":"「束帯(そくたい)」の説明として最も適当なものはどれか。","c":["私邸でくつろぐ男性の普段着","鷹狩りに出るときの男性の略装","宮中に仕える女性の正式な装い","朝廷の儀式で着る男性の正装"],"a":3,"e":"束帯は冠をかぶり、袍や下襲などを重ねる男性貴族の最も正式な装束で、朝廷の儀式や正式な出仕に用いた。女性の正装は唐衣と裳をつける女房装束であり、狩衣や直衣は略装・日常着にあたる。"},{"g":"shouzoku","q":"もとは狩りのときの装いで、平安時代には貴族が外出や私的な場で着る略装となった装束はどれか。","c":["束帯","狩衣","衣冠","唐衣"],"a":1,"e":"狩衣(かりぎぬ)は名のとおり狩りの装いに由来し、動きやすいので貴族の外出着・略装となった。束帯と衣冠は朝廷に出仕するための装束、唐衣は女房装束のいちばん上に着る衣である。"},{"g":"shouzoku","q":"上流貴族の男性が日常に着た「直衣」の読みとして正しいものはどれか。","c":["ちょくい","のうし","じきえ","すぐぎぬ"],"a":1,"e":"直衣は「のうし」と読み、位によって色が定められた袍と違って、色の定めがゆるやかな貴族の日常着である。字面から「ちょくい」などと読みがちだが誤り。衣＝「い」「きぬ」と決めつけないことが大切である。"},{"g":"shouzoku","q":"束帯を簡略にした装束で、宮中での宿直(とのい)などにも用いられたものはどれか。","c":["衣冠","直垂","水干","狩衣"],"a":0,"e":"衣冠(いかん)は束帯から下襲などを省いた略装で、冠をかぶったまま宮中に勤められた。狩衣は外出用の略装、水干・直垂はおもに下級の者や庶民の衣服で、宮中の勤務服ではない。"},{"g":"shouzoku","q":"狩衣に似た簡素な衣服で、下級の役人や庶民、また元服前の少年などが着たものはどれか。","c":["直衣","束帯","水干","小袿"],"a":2,"e":"水干(すいかん)は狩衣を簡素にしたような衣服で、身分の低い者や童が身につけた。直衣は上流貴族の日常着、束帯は正装であり、小袿(こうちき)は高貴な女性が略式の場で着る衣である。"},{"g":"shouzoku","q":"「直垂(ひたたれ)」についての説明として最も適当なものはどれか。","c":["もとは女性の衣服で、のちに尼の衣となった","もとは僧の衣服で、のちに貴族の礼服となった","もとは童の衣服で、のちに天皇の日常着となった","もとは庶民の衣服で、のちに武士の平服となった"],"a":3,"e":"直垂は庶民の衣服に由来し、やがて武士が日常に着るようになり、時代が下ると武家の礼服にもなった。平安中期の宮廷貴族の装束ではないので、貴族の礼服や天皇の日常着とする説明は誤りである。"},{"g":"shouzoku","q":"平安時代の成人男性にとって、人前で冠や烏帽子を脱いで頭頂をあらわにすることはどう受け止められたか。","c":["ひどく恥ずかしいこと","親しみを示すよい作法","目上の人に対する礼儀","暑い季節の自然な作法"],"a":0,"e":"成人男性は冠や烏帽子をかぶるのが当然で、髻(もとどり)を人目にさらすのはきわめて恥ずかしいこととされた。くつろいだ場面でも烏帽子はかぶったままが普通で、礼儀や親しみの表現と考えるのは誤りである。"},{"g":"shouzoku","q":"朝廷の儀式で束帯を着るとき、頭にかぶるものはどれか。","c":["烏帽子","笠","頭巾","冠"],"a":3,"e":"束帯や衣冠のときは冠(かんむり)をかぶる。烏帽子(えぼし)は狩衣などの略装や日常のときにかぶるもので、儀式の正装には用いない。笠は旅などで日や雨を防ぐもので、朝廷の儀式にはふさわしくない。"},{"g":"shouzoku","q":"裾に紐を通してくくる袴で、衣冠・直衣・狩衣などと組み合わせて着るものはどれか。","c":["裳","指貫","単衣","唐衣"],"a":1,"e":"指貫(さしぬき)は裾の紐をくくってふくらませて着る男性の袴である。裳・単衣・唐衣はいずれも女房装束を構成するもので、男性の装束ではない。女房装束の部分の名と混同しないようにしたい。"},{"g":"shouzoku","q":"女房装束で、いちばん上に羽織る丈の短い上着はどれか。","c":["唐衣","裳","単衣","袿"],"a":0,"e":"唐衣(からぎぬ)は女房装束の最も外側に着る、腰ほどの丈の上着である。裳は腰の後ろに引くもの、袿(うちき)は唐衣の下に重ねる衣、単衣(ひとえ)は袿の下に着る裏のない衣で、いずれも一番上ではない。"},{"g":"shouzoku","q":"宮仕えの女房が正装するとき、腰の後ろにつけて長く裾を引くものはどれか。","c":["指貫","袿","裳","唐衣"],"a":2,"e":"裳(も)は腰から後ろへ長く引く衣で、唐衣とともに女房の正装に欠かせない。女子の成人儀礼を「裳着」と呼ぶのもこれを初めてつけるからである。指貫は男性の袴、袿は重ねて着る衣である。"},{"g":"shouzoku","q":"女房装束で、重ねた袿の下に着る裏地のない衣はどれか。","c":["単衣","唐衣","裳","小袿"],"a":0,"e":"単衣(ひとえ)は裏をつけない一重の衣で、袿を重ねる土台として下に着る。唐衣は最上の上着、裳は腰の後ろに引くもの、小袿(こうちき)は略式の場で上に着る衣であり、いずれも袿の下に着るものではない。"},{"g":"shouzoku","q":"女房装束でいう「五衣(いつつぎぬ)」の説明として最も適当なものはどれか。","c":["五色の糸で織った唐衣","袿を五枚重ねて着る形","五位の者が着る正装","端午の節句に着る衣"],"a":1,"e":"五衣は袿を五枚重ねたもので、袖口や裾に色の重なりが見える。平安中期には重ねる枚数が一定せず、のちに五枚に定まったとされる。「五位」や「五色」「五月五日」の連想から選ぶのは誤りである。"},{"g":"shouzoku","q":"「襲(かさね)の色目」とはどのようなものか。","c":["位によって決められた袍の色合い","喪に服す期間に着る衣の濃い色","衣を重ねたときの色の組み合わせ","祭りのときだけ用いる衣の色"],"a":2,"e":"襲の色目は、表地と裏地、あるいは重ねた衣の色の取り合わせで、「紅梅」「桜」など季節にちなむ名がついた。位で決まる袍の色や喪服の鈍色とは別のもので、季節に合わせて選ぶことが教養とされた。"},{"g":"shouzoku","q":"『枕草子』は興ざめなもの（すさまじきもの）の一つに「三、四月の紅梅の衣」を挙げる。その理由として最も適当なものはどれか。","c":["季節に合わない色目だから","喪中に着るべき色目だから","身分の低い者が着る色だから","男性だけが着るべき色だから"],"a":0,"e":"紅梅の色目は冬から早春にふさわしいもので、晩春から初夏にあたる陰暦三、四月に着るのは時季外れで興ざめだと感じられた。季節に合った色を選ぶことが美意識の基本であり、身分や性別の決まりの話ではない。"},{"g":"shouzoku","q":"宮中で、冬の装束から夏の装束に改める「衣更え」が行われた日はどれか（陰暦）。","c":["三月三日","五月五日","四月一日","七月七日"],"a":2,"e":"宮中の衣更えは陰暦四月一日に夏の装束へ、十月一日に冬の装束へ改めた。三月三日・五月五日・七月七日は節句にあたる日で、衣更えの日ではない。陰暦では四月から夏と数えることも合わせて覚えたい。"},{"g":"shouzoku","q":"喪服などに用いられた濃いねずみ色「鈍色」の読みとして正しいものはどれか。","c":["どんじき","おそいろ","すみいろ","にびいろ"],"a":3,"e":"鈍色は「にびいろ」と読み、喪服や尼の衣などに用いた濃いねずみ色である。「鈍」を音読みして「どん」としたり、色合いから墨色を連想したりしないこと。喪に関わる場面を読み取る手がかりになる語である。"},{"g":"shouzoku","q":"平安時代の宮廷で、女性の美しさの条件として特に重んじられたものはどれか。","c":["長くつややかな黒髪","高く結い上げた豊かな髷","日に焼けた健やかな肌","細くすらりと高い背丈"],"a":0,"e":"当時の宮廷の女性は髪を結わずに垂らしており(垂髪)、長くつややかな黒髪が美しさの第一の条件とされた。髪を高く結い上げる風俗は後世のもので、日に焼けた肌が美しいとされたわけでもない。"},{"g":"shouzoku","q":"「額髪(ひたいがみ)」の説明として最も適当なものはどれか。","c":["背中で一つに束ねた後ろの髪","出家の際に切りそろえた髪","元服の際に結い上げた男子の髪","顔の左右に垂らした前の方の髪"],"a":3,"e":"額髪は額から顔の両側に垂れる前の髪で、泣く様子を描くときに「額髪も涙に濡れて」のように用いられることが多い。後ろの髪や、出家・元服で整えた髪を指す語ではない。"},{"g":"shouzoku","q":"『堤中納言物語』の「虫めづる姫君」は、眉を抜かず、お歯黒もつけない姫として描かれる。周囲がこの姫を奇妙に思ったのはなぜか。","c":["僧の暮らしぶりをまねしているから","男性の装いを好んで身につけるから","身分の低い者とばかり親しくするから","成人女性の身だしなみに反するから"],"a":3,"e":"当時の貴族の女性は、成人すると眉を抜いて墨で描き、歯を黒く染めるのが当然の身だしなみだった。姫はそれをせず虫をかわいがったため、風変わりだとされた。僧のまねや男装が話題の中心ではない。"},{"g":"shouzoku","q":"「引眉(ひきまゆ)」の説明として最も適当なものはどれか。","c":["眉を残し、紅で目元を細く縁取ること","眉を抜き、その上方に墨で眉を描くこと","眉を描かず、白粉で額を広く見せること","眉を抜き、額に花の模様を描き入れること"],"a":1,"e":"引眉は、もとの眉を抜くなどして、額の高い位置に墨でぼかした眉を描く化粧である。お歯黒と並ぶ成人女性の身だしなみで、眉を描くことに意味がある。額に花の模様を描く化粧とも別物である。"},{"g":"shouzoku","q":"装束の話題で「蝙蝠(かわほり)」と出てきた場合、何を指すか。","c":["檜の板を綴じた扇","鳥の羽を束ねた扇","紙を張った扇","絹を張った団扇"],"a":2,"e":"蝙蝠(かわほり)は骨に紙を張った扇で、開いた形が蝙蝠の翼に似ることからの名とされ、主に夏に用いた。檜の薄板を綴じ合わせたのは檜扇(ひおうぎ)である。鳥の羽の扇や絹の団扇はこの語の指すものではない。"},{"g":"shouzoku","q":"貴族の女性が、人と対面するときに扇で顔を隠したのはなぜか。","c":["扇の絵柄を相手に見せるのが作法だったから","日差しで肌が焼けるのを防ぐためだったから","顔を人に見せないのがたしなみだったから","化粧をしていないのを隠すためだったから"],"a":2,"e":"高貴な女性は親族以外の男性に顔を見せないのが普通で、御簾や几帳の奥にいて、近くでは扇で顔を隠した。垣間見が恋の始まりになるのもこのためである。日焼けや化粧の有無を気にした行為として説明するのは誤りである。"},{"g":"shouzoku","q":"香料を練り合わせて火でくゆらせ、衣服などに香りをしみこませるもの「薫物」の読みはどれか。","c":["たきもの","くんぶつ","かおりもの","ねりもの"],"a":0,"e":"薫物は「たきもの」と読み、何種類もの香料を練り合わせて作った。香の調合には人柄やセンスがあらわれるとされ、衣に焚きしめた香りは身だしなみの一部であった。音読みの「くんぶつ」とは読まない。"},{"g":"shouzoku","q":"古文で「移り香」とあるとき、その意味として最も適当なものはどれか。","c":["季節が移るとともに変わる花の香り","人や物から他に移って残った香り","遠くから風で運ばれてくる香の煙","古くなって薄れてしまった衣の香り"],"a":1,"e":"移り香は、ある人の衣にたきしめた香りが、その人が触れた物や別の人の衣に移って残ったものである。そこから誰がいたか、誰と会ったかが知られる場面がよく描かれる。季節の移ろいや風に運ばれる香りを指す語ではない。"},{"g":"shouzoku","q":"『伊勢物語』初段の「昔、男、初冠して」の「初冠(ういこうぶり)」とは何か。","c":["男子が初めて宮中に出仕するときの儀式","男子が成人して初めて冠をつける儀式","新年に初めて冠を新しくする年中行事","初めて位を授かって冠を賜る儀式"],"a":1,"e":"初冠は男子の成人儀礼である元服のことで、童の髪型を改めて髻を結い、初めて冠をつける。宮中への出仕や位を授かることとは別の儀式である。初段は元服したばかりの男が春日の里へ出かける話である。"},{"g":"shouzoku","q":"貴族の女子が成人したことを示すため、初めて裳をつける儀式を何というか。","c":["裳着","元服","袴着","得度"],"a":0,"e":"裳着(もぎ)は女子の成人儀礼で、初めて裳を腰につけた。元服は男子の成人儀礼、袴着(はかまぎ)は幼児が初めて袴をつける祝い、得度(とくど)は出家して僧尼になることで、いずれも女子の成人の儀式ではない。"},{"g":"shouzoku","q":"容姿を評する語「きよら」の説明として最も適当なものはどれか。","c":["若々しくて、かわいらしく愛らしい","気品があり華やかで、この上なく美しい","地味だが、落ち着いていて感じがよい","こざっぱりとして、見苦しくない程度に美しい"],"a":1,"e":"「きよら」は第一級の、輝くような気品ある美しさを表し、帝や光源氏など最高の人物に用いられる。よく似た「きよげ」は、さっぱりとしてきれいだという一段下の美しさを表すので、区別して読み取る必要がある。"},{"g":"shouzoku","q":"「あてなる女」の「あてなる」の意味として最も適当なものはどれか。","c":["当てにできる","年若く幼い","気の強い","上品で高貴な"],"a":3,"e":"「あてなり」は身分が高い、また上品で優美だという意味の形容動詞である。現代語の「当てにする」と結びつけて「頼りになる」と訳すのは誤り。反対に身分が低く品のない様子は「いやし」などで表す。"},{"g":"shouzoku","q":"「かたちよき人」の「かたち」の意味として最も適当なものはどれか。","c":["心がけ","家柄","顔立ち","筆跡"],"a":2,"e":"古文の「かたち」は多く顔立ち・容貌を指し、「かたちよし」で顔立ちが美しいという意味になる。心の様子は「心ばへ」、家柄は「品」「際(きは)」、筆跡は「手」で表すことが多い。現代語の「形」と同じに考えないこと。"},{"g":"ren-ai","q":"「音に聞く姫君」の「音に聞く」の意味として最も適当なものはどれか。","c":["楽の音で知る","声だけを聞く","名前を呼ぶ","うわさに聞く"],"a":3,"e":"「音(おと)に聞く」は、うわさや評判として聞き知るという意味である。当時の男性は、姿を見ることのできない姫君の美しさや人柄をまず噂で知り、心を寄せた。楽器の音色や声を直接聞くことを表す語ではない。"},{"g":"ren-ai","q":"物のすきまから、ひそかに相手の姿をのぞき見ることを表す語はどれか。","c":["物見","垣間見","見参","後見"],"a":1,"e":"垣間見(かいまみ)は、垣根や簾・几帳のすきまから人をこっそり見ることで、男性が姫君を初めて見て恋心を抱くきっかけとして描かれる。物見は見物、見参(げんざん)は対面すること、後見(うしろみ)は世話をする人である。"},{"g":"ren-ai","q":"「懸想文(けそうぶみ)」とはどのような手紙か。","c":["病気を見舞う手紙","恋心を伝える手紙","出家を告げる手紙","季節を祝う手紙"],"a":1,"e":"「懸想(けそう)」は異性に思いをかけることで、懸想文は恋文のことである。当時は恋心を和歌にして紙に書き、女房などを通じて届けるのが普通だった。見舞いや季節の挨拶の手紙はこうは呼ばない。"},{"g":"ren-ai","q":"身分の高い姫君が初めて懸想文を受け取ったとき、その返事についての説明として最も適当なものはどれか。","c":["姫君が必ず自筆で即日返すきまりだった","母や女房が代わりに書くことがあった","父親が使者に口頭で断るきまりだった","返事は出さず歌だけを書き写させた"],"a":1,"e":"初めての懸想文にいきなり本人が自筆で返事をするのは軽々しいとされ、母親や仕える女房が代筆することがあった。やりとりが進んで本人の筆跡の返事が届けば、心を許しはじめたしるしとも受け取られた。"},{"g":"ren-ai","q":"男性が姫君に恋文を届けたり、姫君への取り次ぎを頼んだりするとき、主に仲立ちとなったのはだれか。","c":["姫君に仕える女房","近所に住む商人","宮中の蔵人の役人","寺の僧侶や験者"],"a":0,"e":"高貴な姫君は直接男性と会わないため、そば近くに仕える女房が手紙を取り次ぎ、手引きをした。女房を味方につけることが恋の成否を左右したのである。蔵人は天皇の側近の役人、験者は祈祷をする僧で、恋の仲立ちの役ではない。"},{"g":"ren-ai","q":"「男、女に逢ひにけり」の「逢ふ」の意味として最も適当なものはどれか。","c":["男女の契りを結ぶ","道で偶然出会う","手紙をやりとりする","和歌を詠み交わす"],"a":0,"e":"恋愛の文脈の「逢ふ」は、単に顔を合わせることではなく、男女が一夜をともにし契りを結ぶことを表す。手紙や歌のやりとりはその前の段階であり、「逢ふ」まで至ったかどうかが物語の大きな分かれ目になる。"},{"g":"ren-ai","q":"「この女をこそ見め」の「見る」の意味として最も適当なものはどれか。","c":["妻とする","見舞う","見物する","監視する"],"a":0,"e":"古文の「見る」は、男女の関係では「妻とする・夫婦として暮らす」の意味になる。「見め」は「妻にしよう」という男の意志を表す。見舞う・見物するなど現代語に近い意味にとると、場面の人間関係を読み違える。"},{"g":"ren-ai","q":"「契る」が恋愛の場面で用いられたときの意味として最も適当なものはどれか。","c":["手紙を細かく千切って捨ててしまう","将来を約束し、夫婦の縁を結ぶ","相手の家へ贈り物を届けさせる","恋人との仲を人に言いふらす"],"a":1,"e":"「契る」は約束すること、特に男女が将来を誓い、夫婦の縁を結ぶことを表す。「前世の契り」のように前世からの因縁の意味にも用いる。同じ音の「千切る」と取り違えないよう、文脈から恋の約束かどうかを見きわめる。"},{"g":"ren-ai","q":"平安時代の貴族の結婚で一般的だった、夫が妻の家に通う形を何というか。","c":["嫁入り婚","見合い婚","通い婚","神前婚"],"a":2,"e":"平安貴族の結婚は、夫が夜に妻の家へ通う通い婚(妻問い婚)が基本で、妻は実家に住み続けることが多かった。妻が夫の家に移る嫁入り婚が一般化するのは後の時代であり、見合いや神前式も当時の形ではない。"},{"g":"ren-ai","q":"通い婚が一般的だった平安貴族の家庭で、生まれた子が主に育てられた場所として最も適当なものはどれか。","c":["父方の家","寺院","母方の家","宮中"],"a":2,"e":"妻は実家に住み、夫がそこへ通うため、子どもは母方の家で育つことが多く、母方の祖父の後ろ盾が重要になった。藤原氏が娘を天皇に嫁がせ、生まれた皇子の外戚として力をもったのもこの仕組みと関わる。"},{"g":"ren-ai","q":"男女が共寝をした翌朝の別れを表す「後朝」の読みとして正しいものはどれか。","c":["ごちょう","のちのあさ","きぬぎぬ","あとあさ"],"a":2,"e":"後朝は「きぬぎぬ」と読む。重ねて掛けていた互いの衣(きぬ)を、それぞれが着て別れることに由来するとされる。字面どおりに音読みや訓読みをすると誤る、代表的な読みの問題である。"},{"g":"ren-ai","q":"男が女のもとから帰っていくのは、ふつうどのような時刻か。","c":["夜明け前のまだ暗い暁","日が高くのぼった昼前","人々が集まる夕暮れ時","月が出たばかりの宵"],"a":0,"e":"男は夜に女のもとを訪れ、人目につかないよう、夜明け前のまだ暗い暁(あかつき)のうちに帰った。そのため暁は恋人たちの別れのつらさを詠む時間となる。明るくなってから帰れば人目につき、うわさの種になる。"},{"g":"ren-ai","q":"男が女のもとから帰ったあとに送る「後朝の文」について、最も適当な説明はどれか。","c":["遅く届くほど奥ゆかしいとされた","女から先に送るのが礼儀とされた","早く届くほど誠意があるとされた","人に託さず自ら届けるのが礼とされた"],"a":2,"e":"後朝の文は、共寝の翌朝に男が帰宅してすぐ送る、歌を添えた手紙で、早く届くほど女への思いが深いと受け取られた。遅れたり届かなかったりすると、女側は男の心の浅さを嘆いた。ふつう男から使者に届けさせる。"},{"g":"ren-ai","q":"男が女のもとに通いはじめて三日目の夜に、二人が食べて結婚の成立を示したものは何か。","c":["七草の粥","三日夜の餅","亥の子餅","千歳飴"],"a":1,"e":"三日夜の餅(みかよのもちい)は、男が三晩続けて通ったあと、三日目の夜に夫婦で食べる祝いの餅で、これで結婚が正式に認められた。七草粥は正月七日の行事、亥の子餅は十月の亥の日の行事で、結婚とは関係がない。"},{"g":"ren-ai","q":"結婚を周囲に公表し、妻の家で婿を披露する祝宴「露顕」の読みとして正しいものはどれか。","c":["ろうけん","つゆあらわし","よあらわし","ところあらわし"],"a":3,"e":"露顕は「ところあらわし」と読み、三日夜の餅と同じころに妻の家で行われる、婿を親族に披露するための宴である。それまで秘密だった二人の関係が公になる。「露」の字の音読みや「つゆ」という訓に引きずられないこと。"},{"g":"ren-ai","q":"平安貴族の結婚で、妻の家が婿に対して行ったことの説明として最も適当なものはどれか。","c":["婿を自分の家の養子として迎えた","婿の装束などを整えて世話をした","婿に家の財産をすべて譲った","婿の出仕を禁じて家に留めた"],"a":1,"e":"妻の家は婿を迎え入れ、装束を調えるなど暮らしを支え、妻の実家の力は婿にとって大きな後ろ盾になった。ただし婿は妻の家の養子になるわけではなく、財産をすべて譲られたり出仕を禁じられたりもしない。"},{"g":"ren-ai","q":"複数の妻をもつことがあった平安貴族の社会で、正妻を指す呼び名はどれか。","c":["北の方","御達","乳母","上臈"],"a":0,"e":"北の方(きたのかた)は貴族の正妻を敬っていう語で、寝殿造の北の対に住んだことに由来するとされる。御達(ごたち)は仕える女房たち、乳母(めのと)は養育係、上臈(じょうろう)は身分の高い女房のことで、妻の呼び名ではない。"},{"g":"ren-ai","q":"恋の歌で「秋」という語に掛けて、恋人の心が離れていく意味を表す語はどれか。","c":["明き","空き","諦め","飽き"],"a":3,"e":"和歌では「秋」に「飽き」を掛け、相手が自分に飽きて心変わりすることを嘆く表現がよく見られる。季節が冷えていくことと恋が冷めることが重ねられている。「明き」「空き」は同じ音でも恋の心変わりの意味にはならない。"},{"g":"ren-ai","q":"和歌で「枯る」と同じ音を利用して、訪れが絶え、人との仲が疎遠になることを表す語はどれか。","c":["借る","刈る","離る","狩る"],"a":2,"e":"「離る(かる)」は、離れる・疎遠になるという意味で、草木が「枯る」ことと掛けて、訪れる人がいなくなるさびしさを詠む。恋の歌では男の通いが絶えることを表す。借る・刈る・狩るは同音でもこの意味にはならない。"},{"g":"ren-ai","q":"「夜離れ」の読みと意味の組み合わせとして正しいものはどれか。","c":["よばなれ―女が夜更けにそっと家を抜け出すこと","やばなれ―夜ごとに住まいを移し替えること","よわかれ―夜のうちに恋人と別れること","よがれ―男が女のもとに通わなくなること"],"a":3,"e":"夜離れ(よがれ)は、男が女のもとへ夜に通ってこなくなることで、通い婚では愛情が冷めたことを意味した。女は待つしかない立場だったため、夜離れを嘆く歌が多く詠まれた。「離る(かる)」が濁って「がれ」となった語である。"},{"g":"ren-ai","q":"恋文を送るとき、手紙をどのようにして届けることが風流とされたか。","c":["季節の花や木の枝に結びつけた","封をせず開いたまま渡した","何通もまとめて箱に入れた","文字を消えるように薄く書いた"],"a":0,"e":"当時は、手紙を梅や桜、紅葉など季節の花や木の枝に結びつけて届けることが多く、枝の選び方にも送り手の心づかいがあらわれた。封をせず渡したり、何通もまとめて箱に入れたりするのが風流とされたわけではない。"},{"g":"ren-ai","q":"懸想文を受け取った女性側は、手紙のどのような点から相手の人柄や教養を推し量ったか。","c":["使者の年齢や身につけた装束","手紙の枚数と一字一字の大きさ","届いた日の暦の吉凶と天気","筆跡や紙の選び方、歌の出来"],"a":3,"e":"直接会えない相手を知る手がかりは手紙そのものであり、筆跡(手)の美しさ、季節や内容に合った紙の色、歌の巧みさが教養や人柄を示すものとして重視された。使者の年齢や手紙の枚数で判断したわけではない。"},{"g":"ren-ai","q":"恋が始まるまでの一般的な流れとして、最も適当な順序はどれか。","c":["懸想文を送る→噂を聞く→返歌→垣間見る","垣間見る→返歌→噂を聞く→懸想文を送る","噂を聞く→垣間見る→懸想文を送る→返歌","返歌→懸想文を送る→垣間見る→噂を聞く"],"a":2,"e":"男はまず姫君の評判を噂で聞き、機会を得て垣間見し、心ひかれて和歌を添えた懸想文を送る。女側から返歌が届けば、やりとりが続いて関係が深まっていく。返歌は相手の歌を受けて詠むものなので、懸想文より先には来ない。"},{"g":"ren-ai","q":"『竹取物語』で、かぐや姫に心を寄せる男たちが「よばひ」をする場面がある。この「よばふ」の意味として最も適当なものはどれか。","c":["悪口を言う","求婚する","大声で騒ぐ","名を名乗る"],"a":1,"e":"「よばふ」は「呼ぶ」に反復・継続の「ふ」がついた語で、繰り返し呼びかけることから、言い寄る・求婚するの意味になった。『竹取物語』では「夜這ひ」と掛けたしゃれも見えるが、基本の意味は求婚である。"},{"g":"ren-ai","q":"「男、その女のもとに住みけり」の「住む」の意味として最も適当なものはどれか。","c":["召使いとして屋敷に仕える","客として一晩だけ泊まる","夫として妻のもとに通う","隠れて身をひそめる"],"a":2,"e":"古文の「住む」は、恋愛・結婚の文脈では、男が女のもとへ夫として通い続ける、夫婦として暮らすという意味になる。通い婚の社会なので、同じ家に住み続けることを必ずしも表さない。召使いや旅の客の意味ではない。"},{"g":"ren-ai","q":"「男の心ざしいと深し」の「心ざし」の意味として最も適当なものはどれか。","c":["疑い","悪意","好奇心","愛情"],"a":3,"e":"「心ざし」は心の向かう方向を表し、恋愛や夫婦の場面では相手への愛情・誠意を意味する。「心ざし深し」は愛情が深いということ。お礼の贈り物の意味もあるが、この文では「深し」と結びつくので愛情と読む。"},{"g":"ren-ai","q":"『伊勢物語』「筒井筒」で、ほかの女のもとへ出かける夫を送り出した妻は「風吹けば沖つ白波たつた山夜半にや君がひとり越ゆらむ」と詠んだ。この歌にこめられた妻の心情として最も適当なものはどれか。","c":["夜の山道を越える夫の身を案じる","夫の心変わりを責め、別れを告げる","夫の新しい相手をうらやみ、ねたむ","夫の帰りが遅いことにあきれる"],"a":0,"e":"妻は、夫がほかの女のもとへ通うと知りながら嫉妬の様子を見せず、夜中に竜田山を一人で越える夫の身を案じて歌を詠んだ。これを陰で聞いた男は妻をいとしく思い、河内の女のもとへ通わなくなった。"},{"g":"ren-ai","q":"古文の「色好み」の説明として最も適当なものはどれか。","c":["派手な色の衣服を好んで着る人","絵の具で色を塗る技にすぐれた人","季節の花の色を愛でる風流な人","恋愛の情趣を解し、恋に通じた人"],"a":3,"e":"「色好み」は恋愛の情趣に通じ、恋のやりとりや和歌にたけた人を指し、在原業平はその代表とされる。必ずしも悪い意味ではなく、風雅な人物の資質として語られることも多い。衣服や絵の具の色とは関係がない。"},{"g":"ren-ai","q":"「御消息聞こえたまふ」の「消息(しょうそこ)」の意味として最も適当なものはどれか。","c":["手紙","行方","噂話","病状"],"a":0,"e":"古文の「消息」は手紙や、訪問を取り次いでもらう伝言のことで、「御消息聞こえたまふ」は手紙を差し上げなさるの意味。現代語の「消息不明」のように安否や行方の意味にとると誤る。恋のやりとりの場面でも頻出の語である。"},{"g":"ren-ai","q":"『蜻蛉日記』の作者が日記の中で嘆き続けたこととして、最も適当なものはどれか。","c":["夫が出家してしまったこと","夫の訪れが絶えがちなこと","夫が遠い国へ赴任したこと","夫が病で亡くなったこと"],"a":1,"e":"『蜻蛉日記』の作者(藤原道綱母)は藤原兼家の妻の一人で、夫がほかの女性のもとへ通い、自分への訪れが途絶えがちになる苦しみを書きつづった。一夫多妻と通い婚の中で、待つ側の女性の心がよくあらわれた作品である。"},{"g":"shi-yamai","q":"平安時代の人々が、重い病や長引く病の原因としてしばしば考えたものはどれか。","c":["細菌やウイルス","物の怪のしわざ","栄養の偏り","遺伝による体質"],"a":1,"e":"当時は、重い病や出産の苦しみの原因を、人に取りついた物の怪(もののけ)、つまり生霊・死霊などのしわざと考えることが多かった。そのため僧による祈祷が重んじられた。細菌や栄養といった考え方は近代以降のものである。"},{"g":"shi-yamai","q":"僧が経や真言を唱え、仏の力によって病や災いを取り除こうとする「加持祈祷」の読みはどれか。","c":["かちきとう","かじきどう","かじきとう","かもちいのり"],"a":2,"e":"加持祈祷は「かじきとう」と読む。加持は仏の力を加えて守ること、祈祷は神仏に祈ることで、病人の枕もとで僧が行う場面が多く描かれる。「持」を「ち」、「祷」を「どう」と読み誤りやすいので注意する。"},{"g":"shi-yamai","q":"物の怪を退けるために祈祷を行い、その効き目（験）をあらわす修行を積んだ僧を何というか。","c":["陰陽師","薬師","蔵人","験者"],"a":3,"e":"験者(げんざ)は、修行を積み、祈祷によって験(しるし＝効き目)をあらわす僧で、物の怪退治に呼ばれた。陰陽師は占いや祓えを行う役人で僧ではない。薬師(くすし)は医者、蔵人は天皇の側近の役人である。"},{"g":"shi-yamai","q":"「修法(ずほう)」の説明として最も適当なものはどれか。","c":["陰陽師が方角を占って行う祓え","医師が薬草を調合して行う治療","貴族が写経をして行う供養","密教の僧が壇を設けて行う祈祷"],"a":3,"e":"修法は、密教の作法にしたがって僧が壇を設け、護摩を焚くなどして病気平癒や安産を祈る祈祷である。陰陽師の祓えや医師の治療とは別のものである。読みは「ずほう」で、字面から「しゅうほう」などと読まないよう注意する。"},{"g":"shi-yamai","q":"祈祷の場で、病人に取りついた物の怪を一時的に乗り移らせるために置かれた者を何というか。","c":["よりまし","うしろみ","めのと","ずりょう"],"a":0,"e":"よりまし(憑坐)は、験者の祈祷によって物の怪を病人から移し、その口を通して物の怪に名のらせたりするための者で、童や女房が務めた。うしろみは世話役、めのとは乳母、ずりょう(受領)は国司のことである。"},{"g":"shi-yamai","q":"『源氏物語』で、出産を控えた葵の上を苦しめた物の怪は、だれの生霊として描かれているか。","c":["紫の上","明石の君","朧月夜","六条御息所"],"a":3,"e":"葵の上を苦しめたのは、光源氏の愛人である六条御息所の生霊だった。車争いで葵の上側に辱められたことを深く恨み、その思いから魂が身を離れたとされる。紫の上・明石の君・朧月夜はこの場面の物の怪ではない。"},{"g":"shi-yamai","q":"古文で「くすし」とあるとき、指している人物として最も適当なものはどれか。","c":["祈祷僧","占い師","医者","薬売り"],"a":2,"e":"「くすし」は「薬(くすり)」と関わる語で、薬師・医師と書き、医者を指す。当時も薬による治療は行われたが、重い病では物の怪を疑って験者の祈祷に頼ることが多かった。祈祷をする僧や占い師を指す語ではない。"},{"g":"shi-yamai","q":"「御心地例ならずおはします」の「例ならず」の意味として最も適当なものはどれか。","c":["いつもより機嫌がよい","病気で具合が悪い","めずらしく早起きだ","例をあげて話さない"],"a":1,"e":"「例ならず」は「いつもと違う」の意味で、体調について用いると、ふだんと違って具合が悪い、病気だという意味になる。「御心地」は気分・体調のこと。「例」を現代語の「例をあげる」の意味にとらないこと。"},{"g":"shi-yamai","q":"「わづらふ」が体の状態について用いられたときの意味として最も適当なものはどれか。","c":["元気を取り戻す","ひどく年老いる","病気で苦しむ","空腹に苦しむ"],"a":2,"e":"「わづらふ」は、思い悩む・苦しむという意味から、体について用いると病気になる・病気で苦しむという意味になる。名詞の「わづらひ」も病気のこと。現代語の「思いわずらう」の印象だけで心の悩みに限定しないこと。"},{"g":"shi-yamai","q":"人の死に触れた者が、一定期間、宮中への出仕を控えて慎んだのはなぜか。","c":["病がうつるのを医師が固く禁じたから","死の穢れが人に移ると考えたから","悲しみのあまり仕事が手につかないから","出家の準備を整える必要があったから"],"a":1,"e":"死は穢れ(死穢)とされ、触れた者はその穢れを他人や神事に及ぼすと考えられたため、一定の日数、出仕や参詣を控えて慎んだ。医学的な感染の考えや個人の悲しみから出た習慣ではなく、宗教的な禁忌である。"},{"g":"shi-yamai","q":"凶事を避けるため、一定期間家にこもって外出や来客を慎むことを何というか。","c":["方違へ","物忌み","参籠","行幸"],"a":1,"e":"物忌み(ものいみ)は、悪い夢を見たときや穢れに触れたときなどに、家にこもって身を慎むことである。方違へは凶の方角を避けて別の所に泊まること、参籠は寺社にこもって祈ること、行幸は天皇の外出である。"},{"g":"shi-yamai","q":"和歌や物語で喪服を指して用いられる語はどれか。","c":["藤衣","唐衣","狩衣","羽衣"],"a":0,"e":"藤衣(ふじごろも)は、もと藤などの繊維で織った粗末な衣のことで、そこから喪服を指す語として用いられた。唐衣は女房装束の上着、狩衣は男性の略装、羽衣は天人がまとう衣で、いずれも喪服ではない。"},{"g":"shi-yamai","q":"仏教で、人が死んでから次の生を受けるまでの四十九日間を何というか。","c":["彼岸","盂蘭盆","中陰","初七日"],"a":2,"e":"中陰(ちゅういん)は死後四十九日間のことで、中有(ちゅうう)ともいう。この間、七日ごとに法事を営み、四十九日で区切りとした。初七日は最初の七日目の法事、彼岸や盂蘭盆は季節の仏事で、この期間の名ではない。"},{"g":"shi-yamai","q":"人の死のあとの場面で「のちのわざ」と書かれているとき、その意味として最も適当なものはどれか。","c":["死後に営む法事","後世に残る名作","翌日に回す仕事","子孫に伝える技芸"],"a":0,"e":"「わざ」には行い・仏事という意味があり、「のちのわざ」は人の死後に営む法事・供養を指す。四十九日などの仏事の場面で用いられる。「わざ」を現代語の「技」と取ったり、「のち」を翌日や子孫と取ったりすると誤る。"},{"g":"shi-yamai","q":"『徒然草』に「鳥部山の煙」とも見える、京の東山のふもとにあった「鳥辺野(とりべの)」はどのような場所か。","c":["花見の名所","鷹狩りの場","葬送の地","市の立つ所"],"a":2,"e":"鳥辺野は京の東山のふもとにあった葬送の地で、火葬の煙が立ちのぼる所として無常を象徴する地名になった。『徒然草』は化野(あだしの)と並べて命のはかなさを述べる。花見や狩り、市の場所として知られたわけではない。"},{"g":"shi-yamai","q":"古文で、亡くなった人について「煙となる」と表現されるとき、それが指すこととして最も適当なものはどれか。","c":["火葬されること","行方をくらますこと","出家すること","病が治ること"],"a":0,"e":"平安貴族の葬送では火葬が多く行われ、立ちのぼる煙が亡き人の姿と重ねられた。「煙となる」は火葬されること、つまり死を表す。姿を消す・逃げるの意味にとったり、出家と混同したりしないこと。"},{"g":"shi-yamai","q":"次のうち、「出家する」という意味にならない表現はどれか。","c":["世を背く","世に出づ","かたちを変ふ","御髪下ろす"],"a":1,"e":"「世を背く」「かたちを変ふ(様を変ふ)」「御髪下ろす」はいずれも俗世を離れて出家することを表す。髪を切り、墨染めの衣を着て姿が変わるからである。「世に出づ」は世間に出て認められる、出世するという意味である。"},{"g":"shi-yamai","q":"出家を思い立った人にとっての「ほだし」とは何か。","c":["出家の儀式で授けられる仏弟子の名","出家の際に寺へ納めるための財物","出家の妨げとなる妻子などへの情","出家の後に身につける墨染めの衣"],"a":2,"e":"「ほだし」はもと馬の足をつなぐ綱のことで、そこから人の自由をしばるもの、特に出家を妨げる妻子や親への愛着を指す。物語では、世を背きたいと思いながら、幼い子などがほだしとなって出家できない人物がよく描かれる。"},{"g":"shi-yamai","q":"出家して仏道に入った人を指して用いられる語はどれか。","c":["上達部","入道","殿上人","受領"],"a":1,"e":"入道(にゅうどう)は仏道に入った人、つまり出家した人のことで、「入道殿」などと用いる。上達部(かんだちめ)は三位以上などの上級貴族、殿上人は清涼殿の殿上の間に昇ることを許された人、受領は国司である。"},{"g":"shi-yamai","q":"女性が出家するとき、長い髪を肩や背のあたりで切りそろえた髪型を何というか。","c":["垂髪","髪上げ","額髪","尼削ぎ"],"a":3,"e":"尼削ぎ(あまそぎ)は、出家した女性が長い髪を肩や背のあたりで切りそろえた髪型である。美の条件だった長い黒髪を切ることは、世俗を捨てる決意の表れだった。垂髪は長く垂らした髪、髪上げは成人の際に髪を結い上げることである。"},{"g":"shi-yamai","q":"出家に際して、仏弟子として守るべき戒めを授かることを何というか。","c":["受戒","受領","元服","禊"],"a":0,"e":"受戒(じゅかい)は仏の定めた戒律を授かることで、これによって正式に仏弟子となる。受領は国司、元服は男子の成人儀礼、禊(みそぎ)は水で身の穢れを清める行いで、いずれも出家の儀式ではない。"},{"g":"shi-yamai","q":"平安時代の貴族が出家を願った主な理由として最も適当なものはどれか。","c":["現世の執着を断ち、極楽往生を願うため","寺の役職に就き、政治の実権を握るため","重い税から逃れ、財産を子孫に残すため","仏典の学問を深め、漢詩の名人となるため"],"a":0,"e":"当時の仏教では、この世ははかなく、執着を捨てて仏道に励めば死後に極楽浄土へ生まれ変われると考えられた。病や老い、愛する人の死などをきっかけに出家を望む人が多かった。政治の実権や税、学問を目的とする説明は誤りである。"},{"g":"shi-yamai","q":"「はかなくなりたまひぬ」の「はかなくなる」の意味として最も適当なものはどれか。","c":["気を失う","亡くなる","心細くなる","落ちぶれる"],"a":1,"e":"「はかなくなる」は、命がはかなく消えることから、死ぬことを遠回しにいう婉曲表現で、物語では身分ある人の死によく用いる。形容詞「はかなし」の意味から、心細くなる・頼りなくなると訳すと誤る。"},{"g":"shi-yamai","q":"「つひにいたづらになりにけり」の「いたづらになる」が人について用いられた場合の意味として最も適当なものはどれか。","c":["いたずらをする","悪人になる","出世する","死ぬ"],"a":3,"e":"「いたづらなり」は無駄だ・むなしいという意味で、「いたづらになる」は人について用いると、命がむなしくなる、つまり死ぬことを表す。物についてなら役に立たなくなる意味にもなる。現代語の「いたずら」とは意味が大きく異なる。"},{"g":"shi-yamai","q":"「帝、隠れさせたまひぬ」の「隠る」の意味として最も適当なものはどれか。","c":["退位する","身を隠す","旅に出る","亡くなる"],"a":3,"e":"高貴な人について「隠る」「隠れさせたまふ」とあれば、この世から姿を隠す、つまり亡くなるという意味の婉曲表現である。「させたまふ」は最高敬語で帝への敬意を表す。天皇の退位は「下りゐる」などで表し、区別する。"},{"g":"shi-yamai","q":"次のうち、「死ぬ」の意味を表さない語はどれか。","c":["おこたる","失す","むなしくなる","みまかる"],"a":0,"e":"「おこたる」は古文では、病気がよくなる・快方に向かうという意味で、死とは反対の状態を表す。「失す」「むなしくなる」「みまかる」はいずれも人が死ぬことを表す語である。現代語の「怠る」と混同しないように注意する。"},{"g":"shi-yamai","q":"『方丈記』の冒頭「ゆく河の流れは絶えずして、しかももとの水にあらず」に込められた考え方として最も適当なものはどれか。","c":["自然の営みはいつまでも変わることがない","人の努力しだいで、運命は必ず変えられる","川の水は清らかさをいつまでも保っている","万物は移り変わり、とどまることがない"],"a":3,"e":"川の流れは絶えないが水はたえず入れ替わっていると述べ、世の中の人や住まいも同じようにはかなく移り変わると続く。これが仏教にもとづく無常観である。自然の不変や、運命を変える力を説いた文ではない。"},{"g":"shi-yamai","q":"「後世(ごせ)を願ふ」の「後世」の意味として最も適当なものはどれか。","c":["死後に生まれ変わる世","子や孫が生きていく時代","年老いてからの残りの人生","政権が代わった後の世の中"],"a":0,"e":"「ごせ」と読む「後世」は仏教語で、死後に生まれ変わる世、来世を指す。「後世を願ふ」は来世で極楽に往生することを願うという意味になる。「こうせい」と読んで後の時代を表す場合とは別であり、読みと文脈で区別する。"},{"g":"shi-yamai","q":"浄土信仰にもとづき、臨終の人が西に向かって念仏を唱えたのは、どこに生まれ変わることを願ったからか。","c":["海の底にある竜宮","阿弥陀仏の極楽浄土","閻魔王の支配する冥途","月の都にある天上界"],"a":1,"e":"極楽浄土は阿弥陀仏の住む世界で、はるか西方にあると説かれた。そのため臨終には西に向かい、阿弥陀仏の名を唱えて往生を願った。冥途は死後にさまよう暗い世界、月の都は『竹取物語』の天人の住む所で、往生の願いの対象ではない。"},{"g":"shi-yamai","q":"『源氏物語』で、妻の葵の上を亡くした光源氏は「限りあれば薄墨衣浅けれど」と詠む。このとき源氏の喪服の色が薄いのはなぜか。","c":["妻への愛情がもともと浅いものだったから","悲しみを人に見せないように装ったから","喪服の濃さは続柄で決まっていたから","夏の暑さのせいで濃い色の衣を避けたから"],"a":2,"e":"喪服の色の濃さは故人との続柄による喪の軽重で決まり、妻の喪では薄い色を着るのが決まりだった。「限りあれば」はその決まりを指す。源氏は、衣の色は浅くとも涙は袖を深い淵にするほどだと悲しみの深さを詠んでいる。"},{"g":"shinkou","q":"「物忌（ものいみ）」の説明として最も適切なものはどれか。","c":["凶の方角を避けるため、前夜に別の家へ移って泊まること","凶事を避けるため、家にこもって外出や来客を控えること","願いをかなえるため、寺社に何日もこもって祈り続けること","罪を除くため、川辺で水を浴びて身を洗い清めること"],"a":1,"e":"物忌は陰陽道で凶とされる日などに、家にこもって外出や面会を避け、身を慎むこと。方角を変えて泊まるのは方違へ、寺社にこもるのは参籠、水で身を清めるのは禊で、いずれも別の語である。"},{"g":"shinkou","q":"行こうとする方角に天一神などがいるため、その方角へ向かうことが凶となっている状態を何というか。","c":["方違へ","物忌","方塞がり","触穢"],"a":2,"e":"神のいる方角へ向かうのが凶となる状態を「方塞がり（かたふたがり）」という。それを避けるために一度別の方角の家へ移るのが「方違へ」で、状態と対処を取り違えないこと。触穢は穢れに触れること。"},{"g":"shinkou","q":"「方違へ」の読みとして正しいものはどれか。","c":["ほうちがへ","かたちがへ","はうたがへ","かたたがへ"],"a":3,"e":"「方違へ」は「かたたがへ」と読む。「方」は方角の意で「かた」、「違ふ」は「たがふ」と読む。音読みの「はう」や、現代語の「ちがふ」と混ぜた読み方は誤り。"},{"g":"shinkou","q":"「今夜は内裏から左大臣邸への方角が塞がっている」と言われ、光源氏はいったん紀伊守の邸に泊まることになった（『源氏物語』帚木巻）。この行為を何というか。","c":["物忌","参籠","方違へ","宿直"],"a":2,"e":"方角の悪さを避けて別の家に泊まり、方角を変えてから目的地へ向かうのが方違へ。この場面が空蝉との出会いにつながる。宿直（とのゐ）は宮中などに泊まって勤務すること、参籠は寺社にこもることで別。"},{"g":"shinkou","q":"方角を巡って吉凶を左右するとされた「天一神」は、ふつう何と読むか。","c":["なかがみ","あまつかみ","ひとつがみ","うぢがみ"],"a":0,"e":"天一神は「なかがみ」と読み（「てんいちじん」とも）、一定の日数ごとに方角を移って巡る神とされた。その方角へ向かうのを避けるのが方違へ。「あまつかみ」は天の神一般、「うぢがみ」は一族の守り神。"},{"g":"shinkou","q":"平安時代の陰陽師が主に担った仕事として最も適切なものはどれか。","c":["占いや暦・天文によって、日や方角の吉凶を判断すること","経を読み加持を行って、病人についた物の怪を退けること","神社に仕えて、神前で神楽を舞い神の言葉を伝えること","宮中の儀式で、楽器を演奏して舞楽をとり行うこと"],"a":0,"e":"陰陽師は陰陽寮に属し、占い・暦・天文などで吉凶を判じ、祓へも行った。物の怪に対して経を読み加持祈祷をするのは主に僧（験者）の役目で、両者は混同しやすいので注意する。"},{"g":"shinkou","q":"平安時代中期に活躍し、占いの的中などの逸話が数多く伝わる陰陽師は誰か。","c":["源信","安倍晴明","菅原道真","藤原公任"],"a":1,"e":"安倍晴明は平安中期の陰陽師で、『今昔物語集』などに式神を使う話や占いの逸話が伝わる。源信は『往生要集』を著した僧、菅原道真は学者・政治家、藤原公任は歌人・学者である。"},{"g":"shinkou","q":"見た夢の意味や吉凶を判断すること、またそれを行う人を何というか。","c":["夢告げ","夢語り","夢解き","夢違へ"],"a":2,"e":"夢の意味や吉凶を読み解くのが夢解き（夢合はせ）。夢告げは神仏が夢の中で示すお告げそのもの、夢違へは悪い夢が現実にならないようにまじなうことで、夢を判断する行為とは別である。"},{"g":"shinkou","q":"寺にこもって祈っていた人の夢に僧が現れ、進むべき道を示した。当時の人々はこうした夢をどう受け止めたか。","c":["心の疲れが見せた幻として、気にとめないもの","物の怪のしわざとして、すぐに祓ふべきもの","前世の罪の現れとして、人に隠しておくもの","神仏からのお告げとして、信じて従うべきもの"],"a":3,"e":"参籠中の夢に僧や神の使いが現れるのは夢告げで、神仏の意思が示されたものと受け止められた。『更級日記』などにも寺社にこもって夢を得る話がある。夢を単なる幻と見る考え方は当時一般的でない。"},{"g":"shinkou","q":"生きている人の魂が体から抜け出し、恨みや嫉妬の相手に取りついて苦しめると考えられたものを何というか。","c":["死霊（しりやう）","言霊（ことだま）","御霊（ごりやう）","生霊（いきりやう）"],"a":3,"e":"生きている人から離れて他人に祟る魂が生霊で、『源氏物語』で六条御息所の生霊が葵の上を苦しめる場面が名高い。死霊は死者の霊、御霊は非業の死を遂げて祟る霊、言霊は言葉に宿る霊力。"},{"g":"shinkou","q":"加持祈祷の場で、病人から物の怪を一時的に乗り移らせるために置かれた者を何というか。","c":["験者（げんざ）","巫（かんなぎ）","憑坐（よりまし）","陰陽師（おんやうじ）"],"a":2,"e":"憑坐は、僧の加持によって病人から物の怪を移し、その正体を語らせるための者で、多く童や女房が務めた。験者は加持祈祷を行う僧の側、巫は神に仕えて神意を伝える者で、役割が異なる。"},{"g":"shinkou","q":"「祈祷の験（しるし）ありて、病ひおこたりぬ。」の「験」の意味として最も適切なものはどれか。","c":["前ぶれ・兆し","ききめ・ご利益","目印・合図","証拠・あかし"],"a":1,"e":"「験」は神仏への祈りや加持の効き目、ご利益を表す。「おこたる」は病気がよくなる意で、祈祷が効いたことがわかる。「しるし」には兆しや目印の意もあるが、祈祷と回復を結ぶこの文脈には合わない。"},{"g":"shinkou","q":"平安時代の人々が「穢れ（けがれ）」として特に忌んだものはどれか。","c":["目上の人に和歌を返さないこと","季節に合わない衣を着ること","他人の手紙を無断で読むこと","人の死や出産、血に触れること"],"a":3,"e":"死・出産・出血などに触れることは穢れとされ、触れた人は一定期間、参内や神事への参加を慎んだ。和歌を返さないことや季節外れの衣は無作法・不風流とされても、宗教的な穢れとは別物である。"},{"g":"shinkou","q":"川辺などで水を浴びて身を洗い清め、罪やけがれを除くことを何というか。","c":["精進（さうじ）","物忌（ものいみ）","禊（みそぎ）","手向け（たむけ）"],"a":2,"e":"水で身を清めて罪やけがれを除くのが禊で、祓へと合わせて「みそぎはらへ」ともいう。精進は飲食などを慎んで身を清く保つこと、手向けは旅の途中で道の神に幣を捧げることで、水で洗う行為ではない。"},{"g":"shinkou","q":"『源氏物語』須磨巻で、光源氏は三月最初の巳の日に海辺で陰陽師を呼び、人形（ひとがた）を舟に乗せて流させた。これは何のためか。","c":["身の罪やけがれを人形に移し、祓へ流すため","都に残した人へ、無事を知らせる合図のため","海の神に豊漁を願って、供え物を捧げるため","亡くなった人の霊を、あの世へ送り出すため"],"a":0,"e":"上巳の祓へでは、身の罪やけがれを人形に移して水に流した。後の雛祭りにつながる風習とされる。死者の霊を送る行事や便りの合図ではない。須磨巻では、この祓への直後に激しい嵐が起こる。"},{"g":"shinkou","q":"平安時代の神と仏の関係についての説明として最も適切なものはどれか。","c":["神と仏は結びつけて考えられ、ともに信仰された","仏教が広まると、神への信仰は行われなくなった","仏は貴族だけが、神は庶民だけが信仰していた","神と仏は厳しく区別され、同じ所に祭られなかった"],"a":0,"e":"平安時代には神と仏を結びつける神仏習合が進み、神は仏が姿を変えて現れたものとする考え方も広まった。神社の境内に寺が置かれることもあった。神と仏を厳しく分けるのは明治の神仏分離以降である。"},{"g":"shinkou","q":"古文の「物詣で（ものまうで）」の意味として最も適切なものはどれか。","c":["人に贈り物を届けること","宮中へ参上すること","祭の行列を見物すること","寺や神社に参拝すること"],"a":3,"e":"「物詣で」は寺や神社に参拝することで、平安の女性にとっては数少ない外出・旅の機会でもあった。宮中へ行くのは「参内」、祭などを見物するのは「物見」と、それぞれ別の語で表す。"},{"g":"shinkou","q":"大和国の初瀬（はつせ）にあり、観音の霊験で知られて、多くの貴族の女性が参詣した寺はどれか。","c":["長谷寺","石山寺","清水寺","延暦寺"],"a":0,"e":"長谷寺は大和国の初瀬にある観音の寺で、『蜻蛉日記』の初瀬詣でや『源氏物語』玉鬘の話に描かれる。石山寺は近江、清水寺は京の東山にある観音の寺。延暦寺は比叡山にある天台宗の寺である。"},{"g":"shinkou","q":"京から逢坂の関を越え、琵琶湖から流れ出る瀬田川のほとりへ向かって参詣する、観音で名高い寺はどれか。","c":["石山寺","長谷寺","清水寺","鞍馬寺"],"a":0,"e":"石山寺は近江国の瀬田川のほとりにある観音の寺で、京からは逢坂の関を越えて参詣した。『蜻蛉日記』にも石山詣でが描かれる。長谷寺は大和国、清水寺は京の東山、鞍馬寺は京の北の山にある。"},{"g":"shinkou","q":"平安時代の文学で、単に「祭」といえば、ふつうどの神社の祭を指すか。","c":["住吉大社","賀茂神社","伊勢神宮","石清水八幡宮"],"a":1,"e":"平安時代に「祭」とだけいえば、四月に行われる賀茂神社の祭（賀茂祭、今の葵祭）を指し、行列を見物する人々で都はにぎわった。住吉大社は摂津国、伊勢神宮は伊勢国、石清水八幡宮は山城国にある。"},{"g":"shinkou","q":"摂津国にあり、航海を守る海の神として、また和歌の神としても信仰された神社はどれか。","c":["賀茂神社","住吉大社","伊勢神宮","北野天満宮"],"a":1,"e":"住吉の神は海の神として航海の安全を守り、和歌の神としても尊ばれた。『源氏物語』では明石の入道が住吉の神に祈り続ける。賀茂は都の守り神、伊勢は天照大神を祭り、北野は菅原道真を祭る神社。"},{"g":"shinkou","q":"天皇に代わって伊勢神宮に仕えるため、選ばれて伊勢へ下った未婚の皇女を何というか。","c":["斎院（さいゐん）","女御（にようご）","斎宮（さいくう）","尚侍（ないしのかみ）"],"a":2,"e":"伊勢神宮に仕える未婚の皇女（または女王）が斎宮で、賀茂神社に仕えるのが斎院。どちらも天皇の代替わりなどで交代した。女御は天皇の后妃、尚侍は内侍司の長官で、神に仕える役ではない。"},{"g":"shinkou","q":"「参籠（さんろう）」の説明として最も適切なものはどれか。","c":["寺社の門前で、夜通し見張りをすること","宮中に泊まり込んで、夜の警護をすること","寺社に一定の期間こもって、祈願すること","家の門を閉ざして、外の人と会わないこと"],"a":2,"e":"参籠は寺や神社に何日かこもって祈ることで、仏前で夜通し祈るうちに夢告げを得る話が多い。家に閉じこもって人に会わないのは物忌、宮中に泊まって勤務・警護するのは宿直で、場所も目的も違う。"},{"g":"shinkou","q":"「御幣（ごへい）」、古語で「幣（ぬさ）」とも呼ばれるものの説明として最も適切なものはどれか。","c":["神社の周りに巡らせた、神聖な垣根","神前にともして絶やさない、灯火","寺で打ち鳴らして時を知らせる、鐘","神に捧げる、布や紙を細く切ったもの"],"a":3,"e":"幣は麻・木綿・紙などを細く切って神に捧げるもので、旅人は道中の神に幣を手向けて旅の安全を祈った。神社を囲む神聖な垣根は斎垣、神前の灯火は御灯明と呼び、幣とは別のものである。"},{"g":"shinkou","q":"「斎垣（いがき）」とは何か。","c":["神社を囲む神聖な垣根","寺の境内を区切る土塀","貴族の邸を囲む生け垣","墓所を囲む石の囲い"],"a":0,"e":"「斎（い）」は神聖・清浄の意を表し、斎垣は神域を区切る神社の垣根のこと。越えてはならないものの例えとして和歌にも詠まれる。寺の塀や邸の生け垣は斎垣とは呼ばない。"},{"g":"shinkou","q":"「言霊（ことだま）」の信仰にもとづく行いとして最も適切なものはどれか。","c":["大切な手紙を、季節の花の枝に結んで届ける","旅に出る人のため、道の神に幣を手向ける","凶の日に、家の門を閉ざして人と会わない","伊勢の斎宮で、不吉な語を別の語に言い換える"],"a":3,"e":"言葉には霊力が宿り、口にしたことが現実になると考えるのが言霊の信仰。そのため斎宮では仏や死などの語を別の語に言い換える忌み言葉が定められた。門を閉ざすのは物忌で、言葉の力とは関係しない。"},{"g":"shinkou","q":"平安時代の貴族が、冠や簾に「物忌」と書いた札をつけていたのは、何を示すためか。","c":["身内に死者が出て、喪に服していること","今は身を慎んでいて、人に会えないこと","近いうちに、遠方へ旅立つ予定のこと","神社の祭で、奉仕の役を務めていること"],"a":1,"e":"物忌の間は「物忌」と書いた札を冠や簾などにつけ、身を慎んでいることを示した。来客にも原則として会わない。喪に服す場合は鈍色（にびいろ）の衣などで示し、物忌の札とは区別される。"},{"g":"shinkou","q":"陰陽師が属し、占い・暦・天文などを担当した役所はどれか。","c":["大学寮","陰陽寮","蔵人所","検非違使庁"],"a":1,"e":"陰陽師は中務省に属する陰陽寮（おんやうれう）の役人で、占い・暦・天文・時刻などを担当した。大学寮は官吏を養成する学問の役所、蔵人所は天皇の身辺の事務、検非違使庁は都の治安を担う役所である。"},{"g":"shinkou","q":"「六月祓（みなづきばらへ）」「夏越の祓（なごしのはらへ）」は、いつ行われたか。","c":["正月の初め","六月の末日","三月の初め","十二月の中頃"],"a":1,"e":"六月祓は六月の末日（晦日）に行う大祓で、半年間にたまった罪やけがれを除いた。「夏越」は夏を越す意。十二月の末日にも大祓があり、三月初めの上巳の祓へとも区別する。"},{"g":"shinkou","q":"伊勢神宮（内宮）に祭られている神はどれか。","c":["天照大神","素戔嗚尊","八幡神","大国主神"],"a":0,"e":"伊勢神宮の内宮は皇室の祖神とされる天照大神を祭り、斎宮が天皇に代わって仕えた。八幡神は石清水八幡宮などに、大国主神は出雲大社に祭られる。素戔嗚尊は天照大神の弟とされる神である。"},{"g":"bukkyou","q":"仏教でいう「三世（さんぜ）」の組み合わせとして正しいものはどれか。","c":["仏・法・僧","正法・像法・末法","天上・人間・地獄","前世・現世・来世"],"a":3,"e":"三世は前世・現世・来世の三つで、前世の行いの結果として今を生き、今の行いが来世を決めると考えた。仏・法・僧は「三宝」、正法・像法・末法は釈迦の死後の時代区分で、別の三つ組である。"},{"g":"bukkyou","q":"古文の「宿世（すくせ）」の意味として最も適切なものはどれか。","c":["旅先で一夜を明かす宿所","前世から定まっている因縁","家に代々伝わる家柄や血筋","世を捨てて住む草葺きの庵"],"a":1,"e":"宿世は前世からの因縁のことで、現世の出来事や人との巡り合わせはそれによって定まると考えた。「宿」の字から宿泊を連想しやすいが無関係。『源氏物語』でも思いがけない男女の縁を宿世と受け止める。"},{"g":"bukkyou","q":"「前の世にも御契りや深かりけむ」（『源氏物語』桐壺巻）の「契り」の意味として最も適切なものはどれか。","c":["夫婦の約束の言葉","神仏への誓いの言葉","前世からの因縁","親子の間の約束事"],"a":2,"e":"「前の世にも」とあるので、この「契り」は前世からの因縁の意。帝と桐壺更衣の間に美しい皇子が生まれたのは前世の縁が深かったからか、という文脈である。「契り」には男女の約束の意もあるが、ここでは合わない。"},{"g":"bukkyou","q":"「因果応報」の考え方の説明として最も適切なものはどれか。","c":["善い行いには善い報い、悪い行いには悪い報いがある","人の運命は神が決めるので、行いによっては変わらない","世のものは移り変わり、同じ状態にとどまらない","死後はだれもが同じ世界に行き、生前の行いは問われない"],"a":0,"e":"因果応報は、行いが原因となって、それに見合う結果が自分に返ってくるという考え。前世の行いが現世に、現世の行いが来世に報いるとされた。すべてが移り変わるというのは無常の考えで、別の教え。"},{"g":"bukkyou","q":"阿弥陀仏の極楽浄土は、どの方角にあると考えられたか。","c":["西方","東方","南方","北方"],"a":0,"e":"阿弥陀仏の極楽浄土は西方のはるか彼方にあるとされ、「西方浄土」と呼ばれた。そのため臨終には西を向いて念仏を唱える習わしがあった。東方には薬師如来の浄瑠璃世界があるとされ、混同しないこと。"},{"g":"bukkyou","q":"日本で「末法の世」に入ったと考えられた年はどれか。","c":["永承七年（1052年）","延暦十三年（794年）","延喜五年（905年）","寛弘五年（1008年）"],"a":0,"e":"日本では永承七年（1052年）に末法に入ると考えられ、翌年には藤原頼通が平等院鳳凰堂を建てた。延暦十三年は平安京遷都、延喜五年は『古今和歌集』撰進の命、寛弘五年は『源氏物語』が記録に見える年。"},{"g":"bukkyou","q":"「末法思想」の説明として最も適切なものはどれか。","c":["一心に念仏を唱えれば、だれでも極楽に往生できるという考え","神は仏が人々を救うため、仮に姿を変えて現れたものという考え","釈迦の死後、時とともに教えが衰え、悟る人がいなくなるという考え","人は死後、生前の行いに応じて六つの世界に生まれ変わるという考え"],"a":2,"e":"末法思想は、釈迦の死後、正法・像法の時代を経て、教えだけが残り修行も悟りもない末法の世になるという考え。この不安が念仏による極楽往生を願う浄土信仰の広まりにつながった。両者は原因と結果の関係にある。"},{"g":"bukkyou","q":"阿弥陀仏の名を唱えて、極楽往生を願う行いを何というか。","c":["読経（どきやう）","写経（しやきやう）","念仏（ねんぶつ）","加持（かぢ）"],"a":2,"e":"念仏は「南無阿弥陀仏」と唱えるなどして阿弥陀仏を念じることで、極楽往生を願う人々に広まった。読経は経文を声に出して読むこと、写経は経文を書き写すこと、加持は祈祷で仏の力を加えることである。"},{"g":"bukkyou","q":"地獄と極楽の様子を具体的に描き、念仏による往生を説いた『往生要集』の著者は誰か。","c":["空海","最澄","鴨長明","源信"],"a":3,"e":"『往生要集』は平安中期の僧、源信（恵心僧都）の著で、地獄の恐ろしさと極楽のすばらしさを描いて念仏を勧めた。最澄は天台宗を、空海は真言宗を開いた僧で、鴨長明は『方丈記』の作者である。"},{"g":"bukkyou","q":"「後世（ごせ）を願ふ」の意味として最も適切なものはどれか。","c":["子孫が長く栄え続けることを願う","来世で極楽に生まれることを願う","長生きして老後の安楽を願う","死後に名が語り継がれることを願う"],"a":1,"e":"古文の「後世（ごせ）」は死後の世、来世のことで、「後世を願ふ」は来世の極楽往生を願う意。現代語の「後世（こうせい）＝後の時代」と読みも意味も異なり、子孫の繁栄や名声の意に取るのは誤り。"},{"g":"bukkyou","q":"「功徳（くどく）」の意味として最も適切なものはどれか。","c":["仏道修行を妨げる迷いの心","前世で犯した罪へのむくい","寺に仕えて雑事をする人々","よい報いをもたらす善い行い"],"a":3,"e":"功徳は仏像を造る・経を写す・僧に施すなど、よい報いをもたらす善行、またそのご利益をいう。平安貴族は来世のために功徳を積もうとした。修行を妨げる心は煩悩、罪へのむくいは悪い行いの結果で、功徳とは反対。"},{"g":"bukkyou","q":"「勤行（ごんぎやう）」の説明として最も適切なものはどれか。","c":["朝廷に仕えて、定められた日に役所へ出ること","学問に励んで、漢詩文の書物を読み進めること","各地の寺社を巡り歩いて、参拝を重ねること","仏前で決まった時刻に経を読み、仏を拝むこと"],"a":3,"e":"勤行は、僧や信仰の厚い人が仏前で毎日決まった時刻に読経や礼拝をすること。「勤」の字から役所勤めを、「行」から巡礼を連想しやすいが、いずれも誤り。出家した人の日々の暮らしの中心となる。"},{"g":"bukkyou","q":"平安時代に特に重んじられ、全八巻を講じる「八講」も盛んに行われた経典はどれか。","c":["法華経","般若心経","阿弥陀経","華厳経"],"a":0,"e":"法華経は天台宗の中心となる経典で、平安貴族に最も尊ばれ、八巻を朝夕に一巻ずつ四日間で講じる法華八講が盛んに行われた。阿弥陀経は浄土信仰で重んじられた経典だが、八講の対象ではない。"},{"g":"bukkyou","q":"古文の「聖（ひじり）」の説明として最も適切なものはどれか。","c":["天皇の命を受けて、地方を治める役人","神社に仕えて、祭りをとり行う家の人","学問にすぐれて、漢詩文を作る貴族","徳の高い僧や、山林などで修行に励む僧"],"a":3,"e":"聖は徳の高い僧、特に大寺院の組織を離れて山林で修行したり、人々に仏法を説いたりする僧をいう。空也が「市の聖」と呼ばれたのがその例。「聖」の字から天皇や賢人を連想しやすいが、古文では多く僧を指す。"},{"g":"bukkyou","q":"朝廷が僧に与えた官を、位の高い順に並べたものとして正しいものはどれか。","c":["僧正・僧都・律師","僧都・僧正・律師","律師・僧都・僧正","僧正・律師・僧都"],"a":0,"e":"僧の官（僧綱）は上から僧正・僧都・律師の順。古文では「横川の僧都」のように、居所や寺の名と組み合わせた呼び名で登場することが多い。「正」が最上位と覚え、都と師の順を取り違えないようにする。"},{"g":"bukkyou","q":"物語で、病人のための祈祷に招かれることの多い「阿闍梨（あざり）」とは、どのような人か。","c":["密教の修法に通じ、弟子を導く資格をもつ僧","宮中に仕え、天皇の日々の食事を整える女官","陰陽寮に属し、暦を作って吉凶を占う役人","寺の領地を預かり、年貢を取り立てる役人"],"a":0,"e":"阿闍梨は、密教（真言宗・天台宗）で修行を積み、人の師となる資格を得た僧の称で、加持祈祷の担い手として物語によく出る。暦を作り吉凶を占うのは陰陽師で、祈祷の場面に出てきても混同しないこと。"},{"g":"bukkyou","q":"平安時代の文章で、ただ「山」といえば、ふつうどこを指すか。","c":["高野山金剛峯寺","比叡山延暦寺","三井寺（園城寺）","吉野の金峯山"],"a":1,"e":"平安時代の文章で「山」とだけいえば、比叡山延暦寺を指すことが多い。これに対して「寺」とだけいえば三井寺（園城寺）を指した。高野山は空海が開いた真言宗の寺で、「山」の略称としては使われない。"},{"g":"bukkyou","q":"空海が開いた真言宗の中心となる寺があり、深く仏道に入る人の修行の地として知られた山はどれか。","c":["比叡山","吉野山","高野山","鞍馬山"],"a":2,"e":"高野山（紀伊国）には空海が開いた真言宗の根本道場、金剛峯寺がある。比叡山は最澄が開いた天台宗の延暦寺がある山で、宗派と開いた僧を取り違えやすい。高野山は都から遠く、世を捨てた人が籠る地でもあった。"},{"g":"bukkyou","q":"「出家する」の意味を表す表現として適切なものはどれか。","c":["世に経（ふ）","世を知る","世を背く","世にあり"],"a":2,"e":"「世を背く」は俗世に背を向ける意で、「世を捨つ」「様を変ふ」「頭（かしら）おろす」なども出家を表す。「世に経」は世の中で暮らし続ける、「世にあり」は生きている、「世を知る」は国を治める・男女の仲を知る意。"},{"g":"bukkyou","q":"出家を思い立ちながら、「幼い子のことがほだしとなって」ためらっている。この「ほだし」の意味として最も適切なものはどれか。","c":["決心を促すきっかけ","仏道に入る手引き","暮らしを支える財産","心を引きとめる妨げ"],"a":3,"e":"「ほだし」は本来、馬の足などをつなぎとめる綱のことで、そこから出家や自由な行動を妨げる肉親・恋人などの絆をいう。子への愛情のために世を捨てきれない、という文脈で使われ、出家を後押しするものではない。"},{"g":"bukkyou","q":"「遁世（とんせい）」の意味として最も適切なものはどれか。","c":["世に名を知られ、栄えること","俗世を離れて、仏道に入ること","役所を退いて、故郷に帰ること","罪を犯して、遠国に流されること"],"a":1,"e":"遁世は俗世間から逃れて仏道に入ること、また出家後に寺の組織からも離れて隠れ住むことをいう。「遁」は逃れる意。遠国に流されるのは「配流」で自分の意思ではなく、世に栄えるのはむしろ反対の生き方である。"},{"g":"bukkyou","q":"一丈四方の小さな庵に住み、災害や世の移り変わりを通して無常を記した随筆と、その作者の組み合わせとして正しいものはどれか。","c":["『徒然草』―鴨長明","『方丈記』―鴨長明","『方丈記』―兼好法師","『枕草子』―兼好法師"],"a":1,"e":"『方丈記』は鴨長明が、日野山に結んだ方丈（一丈四方、約三メートル四方）の庵で書いた随筆で、大火・飢饉・地震などを通して無常を説く。『徒然草』は兼好法師、『枕草子』は清少納言の作品である。"},{"g":"bukkyou","q":"『方丈記』冒頭の「ゆく河の流れは絶えずして、しかももとの水にあらず。」が表している考えとして最も適切なものはどれか。","c":["世のものは絶えず移り変わる","自然は人の世と関わりなく美しい","人の行いの報いは必ず返ってくる","川の水は神の力で清められている"],"a":0,"e":"川の流れは続いて見えても、水は常に入れ替わっていると述べ、人も住まいも同じように移り変わってとどまらないという無常観を示す一節。自然の美しさをたたえたり、因果応報を説いたりする内容ではない。"},{"g":"bukkyou","q":"『徒然草』の「世は定めなきこそいみじけれ。」に表れた兼好の考えとして最も適切なものはどれか。","c":["無常なので、今すぐ出家しなければならない","無常だからこそ、この世は趣深くすばらしい","世の中は定めがなく、生きる意味などない","運命は定まっているので、嘆く必要はない"],"a":1,"e":"「いみじ」はここではすばらしい意。人の命も世の中も定まらず移ろうからこそ、しみじみとした趣がある、と無常を肯定的に捉えている。無常を嘆いたり、運命がすべて決まっていると説いたりする一節ではない。"},{"g":"bukkyou","q":"仏教で、生き物が生まれ変わりを繰り返すとされた「六道」に含まれないものはどれか。","c":["餓鬼","修羅","浄土","畜生"],"a":2,"e":"六道は地獄・餓鬼・畜生・修羅・人・天の六つで、この迷いの世界を生まれ変わり続けることを輪廻という。極楽浄土は輪廻から抜け出した仏の世界であり、六道には含まれない。往生とは浄土に生まれることである。"},{"g":"bukkyou","q":"死者の生前の罪を裁き、地獄へ送るかどうかを決めるとされた冥界の王はどれか。","c":["阿弥陀仏","帝釈天","閻魔王","不動明王"],"a":2,"e":"閻魔王（えんまわう）は冥界の王で、死者の生前の罪を裁くとされた。阿弥陀仏は人を極楽へ導く仏、帝釈天は仏法を守る天の神、不動明王は密教で祈祷の本尊として重んじられた仏で、罪を裁く役ではない。"},{"g":"bukkyou","q":"臨終の場面に「紫の雲がたなびき、えもいわれぬよい香りがした」と書かれているとき、それは何を示すか。","c":["その人に物の怪が取りついたしるし","その人が地獄に落ちていくしるし","その家にこれから災いが来るしるし","その人が極楽に往生したしるし"],"a":3,"e":"紫の雲やよい香り、妙なる音楽は、阿弥陀仏が迎えに来る「来迎」と極楽往生を示すめでたいしるしとされ、往生を伝える話に多く描かれる。紫は高貴な色で、不吉な前兆として書かれることはない。"},{"g":"bukkyou","q":"平安貴族が臨終の際、阿弥陀仏の像の手にかけた五色の糸を握って念仏を唱えたのは、何のためか。","c":["仏に導かれて、極楽へ往生するため","家族との縁を、来世まで保つため","物の怪を退けて、病を治すため","生前の罪を、糸に移して流すため"],"a":0,"e":"臨終には西を向き、阿弥陀仏像の手から引いた五色の糸を握って念仏を唱え、仏に引かれて極楽へ迎えられることを願った。病を治すための加持祈祷や、けがれを人形に移して流す祓へとは目的が異なる。"},{"g":"bukkyou","q":"物詣での前に「精進する」というときの「精進」の意味として最も適切なものはどれか。","c":["衣を改め、髪を整えること","肉や魚を断ち、行いを慎むこと","旅費を用意し、供を集めること","経を覚え、声に出して練習すること"],"a":1,"e":"精進は、仏道に励むために肉食や酒などを避け、心身を清く保つことで、物詣での前には一定期間精進するのが習わしだった。身支度を整えることや旅の準備をすることではない。"},{"g":"bukkyou","q":"女性が出家するときの髪型として知られる「尼削ぎ（あまそぎ）」の説明として最も適切なものはどれか。","c":["髪を残らず剃り落として丸める","髪を肩や背のあたりで切りそろえる","髪を頭の上で一つに結い上げる","髪を長く垂らし、先を紐で結ぶ"],"a":1,"e":"女性の出家では髪をすべて剃らず、肩や背のあたりで切りそろえることが多く、これを尼削ぎという。すべて剃るのは主に男性の僧の姿で、長い髪を背に垂らすのは出家前の貴族の女性の姿である。"},{"g":"asobi","q":"竹や檜を薄く削って編んだ網代を車体に張り、貴族が日常によく用いた牛車はどれか。","c":["糸毛車（いとげのくるま）","網代車（あじろぐるま）","唐車（からぐるま）","檳榔毛車（びらうげのくるま）"],"a":1,"e":"網代車は、竹や檜を薄く削って編んだ網代を張った牛車で、幅広い身分の貴族が日常に使った。糸毛車は色糸で飾った高貴な女性用、檳榔毛車や唐車は上級貴族や儀式向けの格の高い車である。"},{"g":"asobi","q":"牛車の乗り降りの作法として正しいものはどれか。","c":["前から乗り、後ろから降りる","後ろから乗り、前から降りる","後ろから乗り、後ろから降りる","前から乗り、前から降りる"],"a":1,"e":"牛車には後ろから乗り、降りるときは牛を外して轅を榻に載せ、前から降りるのが作法。『平家物語』で木曽義仲が牛車の後ろから降りようとして笑われるのは、この作法を知らなかったためである。"},{"g":"asobi","q":"牛車の「榻（しぢ）」とは何か。","c":["車の簾の内側に垂らす長い布","牛を外した車の轅を載せておく台","車を引く牛の世話をする少年","車の左右の側面にある小さな窓"],"a":1,"e":"榻は、牛を外したときに牛車の轅の先を載せて車を水平に保つ台で、乗り降りの踏み台にも使った。簾の内に垂らす布は下簾、牛を扱う者は牛飼童、車の側面の窓は物見と呼び、それぞれ別のもの。"},{"g":"asobi","q":"『源氏物語』葵巻の「車争い」とは、どのような出来事か。","c":["参内する順番をめぐり、左大臣家と右大臣家の従者が争った","物詣での道の狭さから、光源氏と頭中将の牛車がぶつかった","行列見物の場所をめぐり、葵の上と六条御息所の従者が争った","斎院の御禊の日に、朱雀帝と光源氏の牛車が速さを競った"],"a":2,"e":"賀茂の新斎院の御禊の日、光源氏が加わる行列を見ようと、葵の上方の従者が六条御息所の車を押しのけて辱めた。この屈辱から生まれた御息所の恨みが、のちに生霊となって葵の上を苦しめることになる。"},{"g":"asobi","q":"外出する人と、その外出を表す語の組み合わせとして正しいものはどれか。","c":["行幸―上皇、御幸―天皇、行啓―皇后","行幸―天皇、御幸―皇后、行啓―上皇","行幸―天皇、御幸―上皇、行啓―皇后","行幸―皇后、御幸―上皇、行啓―天皇"],"a":2,"e":"天皇の外出が行幸、上皇・法皇・女院の外出が御幸、皇后・中宮や皇太子の外出が行啓。「行幸」「御幸」はどちらも「みゆき」と読むことがあるため、書かれた字と外出する人の身分で区別するとよい。"},{"g":"asobi","q":"「輿（こし）」の説明として最も適切なものはどれか。","c":["牛に引かせて進む、屋形のある乗り物","人がかついで運ぶ、屋形のある乗り物","馬に引かせて進む、車輪のある乗り物","水の上を進んで行く、屋根のある乗り物"],"a":1,"e":"輿は、屋形に長い柄をつけ、人がかついだり手で持ち上げたりして運ぶ乗り物で、天皇の乗る鳳輦などが代表。牛に引かせるのは牛車で、平安時代の日本では馬に車を引かせることは一般的でなかった。"},{"g":"asobi","q":"京から東国へ向かう旅人が、都を出てまず越えることになる、山城国と近江国の境の関所はどれか。","c":["白河の関","勿来の関","逢坂の関","須磨の関"],"a":2,"e":"逢坂の関は山城と近江の境にあり、京から東へ向かう道の出入口にあたるため、別れと出会いの場として歌枕になった。白河の関と勿来の関は陸奥国の入口、須磨の関は摂津国の西にあった関である。"},{"g":"asobi","q":"「都をば霞とともに立ちしかど秋風ぞ吹く白河の関」（能因法師）から読み取れることとして最も適切なものはどれか。","c":["都を出てから関に着くまで、長い月日がかかった","関を越えてすぐに、都へ引き返すことになった","関のあたりで、都から来た知人に偶然出会った","関で足止めされて、翌年の春まで先へ進めなかった"],"a":0,"e":"春霞の立つころに都を出たのに、白河の関に着くともう秋風が吹いている、という歌。白河の関が陸奥国の入口にあり、都からはるかに遠いことが季節の移り変わりで表されている。"},{"g":"asobi","q":"『伊勢物語』の東下りで、男が「都鳥」という名の鳥を見て、都に残した人を思い泣いた川はどれか。","c":["大井川","桂川","鴨川","隅田川"],"a":3,"e":"『伊勢物語』の東下りで、一行は武蔵国と下総国の境の隅田川で、都では見かけない鳥の名が「都鳥」だと聞き、都の人を思って泣いた。鴨川・桂川は京を流れる川で、この場面とは結びつかない。"},{"g":"asobi","q":"『更級日記』の冒頭に描かれる旅の説明として最も適切なものはどれか。","c":["夫の任官に従い、京から東国へ下る旅","出家を志して、都から高野山へ向かう旅","宮仕えを退いて、京から故郷へ帰る旅","父の任期が終わり、東国から京へ上る旅"],"a":3,"e":"『更級日記』は、上総介だった父の任期が終わり、十三歳の作者が上総国から京へ上る旅から始まる。物語を読みたい一心で上京を待ちわびた少女時代が描かれており、東国へ下る旅ではない点に注意する。"},{"g":"asobi","q":"古代の官道に一定の間隔で置かれ、公用の旅人に馬を用意した施設「駅」の古語での読みはどれか。","c":["やどり","せきや","うまや","とまり"],"a":2,"e":"駅は「うまや」と読み、「馬屋」の意。官道沿いに置かれ、公用で旅する役人に馬や食事、宿を用意した。「関屋（せきや）」は関所の番小屋、「やどり」は旅先で泊まる所を広く指す語で、駅に限らない。"},{"g":"asobi","q":"平安時代の貴族の男性が、官人として身につけるべき教養として特に重んじられたものはどれか。","c":["漢詩文","物語","仮名文","今様"],"a":0,"e":"公的な文書が漢文で書かれたため、貴族の男性には漢詩文の素養が必須だった。女性は仮名による和歌や物語を主な教養とした。今様は平安後期に流行した歌謡で、官人の教養として重んじられたものではない。"},{"g":"asobi","q":"平安時代に「女手（をんなで）」と呼ばれた文字はどれか。","c":["平仮名","片仮名","漢字の楷書","漢字の行書"],"a":0,"e":"平安時代、漢字を「真名（まな）」、平仮名を「女手」と呼んだ。平仮名は漢字の草書体をくずして生まれ、主に女性が和歌や手紙、物語に用いた。片仮名は漢文を読むための訓点から発達した文字である。"},{"g":"asobi","q":"『土佐日記』冒頭の「男もすなる日記といふものを、女もしてみむとてするなり。」の背景として最も適切なものはどれか。","c":["女性の作者が男性の筆に見せかけ、漢文で日記を書いた","男性の作者が自分の名を出して、漢文の日記を書き直した","男性の作者が女性の筆に見せかけ、仮名で日記を書いた","女性の作者が夫の日記を借りて、仮名に書き写した"],"a":2,"e":"当時、男性の日記は漢文で書くものだった。作者の紀貫之は女性が書いたという形をとることで、仮名を使って心情を自由に表した。冒頭の「男もすなる日記」は、男性が漢文で書く日記を指している。"},{"g":"asobi","q":"古文の「手習ひ」の意味として最も適切なものはどれか。","c":["琴や琵琶などの楽器を、師について稽古すること","縫い物や染め物の手わざを、人から教わること","和歌の詠み方を、名高い歌人のもとで学ぶこと","習字、また心のままに古歌などを書きつけること"],"a":3,"e":"古文の「手」は文字・筆跡の意で、「手習ひ」は習字のこと。そこから、思いに任せて古歌や自作の歌を書きつけることも指す。『源氏物語』の「手習」巻の名もこの意味による。手先の技や楽器の稽古ではない。"},{"g":"asobi","q":"平安時代、貴族の女性の教養として特に重んじられた三つの組み合わせとして最も適切なものはどれか。","c":["漢詩・笛・蹴鞠","習字・和歌・琴","和歌・舞・双六","習字・漢詩・笙"],"a":1,"e":"『枕草子』には、宣耀殿の女御が父から、字を習うこと、琴を人より上手に弾くこと、『古今和歌集』二十巻を暗唱することを教えられた話がある。この習字・琴・和歌が女性の代表的な教養で、漢詩や笛は主に男性のもの。"},{"g":"asobi","q":"細い竹の管を束ねて立て、息を吹いても吸っても音が出て、和音を響かせる管楽器はどれか。","c":["篳篥（ひちりき）","笙（しやう）","横笛（よこぶえ）","琵琶（びは）"],"a":1,"e":"笙は十七本の竹管を円く立て並べた楽器で、吹いても吸っても音が出て和音を響かせる。篳篥は縦に構える小さな笛で鋭い音を出し、横笛は横に構えて吹く。琵琶は四本の弦をばちで弾く弦楽器である。"},{"g":"asobi","q":"古文の「琴（こと）」の説明として最も適切なものはどれか。","c":["竹で作った笛の総称で、笙や篳篥なども含む","打ち鳴らす楽器の総称で、鼓や鉦なども含む","琵琶だけを指す呼び名で、他の楽器は含まない","弦を張った楽器の総称で、箏や和琴なども含む"],"a":3,"e":"古文の「こと」は弦楽器の総称で、七弦の琴（きん）、十三弦の箏（さう）、六弦の和琴（わごん）を含み、琵琶を「琵琶の琴」と呼ぶこともある。どの楽器を指すかは文脈から見分ける必要がある。"},{"g":"asobi","q":"「月の明るい夜、殿上人たちが清涼殿に集まり、夜更けまで遊びをした」という文脈で、「遊び」が指すものとして最も適切なものはどれか。","c":["碁や双六","野での狩り","管弦の演奏","酒宴の余興"],"a":2,"e":"古文の「遊び」は、特に貴族社会では管弦（や詩歌）を楽しむことを指すことが多く、天皇の前で行うものを「御遊（ぎよいう）」という。碁や双六、狩りも楽しみではあるが、殿上人が夜に集う「遊び」は管弦と考える。"},{"g":"asobi","q":"「歌合（うたあはせ）」の説明として最も適切なものはどれか。","c":["上の句と下の句を別の人が詠み、次々とつなげる遊び","名高い古歌を読み上げ、その作者を言い当てる遊び","左右に分かれて和歌を出し、判者が優劣を決める催し","恋の相手に和歌を贈り、返しの歌を受け取るやりとり"],"a":2,"e":"歌合は、左右二組に分かれて同じ題の和歌を一首ずつ出し合い、判者が勝ち・負け・持（引き分け）を決める催しで、宮中などで盛んに行われた。上の句と下の句を別々の人がつなぐのは連歌で、別の文芸である。"},{"g":"asobi","q":"端午の節句のころに、菖蒲の根の長さなどを左右で比べて優劣を競った物合はどれか。","c":["根合（ねあはせ）","貝合（かひあはせ）","絵合（ゑあはせ）","薫物合（たきものあはせ）"],"a":0,"e":"根合は菖蒲の根の長さや形を左右で比べ、歌を添えて優劣を競う物合で、端午の節句にちなむ。貝合は珍しい貝、絵合は絵、薫物合は調合した香を出し合う物合で、比べる物が違う。"},{"g":"asobi","q":"「薫物（たきもの）」の説明として最も適切なものはどれか。","c":["香料を練り合わせた、たいて香りを出すもの","季節の花を摘んで、部屋に飾るためのもの","木を焼いて作り、火鉢で部屋を暖めるもの","米や豆を煮つめて、客に出すための菓子"],"a":0,"e":"薫物は沈香などの香料を粉にして練り合わせたもので、たいて衣に香りをたきしめたり、部屋にくゆらせたりした。調合の腕を競う薫物合もあり、香りはその人の趣味や人柄を表すものとされた。"},{"g":"asobi","q":"鹿の革で作った鞠を、地面に落とさないように何人かで蹴り上げて続ける遊びはどれか。","c":["打毬（だきう）","毬杖（ぎちやう）","相撲（すまひ）","蹴鞠（けまり）"],"a":3,"e":"蹴鞠は鹿革の鞠を、数人が落とさないように高く蹴り上げて受け渡す遊びで、貴族の男性が庭で楽しんだ。打毬は杖で毬を打って競う競技、毬杖は槌のついた杖で毬を打つ遊びで、足で蹴るものではない。"},{"g":"asobi","q":"平安時代の「双六（すぐろく）」の説明として最も適切なものはどれか。","c":["盤の上で、さいころを振って駒を進める勝負","盤の上で、白黒の石を置いて陣地を争う勝負","盤の上で、駒を動かして相手の王を詰める勝負","台の上で、指ではじいた石を相手に当てる勝負"],"a":0,"e":"平安時代の双六は盤双六で、さいころを振り、出た目に従って駒を進めて勝負を争う遊び。賭け事にもなり、たびたび禁じられた。白黒の石を置いて陣地を囲み合うのは碁で、別の遊びである。"},{"g":"asobi","q":"「偏継ぎ（へんつぎ）」とはどのような遊びか。","c":["古歌の上の句を聞いて、続く下の句を言い当てる遊び","漢字の偏や旁をもとに、文字を当てたり作ったりする遊び","色紙を切って継ぎ合わせ、美しい模様を作る遊び","貝の内側に描いた絵から、対になる貝を探し出す遊び"],"a":1,"e":"偏継ぎは漢字の偏と旁を使った文字遊びで、旁に偏を付けて字を完成させたり、字を当てたりした。漢字の知識が必要なため教養ある人々に好まれた。対になる貝を探すのは中世以降に盛んになった貝覆いである。"},{"g":"asobi","q":"「雛遊び（ひひなあそび）」とはどのような遊びか。","c":["小さな人形や調度を使った、ままごと風の遊び","紙で作った人形を川に流して、厄を払う行事","鳥のひなを籠で飼って、鳴き声を楽しむ遊び","紙を折って鶴や舟を作り、出来を競う遊び"],"a":0,"e":"「ひひな」は紙や布で作った小さな人形のことで、雛遊びは人形と御殿や道具の模型を使うままごとのような遊び。『源氏物語』では幼い若紫が夢中になる。三月の節句に人形を飾る雛祭りの形が整うのは後の時代。"},{"g":"asobi","q":"平安時代の貴族が手紙を送るときによく行った工夫として最も適切なものはどれか。","c":["内容にかかわらず、いつも白く厚い紙に書いて送る","手紙の終わりには、書いた場所を必ず詳しく記す","恋の手紙は、封をせずだれでも読めるようにして送る","季節の花や草木の枝に、手紙を結びつけて送る"],"a":3,"e":"貴族は内容や季節に合わせて紙の色や質を選び、花や草木の枝に結びつけて手紙を送るなど趣向を凝らした。紙や添える枝の選び方にも教養や美的感覚が表れた。いつも同じ紙を使うのは風情に欠けるとされた。"},{"g":"asobi","q":"手紙を届けに来た使いに対し、受け取った側がねぎらいとして衣などを与えることがある。この褒美を何というか。","c":["贄（にへ）","禄（ろく）","幣（ぬさ）","調（みつぎ）"],"a":1,"e":"使いの労をねぎらって与える褒美を禄といい、衣を肩にかけてやる「被（かづ）け物」の形が多い。幣は神に捧げる物、贄は神や朝廷に献上する食物、調は税として納める物で、使いへの褒美には当たらない。"},{"g":"asobi","q":"古文の「消息（せうそこ）」の意味として最も適切なものはどれか。","c":["息をひそめて、様子をうかがうこと","旅に出て、しばらく家を離れること","病気が治って、元気を取り戻すこと","手紙、また訪問して取り次ぎを頼むこと"],"a":3,"e":"古文の「消息」は手紙・便りの意で、「消息す」は手紙を送る、また訪問して来意を取り次いでもらう意になる。「息」の字から呼吸に関わる意味と考えたり、病状の回復と取ったりするのは誤りである。"},{"g":"asobi","q":"平安時代の女性が、物詣でなどで徒歩で外出するときの姿として最も適切なものはどれか。","c":["市女笠をかぶり、衣の裾をつぼめて帯に挟んだ姿","烏帽子をかぶり、狩衣を着て馬にまたがった姿","冠をつけて束帯を着て、手に笏を持った姿","唐衣と裳を身につけて、檜扇を手にした姿"],"a":0,"e":"女性が徒歩で物詣でなどに出るときは、衣の裾をつぼめて帯に挟み、市女笠をかぶる壺装束が一般的だった。笠に薄い布を垂らして顔を隠すこともある。唐衣と裳は宮中の女房の正装、狩衣は男性の略装。"}];
+  var GUIDES = {"koyomi":"## 陰暦のしくみと四季\n古典の日付は陰暦（太陰太陽暦）で書かれている。月の満ち欠けで一か月を決めるので、朔日(ついたち)はほぼ新月、十五日はほぼ満月になる。一か月は二十九日か三十日で、十二か月では太陽の一年より十日ほど短い。そのずれを直すため、数年に一度「閏月(うるうづき)」を入れて一年を十三か月にする。季節は月で決まり、一〜三月が春、四〜六月が夏、七〜九月が秋、十〜十二月が冬。\n\n## 月の異名\n| 春 | 夏 | 秋 | 冬 |\n|---|---|---|---|\n| 一月 睦月(むつき) | 四月 卯月(うづき) | 七月 文月(ふみづき) | 十月 神無月(かんなづき) |\n| 二月 如月(きさらぎ) | 五月 皐月(さつき) | 八月 葉月(はづき) | 十一月 霜月(しもつき) |\n| 三月 弥生(やよい) | 六月 水無月(みなづき) | 九月 長月(ながつき) | 十二月 師走(しわす) |\n\n## 日付と月の呼び名\n月の最初の日が朔日、最後の日が晦日(つごもり)。十五夜の満月が望月。満月を過ぎると月の出は毎晩遅くなり、待ち方で呼び名が変わる。\n\n| 日 | 呼び名 | 由来 |\n|---|---|---|\n| 十六日 | 十六夜(いざよい) | ためらうように遅れて出る |\n| 十七日 | 立待月 | 立って待つ |\n| 十八日 | 居待月 | 座って待つ |\n| 十九日 | 寝待月（臥待月） | 寝て待つ |\n| 二十日 | 更待月 | 夜更けまで待つ |\n\n夜が明けても空に残る月は有明の月という。\n\n## 立春・節分と数え年\n立春は暦の上の春の始まりで、その前日が節分。本来は立夏・立秋・立冬の前日も節分である。立春は元日と一致しないため、年が明ける前に立春が来ることもある。年齢は数え年で、生まれた年を一歳とし、正月を迎えるたびに一つ加える。","jikoku":"## 十二支で表す時刻\n平安時代の宮中では一日を十二に分け、十二支の名で時刻を呼んだ。一つの時刻はおよそ二時間で、子の刻は午前0時を中心とする午後11時〜午前1時ごろ。以後二時間ずつ進み、正午を中心とするのが午の刻である。「午前」「午後」の語もここから来ている。一つの時刻はさらに四つに分けて数え、「丑三つ」は丑の刻の三つ目、午前2時〜2時半ごろを指す。\n\n| 十二支 | 中心の時刻 | 十二支 | 中心の時刻 |\n|---|---|---|---|\n| 子(ね) | 午前0時 | 午(うま) | 正午 |\n| 丑(うし) | 午前2時 | 未(ひつじ) | 午後2時 |\n| 寅(とら) | 午前4時 | 申(さる) | 午後4時 |\n| 卯(う) | 午前6時 | 酉(とり) | 午後6時 |\n| 辰(たつ) | 午前8時 | 戌(いぬ) | 午後8時 |\n| 巳(み) | 午前10時 | 亥(い) | 午後10時 |\n\n## 十二支で表す方角\n子を北とし、時計回りに割り当てる。卯が東、午が南、酉が西。その間は二つの十二支を合わせて呼ぶ。丑寅＝艮(うしとら)は北東、辰巳＝巽(たつみ)は東南、未申＝坤(ひつじさる)は南西、戌亥＝乾(いぬい)は北西。北東は鬼が出入りする鬼門として忌まれた。\n\n## 一日の移り変わりを表す語\n夕暮れ・入相(いりあい)で日が沈み、夜の初めの宵(よい)、真夜中の夜半(よわ)、夜明け前のまだ暗い暁(あかつき)と進む。東の空が白むころを東雲(しののめ)・あけぼの・朝ぼらけという。通い婚では、男性は宵に訪れ暁に帰るのが習いだった。\n\n## 干支\n十干（甲・乙・丙…）と十二支を順に組み合わせると六十通りになり、年や日を表す。六十年で一巡して生まれた年の干支に戻るのが還暦である。","gyouji":"## 年中行事の基本\n平安時代の宮中では、毎年決まった日に儀式や宴が行われた。節日などに天皇が群臣を集めて開く公式の宴を節会(せちえ)という。日付はすべて陰暦なので、季節は月で判断する（一〜三月春、四〜六月夏、七〜九月秋、十〜十二月冬）。\n\n## 月ごとの主な行事\n| 月 | 行事 | ポイント |\n|---|---|---|\n| 正月 | 元日の節会 | 天皇が群臣に宴を賜る |\n| 正月 | 白馬節会 | 七日。引き出された馬を見て邪気を払う |\n| 正月 | 子の日の遊び・若菜 | 小松を引き、若菜を摘んで長寿を願う |\n| 春 | 県召除目 | 地方官を任命する |\n| 三月 | 上巳 | 水辺で祓えをする |\n| 四月 | 更衣・灌仏会・賀茂祭 | 一日に衣更え。八日に釈迦の誕生を祝う。賀茂祭は葵を飾る |\n| 五月 | 端午 | 五日。菖蒲を軒に葺き、薬玉を掛ける |\n| 七月 | 七夕（乞巧奠）・盂蘭盆 | 技芸の上達を祈る。十五日を中心に祖先を供養 |\n| 九月 | 重陽 | 九日。菊の着せ綿で長寿を願う |\n| 秋 | 司召除目 | 都の官職を任命する |\n| 十一月 | 新嘗祭・豊明節会 | 新穀を神に供え、翌日の宴で五節の舞 |\n| 六月・十二月 | 大祓 | 晦日に罪やけがれを払う |\n| 十二月 | 追儺 | 晦日の夜に鬼を追い払う |\n\n## 読み違えやすい語\n白馬節会は「あおうまのせちえ」、除目は「じもく」、県召は「あがためし」、司召は「つかさめし」、乞巧奠は「きっこうでん」、盂蘭盆は「うらぼん」、新嘗祭は「にいなめさい」、豊明節会は「とよのあかりのせちえ」、追儺は「ついな」（なやらい・おにやらいとも）。平安時代の文章で特に断りなく「祭」とあれば賀茂祭を指す。","kanshoku":"## 大内裏と内裏\n平安京の北の中央にある大内裏（宮城）は、朝堂院や諸官庁を含む広い区域で、その中に帝の住まいである内裏がある。内裏の正殿で儀式の場になるのが紫宸殿（ししんでん）、帝が日常を過ごすのが清涼殿。清涼殿の殿上の間に昇ることを許されるのが「昇殿」である。古文では宮中を「うち」、帝を「うへ」、朝廷や帝を「おほやけ」と呼ぶ。\n\n## 帝とその周辺\n| 呼び名 | 意味 |\n|---|---|\n| 院 | 位を退いた帝（上皇）。出家すると法皇 |\n| 東宮・春宮（とうぐう） | 皇太子 |\n| 摂政 | 幼い帝に代わって政治を行う |\n| 関白 | 成人した帝を補佐する |\n\n## 官職と身分\n大臣は太政大臣→左大臣→右大臣→内大臣の順で、その下に大納言・中納言・参議（宰相）が続く。三位以上と参議が上達部（かんだちめ）＝公卿、昇殿を許された四位・五位（六位の蔵人を含む）が殿上人、許されない者が地下（じげ）。蔵人は帝の側近で、蔵人頭が近衛中将を兼ねると頭中将。近衛府は内裏を警護し、貴人の外出には随身が付き従う。\n\n## 地方官と人事\n国司の長官は守（かみ）で、実際に任国へ下る国司の長を受領（ずりょう）という。官職の任命は除目（じもく）で、春の県召は地方官、秋の司召は都の官が中心。夜に泊まり込む勤務は宿直（とのい）。","koukyuu":"## 后妃の序列\n| 呼び名 | 説明 |\n|---|---|\n| 中宮・皇后 | 帝の后。一条天皇の時代には定子（皇后）と彰子（中宮）が並び立った |\n| 女御（にょうご） | 大臣家など上流貴族の娘が多い |\n| 更衣（こうい） | 大納言以下の家の娘が多い |\n| 御息所（みやすんどころ） | 帝の寵を受けた女御・更衣など。東宮の妃にもいう |\n\n后妃となる女性が正式に内裏に入ることを入内（じゅだい）という。貴族の正妻は「北の方」と呼ぶ。\n\n## 女官と女房\n内侍司（ないしのつかさ）の官は尚侍（ないしのかみ）→典侍（ないしのすけ）→掌侍の順。宮中や貴族の家に仕える女性が女房で、局（つぼね）という私室を与えられた。女房名は父や夫の官職・任国、氏の一字などから付ける（清少納言の「清」は清原）。宮仕えの人にとって「里」は実家のこと。貴人の子を養い育てるのが乳母（めのと）、その子が乳母子で、主人の腹心となった。\n\n## 後宮の殿舎と呼び名\n後宮は内裏の北側で、七殿五舎が並ぶ。妃は住む殿舎の名で呼ばれることが多い。\n| 正式名 | 通称 |\n|---|---|\n| 飛香舎 | 藤壺 |\n| 淑景舎 | 桐壺 |\n| 凝華舎 | 梅壺 |\n| 昭陽舎 | 梨壺 |\n\n「壺」は中庭のこと。弘徽殿（こきでん）・藤壺は清涼殿に近く、桐壺は遠い北東の隅にある。清涼殿の中には后妃の控えの間「上の御局」があった。\n\n## 神に仕える皇女\n伊勢神宮に仕えるのが斎宮、賀茂神社に仕えるのが斎院。どちらも未婚の皇女・女王が選ばれた。","sumai":"## 寝殿造の配置\n敷地の中央に南向きの寝殿を建て、その東・西・北に対の屋を置く。建物どうしは渡殿（渡り廊下）でつなぎ、壁のない吹き放しのものを透渡殿（すきわたどの）という。東西の対から南へ中門廊が延び、途中に中門が開く。寝殿の南は庭で、池と、水を引き入れる遣水（やりみず）、草木の植え込みの前栽（せんざい）がある。池に臨んで釣殿が建つ。屋敷の周りは土塀の築地（ついじ）で囲み、庭には間を透かした透垣（すいがい）を立てる。\n\n## 建物の内と外\n内側から **母屋（もや）→廂（ひさし）→簀子（すのこ）** の順で、簀子の外側には手すりの高欄がある。母屋には寝所・座所の帳台を置き、壁で囲った閉じた部屋を塗籠（ぬりごめ）という。\n\n## 建具\n| 名前 | 特徴 |\n|---|---|\n| 格子 | 木を縦横に組み、上げ下ろしする |\n| 蔀（しとみ） | 格子の裏に板を張った戸。半蔀は上半分を上げる |\n| 妻戸 | 建物の隅にある両開きの板戸 |\n| 遣戸（やりど） | 横に引く戸 |\n\n## 仕切りと調度\n外との境には御簾（みす）を掛け、室内は几帳・屏風・壁代・障子（ふすまに近い建具）で仕切る。身分ある女性はこの奥にいて、男性に直接顔を見せない。貴人の座は御座（おまし）、ひじを掛けるのは脇息。暖房は丸い木の火桶と角形の炭櫃（すびつ）、明かりは灯台や大殿油（おおとなぶら）。","shouzoku":"## 男性の装束\n| 装束 | おもな場面 | かぶりもの |\n|---|---|---|\n| 束帯（そくたい） | 朝廷の儀式・正式な出仕 | 冠 |\n| 衣冠（いかん） | 束帯の略装。宿直など | 冠 |\n| 直衣（のうし） | 上流貴族の日常着 | 主に烏帽子 |\n| 狩衣（かりぎぬ） | 外出・私的な場の略装 | 烏帽子 |\n| 水干・直垂 | 下級の者や庶民。直垂はのちに武士の平服 | 烏帽子 |\n\n指貫（さしぬき）は裾を紐でくくる袴。成人男性は人前で冠や烏帽子を脱がず、頭頂を見せるのは恥とされた。\n\n## 女性の装束（女房装束）\n下から、単衣（ひとえ）→袿（うちき）を何枚も重ねる→いちばん上に丈の短い唐衣（からぎぬ）、腰の後ろに裳（も）を引く。袿を重ねたものが五衣（いつつぎぬ）。表と裏、重ねた衣の色の取り合わせを**襲（かさね）の色目**といい、季節に合わせるのが教養。季節外れの色は興ざめとされた。宮中の衣更えは陰暦**四月一日**（夏へ）と**十月一日**（冬へ）。喪服には濃いねずみ色の**鈍色（にびいろ）**を用いる。\n\n## 美の基準と身だしなみ\n- 長くつややかな黒髪（垂髪）が第一の条件。顔の左右に垂れる前髪が額髪（ひたいがみ）\n- 成人女性は眉を抜いて墨で描き（引眉）、歯を黒く染めた（お歯黒）\n- 女性は顔を人に見せず、扇で隠す。扇には檜扇（ひおうぎ）と、紙を張った蝙蝠（かわほり）がある\n- 薫物（たきもの）を衣に焚きしめ、その香りが他に移ったものが移り香\n\n## 成人の儀式と容姿の評価語\n男子は元服（初冠＝ういこうぶり）で冠をつけ、女子は裳着（もぎ）で初めて裳をつける。「かたち」は顔立ち、「あてなり」は高貴で上品、「きよら」は最高級の気品ある美しさ（「きよげ」はそれより一段下）。","ren-ai":"## 恋の始まりから結婚まで\n| 段階 | すること・語 |\n|---|---|\n| ① 噂 | 姫君の評判を「音に聞く」 |\n| ② 垣間見（かいまみ） | 垣根や簾のすきまからのぞき見る |\n| ③ 懸想文（けそうぶみ） | 和歌を添えた恋文。季節の花や枝に結んで、姫君に仕える女房を通じて届ける |\n| ④ 返歌 | 初めは母や女房が代筆することも。筆跡・紙・歌の出来で人柄を推し量る |\n| ⑤ 逢ふ | 男が夜に訪れ、契りを結ぶ。暁（夜明け前）に帰る |\n| ⑥ 後朝（きぬぎぬ）の文 | 翌朝すぐ男から送る。早いほど誠意あり |\n| ⑦ 三日夜の餅・露顕 | 三日目の夜に餅を食べ、妻の家で婿を披露する（ところあらわし）。これで結婚成立 |\n\n## 通い婚と家族\n- 夫が妻の家に通う**通い婚（妻問い婚）**が基本。妻の家は婿の装束などを整えて世話をした\n- 子は母方の家で育つことが多く、母方の後ろ盾が大切だった\n- 一人の男が複数の妻をもつことがあり、正妻を**北の方**という\n- 男の通いが途絶えることを**夜離れ（よがれ）**という。待つ側の女性の嘆きは『蜻蛉日記』などに詳しい\n\n## 恋の場面の重要語\n| 語 | 意味 |\n|---|---|\n| 逢ふ | 男女が契りを結ぶ |\n| 見る | 妻とする・夫婦として暮らす |\n| 契る | 将来を約束する・夫婦の縁を結ぶ |\n| 住む | 夫として女のもとに通う |\n| よばふ | 求婚する |\n| 心ざし | 愛情・誠意 |\n| 色好み | 恋愛の情趣に通じた人 |\n\n和歌では「秋」に「飽き」、「枯る」に「離る（かる＝疎遠になる）」を掛けて、心変わりや訪れの途絶えを詠む。","shi-yamai":"## 病と祈祷\n当時は重い病や出産の苦しみを、**物の怪（もののけ）**＝人に取りつく生霊・死霊のしわざと考えた。薬を用いる医者（くすし）もいたが、重い病では僧の祈祷が頼りにされた。\n\n| 語 | 内容 |\n|---|---|\n| 加持祈祷（かじきとう） | 僧が経や真言を唱え、仏の力で病を除く |\n| 験者（げんざ） | 修行を積み、祈祷の効き目をあらわす僧 |\n| 修法（ずほう） | 密教の僧が壇を設けて行う祈祷 |\n| よりまし | 物の怪を一時乗り移らせる童や女房 |\n\n「例ならず」「わづらふ」は病気、「おこたる」は病気がよくなること。\n\n## 死と喪のしきたり\n- 死は**穢れ（死穢）**とされ、触れた者は一定期間出仕などを控えた。凶事を避けて家にこもるのが物忌み\n- 喪服は鈍色（にびいろ）。和歌では**藤衣**。色の濃さは故人との続柄による喪の軽重で決まった\n- 死後四十九日間が**中陰**。死後の法事を「のちのわざ」という\n- 貴族の葬送は火葬が多く、京の東山の**鳥辺野**などで行われた。「煙となる」は火葬＝死を表す\n\n## 出家\n俗世への執着を断ち、**後世（ごせ）**に阿弥陀仏の極楽浄土へ往生することを願って出家した。受戒して仏弟子となり、出家した人を入道という。女性は髪を肩や背のあたりで切りそろえる（**尼削ぎ**）。妻子などへの愛着は出家の妨げ＝**ほだし**。\n\n出家を表す言い方：髪下ろす／かたち（様）を変ふ／世を背く・世を捨つ\n\n## 死の婉曲表現と無常観\n「はかなくなる」「いたづらになる」「むなしくなる」「失す」「隠る（貴人）」「みまかる」はいずれも死ぬこと。『方丈記』冒頭の川の流れのように、すべては移り変わってとどまらないという**無常観**が、病や死、出家を語る文章の背景にある。","shinkou":"## 陰陽道と方角・日の吉凶\n平安貴族の暮らしは、陰陽道にもとづく吉凶の判断に大きく左右された。陰陽寮に属する陰陽師（安倍晴明が有名）が、占い・暦・天文によって日や方角のよしあしを判じた。\n\n| 語 | 意味 |\n|---|---|\n| 物忌（ものいみ） | 凶の日などに家にこもり、外出や来客を控えて身を慎む。「物忌」と書いた札をつける |\n| 方塞がり（かたふたがり） | 天一神（なかがみ）などがいて、行き先の方角が凶になっている状態 |\n| 方違へ（かたたがへ） | 方塞がりを避け、前夜に別の方角の家に泊まってから目的地へ向かう |\n\n## 夢・霊・けがれ\n夢は神仏の意思が示されるものと考えられ、吉凶を読み解く夢解きや、参籠中に得る夢告げが重んじられた。生きた人の魂が抜け出して祟る生霊、死者の霊である死霊、そして物の怪は、僧の加持祈祷で退けた。祈りの効き目を「験（しるし）」という。\n\n死・出産・血に触れることは穢れとされ、水で身を清める禊や、罪穢れを除く祓へを行った。言葉に霊力が宿るという言霊の信仰から、不吉な語を言い換える忌み言葉も生まれた。\n\n## 神と仏・物詣で\n平安時代には神と仏を結びつけて信仰する神仏習合が進んだ。寺社への参拝を物詣でといい、女性にとっては貴重な外出の機会でもあった。寺社に何日もこもって祈るのが参籠。\n\n- 観音の寺：石山寺（近江）、長谷寺（大和・初瀬）、清水寺（京・東山）\n- 神社：賀茂（「祭」といえば賀茂祭）、住吉（航海・和歌の神）、伊勢（天照大神を祭り、斎宮が仕える）\n\n神に捧げる幣（ぬさ・御幣）、神域を囲む斎垣（いがき）もあわせて覚えておこう。","bukkyou":"## 三世と因縁\n仏教では、人は前世・現世・来世の三世を生まれ変わると考えた。今の身の上は前世の行いの結果であり（因果応報）、その定めを宿世（すくせ）や契りと呼んだ。よい報いをもたらす善行が功徳である。\n\n迷いの世界である六道（地獄・餓鬼・畜生・修羅・人・天）を生まれ変わり続けるのが輪廻。そこから抜け出し、阿弥陀仏の西方極楽浄土に生まれることを極楽往生という。\n\n## 末法と浄土信仰\n釈迦の死後、教えが衰える末法の世が来るという末法思想が広まり、日本では永承七年（1052年）に末法に入るとされた。源信の『往生要集』は地獄と極楽を描いて念仏を勧めた。来世の往生を願うことを「後世（ごせ）を願ふ」という。臨終に紫の雲がたなびくのは往生のしるしとされた。\n\n## 僧と寺・出家\n\n| 語 | 意味 |\n|---|---|\n| 聖（ひじり） | 徳の高い僧、山林などで修行する僧 |\n| 僧正・僧都・律師 | 朝廷が与えた僧の官（この順に高い） |\n| 阿闍梨（あざり） | 密教で師となる資格をもつ僧 |\n| 勤行（ごんぎやう） | 仏前で決まった時刻に読経・礼拝すること |\n\n比叡山延暦寺（天台宗・最澄）は単に「山」とも呼ばれ、高野山（真言宗・空海）と並ぶ修行の中心だった。経典では法華経が特に尊ばれた。出家は「世を背く」「様を変ふ」などと表し、出家を妨げる肉親などの絆を「ほだし」という。\n\n## 無常観と隠者\nすべては移り変わってとどまらないという無常の考えは、中世の隠者の文学に強く表れる。鴨長明は方丈の庵で『方丈記』を書き、兼好法師は『徒然草』で無常をむしろ趣あるものとして捉えた。","asobi":"## 乗り物と外出\n貴族の外出には牛車を使った。日常用の網代車、色糸で飾った女性用の糸毛車などがあり、乗るときは後ろから、降りるときは前から。牛を外したときに轅（ながえ）を載せる台が榻（しぢ）。祭などの見物で車を止める場所をめぐる争いが車争いである。人がかついで運ぶ乗り物は輿。\n\n| 語 | 外出する人 |\n|---|---|\n| 行幸（ぎやうかう） | 天皇 |\n| 御幸（ごかう） | 上皇・法皇・女院 |\n| 行啓（ぎやうけい） | 皇后・中宮・皇太子 |\n\n## 旅と関所\n京から東国へ向かう道の出入口が逢坂の関、陸奥国の入口が白河の関で、どちらも歌枕となった。『伊勢物語』の東下りでは、隅田川で都鳥を見て都を思う。官道には馬を備えた駅（うまや）が置かれた。女性が徒歩で出かけるときは、市女笠をかぶった壺装束の姿になる。\n\n## 教養\n男性は漢詩文、女性は仮名（女手）による和歌や物語を主な教養とした。女性にとっては習字・和歌・琴が大切とされた。古文の「手」は筆跡のことで、手習ひは習字、また心のままに歌などを書きつけることをいう。\n\n## 遊びと手紙\n古文の「遊び」は多く管弦を指す。楽器には琴（弦楽器の総称）・琵琶・笛・笙・篳篥がある。左右に分かれて優劣を競う歌合や物合（貝合・絵合・根合・薫物合）、蹴鞠、碁・双六、偏継ぎ、雛遊びも楽しまれた。手紙（文・消息）は紙を選び、季節の枝に結んで使ひに届けさせ、使ひには禄を与えた。"};
+  var WORDS = [];
+
+  var els = {};
+  ["unit-groups","selected-unit-box","selected-unit-label","selected-unit-count",
+   "btn-make-quiz","btn-view-guide",
+   "error-banner","error-text","error-close",
+   "view-setup","view-quiz","view-result","view-guide","view-stats",
+   "quiz-count","quiz-score","quiz-unit","quiz-dots","quiz-prompt","quiz-question","quiz-source","quiz-choices",
+   "quiz-feedback","feedback-verdict","feedback-head","feedback-explanation","feedback-translation","feedback-translation-text","feedback-meta",
+   "btn-next-question",
+   "result-frac","result-message","btn-retry-quiz","btn-new-quiz","btn-guide-from-result","btn-change-unit",
+   "guide-content","btn-guide-back","btn-guide-quiz",
+   "stats-body","btn-stats","btn-stats-back","btn-stats-reset","btn-stats-from-result",
+   "btn-wrongbox","btn-wrong-only","range-from","range-to","btn-range"
+  ].forEach(function(id){ els[id.replace(/-([a-z])/g, function(_,c){return c.toUpperCase();})] = document.getElementById(id); });
+
+  var SET_SIZE = 10;
+  var quizData = [];
+  var currentIndex = 0;
+  var score = 0;
+  var results = [];
+  var selectedUnit = null;
+  var isWrongReview = false;
+
+  // 問題文と正解から安定したIDを作る（データの並び順が変わってもずれない）
+  function qid(text){
+    var h = 5381, s = String(text);
+    for(var i=0;i<s.length;i++){ h = ((h*33) ^ s.charCodeAt(i)) >>> 0; }
+    return h.toString(36);
+  }
+  var QID_MAP = {};
+  POOL.forEach(function(q){
+    q.id = qid(q.q + "|" + q.c[q.a]);
+    QID_MAP[q.id] = q;
+  });
+
+  // ===================== 学習記録（この端末のブラウザ内だけに保存） =====================
+  var RECENT_MAX = 60;
+  var DAYS_MAX  = 400;
+
+  function emptyStore(){ return { units:{}, wrong:[], recent:{}, days:[] }; }
+
+  var store = (function(){
+    try{
+      var raw = window.localStorage.getItem(CONFIG.storeKey);
+      if(!raw) return emptyStore();
+      var o = JSON.parse(raw);
+      return {
+        units:  o.units  || {},
+        wrong:  Array.isArray(o.wrong) ? o.wrong : [],
+        recent: o.recent || {},
+        days:   o.days   || []
+      };
+    }catch(e){ return emptyStore(); }
+  })();
+
+  var storageOK = true;
+  function saveStore(){
+    try{ window.localStorage.setItem(CONFIG.storeKey, JSON.stringify(store)); }
+    catch(e){ storageOK = false; }
+  }
+
+  function rangeUnit(from, to){
+    return { id: "r" + from + "-" + to, label: "No." + from + "〜" + to, from: from, to: to };
+  }
+
+  function findUnit(uid){
+    var found = null;
+    UNITS.forEach(function(g){
+      g.items.forEach(function(it){ if(it.id === uid) found = it; });
+    });
+    if(!found){
+      var m = /^r(\d+)-(\d+)$/.exec(uid);
+      if(m) found = rangeUnit(+m[1], +m[2]);
+    }
+    return found;
+  }
+  function unitLabelOf(uid){
+    var u = findUnit(uid);
+    return u ? u.label : uid;
+  }
+
+  function poolOf(unit){
+    if(unit.from){
+      return POOL.filter(function(q){ return q.no >= unit.from && q.no <= unit.to; });
+    }
+    return POOL.filter(function(q){ return q.g === unit.id; });
+  }
+
+  function todayKey(){
+    var d = new Date();
+    function p(n){ return (n<10?"0":"") + n; }
+    return d.getFullYear() + "-" + p(d.getMonth()+1) + "-" + p(d.getDate());
+  }
+
+  function recordAnswer(id, isCorrect){
+    var at = store.wrong.indexOf(id);
+    if(isCorrect){
+      if(at >= 0) store.wrong.splice(at, 1);   // 正解したら苦手ボックスから外す
+    } else if(at < 0){
+      store.wrong.push(id);
+    }
+  }
+
+  function recordQuizFinished(unitId, asked, correct){
+    var u = store.units[unitId] || { attempts:0, asked:0, correct:0, last:"" };
+    u.attempts += 1;
+    u.asked    += asked;
+    u.correct  += correct;
+    u.last      = todayKey();
+    store.units[unitId] = u;
+    if(store.days.indexOf(u.last) < 0){
+      store.days.push(u.last);
+      if(store.days.length > DAYS_MAX) store.days = store.days.slice(-DAYS_MAX);
+    }
+    saveStore();
+  }
+
+  function rememberAsked(unitId, questions){
+    var seen = store.recent[unitId] || [];
+    questions.forEach(function(q){
+      var at = seen.indexOf(q.id);
+      if(at >= 0) seen.splice(at, 1);
+      seen.push(q.id);
+    });
+    if(seen.length > RECENT_MAX) seen = seen.slice(-RECENT_MAX);
+    store.recent[unitId] = seen;
+    saveStore();
+  }
+
+  function wrongBoxQuestions(limit){
+    var out = [];
+    store.wrong.forEach(function(id){ if(QID_MAP[id]) out.push(QID_MAP[id]); });
+    return shuffleArray(out).slice(0, limit || SET_SIZE);
+  }
+  function wrongBoxCount(){
+    return store.wrong.filter(function(id){ return QID_MAP[id]; }).length;
+  }
+
+  function switchView(name){
+    ["setup","quiz","result","guide","stats"].forEach(function(v){
+      els["view"+v[0].toUpperCase()+v.slice(1)].hidden = (v !== name);
+    });
+    window.scrollTo(0, 0);
+  }
+
+  function showError(msg){
+    els.errorText.textContent = msg;
+    els.errorBanner.hidden = false;
+  }
+  function clearError(){ els.errorBanner.hidden = true; }
+  els.errorClose.addEventListener("click", clearError);
+
+  function escapeHTML(s){
+    return String(s).replace(/[&<>"']/g, function(ch){
+      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch];
+    });
+  }
+  // 《》で囲んだ部分を傍線にする
+  function markup(s){
+    return escapeHTML(s).replace(/《(.+?)》/g, '<span class="bosen">$1</span>');
+  }
+
+  // ---- 単元選び ----
+  function renderUnitGroups(){
+    els.unitGroups.innerHTML = "";
+    UNITS.forEach(function(group){
+      var wrap = document.createElement("div");
+      wrap.className = "unit-group";
+      var h3 = document.createElement("h3");
+      h3.textContent = group.chapter;
+      wrap.appendChild(h3);
+      var chips = document.createElement("div");
+      chips.className = "chips";
+      group.items.forEach(function(item){
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "chip";
+        btn.textContent = item.label;
+        btn.dataset.unitId = item.id;
+        btn.addEventListener("click", function(){ selectUnit(item); });
+        chips.appendChild(btn);
+      });
+      wrap.appendChild(chips);
+      els.unitGroups.appendChild(wrap);
+    });
+  }
+  renderUnitGroups();
+
+  function selectUnit(item){
+    selectedUnit = item;
+    Array.prototype.forEach.call(els.unitGroups.querySelectorAll(".chip"), function(chip){
+      chip.classList.toggle("active", chip.dataset.unitId === item.id);
+    });
+    els.selectedUnitLabel.textContent = item.label + (item.hint ? "（" + item.hint + "）" : "");
+    els.selectedUnitCount.textContent = " 全" + poolOf(item).length + "問";
+    els.selectedUnitBox.hidden = false;
+    els.btnMakeQuiz.disabled = false;
+    els.btnViewGuide.disabled = false;
+    clearError();
+  }
+
+  if(els.btnRange){
+    els.btnRange.addEventListener("click", function(){
+      var a = parseInt(els.rangeFrom.value, 10), b = parseInt(els.rangeTo.value, 10);
+      if(isNaN(a) || isNaN(b)){ showError("はじめとおわりの番号を数字で入れてください。"); return; }
+      if(a > b){ var t = a; a = b; b = t; }
+      a = Math.max(1, a); b = Math.min(CONFIG.maxNo, b);
+      var u = rangeUnit(a, b);
+      if(!poolOf(u).length){ showError("No." + a + "〜" + b + " には問題がありません。"); return; }
+      els.rangeFrom.value = a; els.rangeTo.value = b;
+      selectUnit(u);
+      els.selectedUnitBox.scrollIntoView({ block:"nearest" });
+    });
+  }
+
+  // ---- 出題 ----
+  function shuffleArray(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function shuffleChoices(q){
+    var order = shuffleArray(q.c.map(function(_, i){ return i; }));
+    var copy = {};
+    Object.keys(q).forEach(function(k){ copy[k] = q[k]; });
+    copy.c = order.map(function(i){ return q.c[i]; });
+    copy.a = order.indexOf(q.a);
+    return copy;
+  }
+
+  // 同じ語が1セットに重ならないように選ぶ（足りなければ重ねる）
+  function pickDistinct(list, n){
+    var used = {}, out = [], rest = [];
+    list.forEach(function(q){
+      if(out.length >= n){ return; }
+      if(q.w && used[q.w]){ rest.push(q); return; }
+      if(q.w) used[q.w] = true;
+      out.push(q);
+    });
+    return out.concat(rest).slice(0, n);
+  }
+
+  function pickQuizForUnit(unit){
+    var pool = poolOf(unit);
+    if(!pool.length) return null;
+    // 直近に出した問題をいったん後回しにして、同じ問題の再出現を減らす
+    var seen = store.recent[unit.id] || [];
+    var fresh = pool.filter(function(q){ return seen.indexOf(q.id) < 0; });
+    var picked;
+    if(fresh.length >= SET_SIZE){
+      picked = pickDistinct(shuffleArray(fresh), SET_SIZE);
+    } else {
+      // 未出題が足りなくなったら一巡したとみなし、記憶を流して全体から選び直す
+      picked = pickDistinct(shuffleArray(fresh).concat(
+        shuffleArray(pool.filter(function(q){ return fresh.indexOf(q) < 0; }))
+      ), SET_SIZE);
+      store.recent[unit.id] = [];
+    }
+    rememberAsked(unit.id, picked);
+    return picked.map(shuffleChoices);
+  }
+
+  function beginQuiz(questions, title){
+    quizData = questions;
+    currentIndex = 0; score = 0; results = [];
+    renderQuizDots();
+    els.quizUnit.textContent = title;
+    renderQuestion();
+    switchView("quiz");
+  }
+
+  function startQuizWith(questions, title){
+    if(!questions || !questions.length) return false;
+    isWrongReview = true;
+    beginQuiz(questions.map(shuffleChoices), title);
+    return true;
+  }
+
+  function startQuiz(){
+    clearError();
+    if(!selectedUnit) return;
+    isWrongReview = false;
+    var qs = pickQuizForUnit(selectedUnit);
+    if(!qs){
+      showError("「" + selectedUnit.label + "」の問題は準備中です。別の単元をお試しください。");
+      switchView("setup");
+      return;
+    }
+    beginQuiz(qs, CONFIG.unitWord + ": " + selectedUnit.label);
+  }
+
+  function renderQuizDots(){
+    els.quizDots.innerHTML = "";
+    quizData.forEach(function(){ els.quizDots.appendChild(document.createElement("span")); });
+    updateDots();
+  }
+  function updateDots(){
+    var dots = els.quizDots.children;
+    for(var i=0;i<dots.length;i++){
+      dots[i].className = "";
+      if(results[i] === "correct") dots[i].classList.add("done-correct");
+      else if(results[i] === "wrong") dots[i].classList.add("done-wrong");
+      else if(i === currentIndex) dots[i].classList.add("current");
+    }
+  }
+
+  function renderQuestion(){
+    var q = quizData[currentIndex];
+    els.quizCount.textContent = "問 " + (currentIndex+1) + " / " + quizData.length;
+    els.quizScore.textContent = "正解 " + score;
+    els.quizPrompt.textContent = q.p || "";
+    els.quizPrompt.hidden = !q.p;
+    els.quizQuestion.innerHTML = markup(q.q);
+    els.quizQuestion.classList.toggle("big", !!q.big);
+    els.quizSource.textContent = q.s || "";
+    els.quizSource.hidden = !q.s;
+    els.quizFeedback.hidden = true;
+    els.btnNextQuestion.hidden = true;
+    updateDots();
+
+    els.quizChoices.innerHTML = "";
+    var letters = ["A","B","C","D","E","F"];
+    q.c.forEach(function(choiceText, idx){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "choice";
+      btn.innerHTML = '<span class="badge">' + letters[idx] + '</span><span></span>';
+      btn.querySelector("span:last-child").textContent = choiceText;
+      btn.addEventListener("click", function(){ onChoose(idx); });
+      els.quizChoices.appendChild(btn);
+    });
+  }
+
+  function onChoose(idx){
+    var q = quizData[currentIndex];
+    var buttons = els.quizChoices.querySelectorAll(".choice");
+    Array.prototype.forEach.call(buttons, function(b){ b.disabled = true; });
+
+    var isCorrect = (idx === q.a);
+    buttons[idx].classList.add(isCorrect ? "correct" : "incorrect");
+    if(!isCorrect) buttons[q.a].classList.add("correct");
+
+    if(isCorrect) score++;
+    results[currentIndex] = isCorrect ? "correct" : "wrong";
+    recordAnswer(q.id, isCorrect);
+    saveStore();
+    updateDots();
+    els.quizScore.textContent = "正解 " + score;
+
+    els.feedbackVerdict.textContent = isCorrect ? "○ 正解！" : "× 残念、不正解";
+    els.feedbackVerdict.className = "verdict " + (isCorrect ? "correct" : "incorrect");
+    els.feedbackHead.textContent = q.h || "";
+    els.feedbackHead.hidden = !q.h;
+    els.feedbackExplanation.textContent = q.e || "";
+    if(q.t){
+      els.feedbackTranslationText.innerHTML = markup(q.t);
+      els.feedbackTranslation.hidden = false;
+    } else {
+      els.feedbackTranslation.hidden = true;
+    }
+    els.feedbackMeta.textContent = q.m || "";
+    els.feedbackMeta.hidden = !q.m;
+    els.quizFeedback.hidden = false;
+    els.btnNextQuestion.hidden = false;
+    els.btnNextQuestion.textContent = (currentIndex === quizData.length-1) ? "結果を見る" : "次の問題へ";
+    // 解説とボタンが画面の外に出ないように寄せる
+    try{
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      els.btnNextQuestion.scrollIntoView({ block: "end", behavior: reduceMotion ? "auto" : "smooth" });
+    }catch(e){
+      els.btnNextQuestion.scrollIntoView(false);
+    }
+  }
+
+  els.btnNextQuestion.addEventListener("click", function(){
+    if(currentIndex < quizData.length-1){
+      currentIndex++;
+      renderQuestion();
+      els.quizCount.scrollIntoView({ block: "nearest" });
+    } else {
+      showResult();
+    }
+  });
+
+  function showResult(){
+    var total = quizData.length;
+    els.resultFrac.textContent = score + "/" + total;
+    var ratio = score/total;
+    var msg;
+    if(score === total) msg = "満点です！お見事な出来栄え。もう一つ別の範囲にも挑戦してみましょう。";
+    else if(ratio >= 0.7) msg = "よくできました。間違えた問題の解説を読み返して、仕上げていきましょう。";
+    else if(ratio >= 0.4) msg = "もう少しです。解説を読み直して、同じ範囲にもう一度挑戦してみましょう。";
+    else msg = CONFIG.lowScoreMessage;
+    els.resultMessage.textContent = msg;
+
+    if(selectedUnit && !isWrongReview){
+      recordQuizFinished(selectedUnit.id, total, score);
+    } else {
+      saveStore();
+    }
+
+    var wrongCount = results.filter(function(r){ return r === "wrong"; }).length;
+    els.btnWrongOnly.hidden = (wrongCount === 0);
+    if(wrongCount) els.btnWrongOnly.textContent = "間違えた" + wrongCount + "問だけもう一度";
+    els.btnGuideFromResult.hidden = !selectedUnit || isWrongReview;
+    els.btnNewQuiz.hidden = !selectedUnit || isWrongReview;
+
+    switchView("result");
+  }
+
+  els.btnRetryQuiz.addEventListener("click", function(){
+    beginQuiz(quizData.map(shuffleChoices), els.quizUnit.textContent);
+  });
+  els.btnNewQuiz.addEventListener("click", function(){ startQuiz(); });
+  els.btnChangeUnit.addEventListener("click", function(){ clearError(); refreshWrongBoxButton(); switchView("setup"); });
+  els.btnGuideFromResult.addEventListener("click", function(){ showGuide(); });
+  els.btnGuideBack.addEventListener("click", function(){ clearError(); refreshWrongBoxButton(); switchView("setup"); });
+  els.btnGuideQuiz.addEventListener("click", function(){ startQuiz(); });
+
+  // ---- 学習ガイド / 単語一覧 ----
+  function renderMarkdown(text){
+    try{
+      if(window.marked && typeof window.marked.parse === "function") return window.marked.parse(text);
+    }catch(e){}
+    return escapeHTML(text).replace(/\n/g, "<br>");
+  }
+
+  function wordListHTML(unit){
+    var rows = WORDS.filter(function(w){
+      return unit.from ? (w.no >= unit.from && w.no <= unit.to) : w.g === unit.id;
+    });
+    if(!rows.length) return "";
+    var html = '<h2>' + escapeHTML(unit.label) + ' の語</h2>'
+             + '<div style="overflow-x:auto"><table class="word-table"><thead><tr>'
+             + '<th>' + (unit.from ? "No." : "頁") + '</th><th>語</th><th>意味</th></tr></thead><tbody>';
+    rows.forEach(function(w){
+      html += '<tr><td class="no">' + (unit.from ? w.no : "p." + w.pg) + '</td>'
+           +  '<td class="w">' + escapeHTML(w.w) + (w.k ? '<small>' + escapeHTML(w.k) + (w.h ? "・" + escapeHTML(w.h) : "") + '</small>' : "") + '</td>'
+           +  '<td>' + escapeHTML(w.m) + (unit.from && w.pg ? ' <span style="color:var(--ink-soft);font-size:.78rem">p.' + w.pg + '</span>' : "") + '</td></tr>';
+    });
+    return html + '</tbody></table></div>';
+  }
+
+  function showGuide(){
+    clearError();
+    if(!selectedUnit) return;
+    var html = GUIDES[selectedUnit.id] ? renderMarkdown(GUIDES[selectedUnit.id]) : wordListHTML(selectedUnit);
+    els.guideContent.innerHTML = html || "<p>「" + escapeHTML(selectedUnit.label) + "」のガイドは準備中です。</p>";
+    switchView("guide");
+  }
+
+  // ===================== 記録画面 =====================
+  function pct(n, d){ return d ? Math.round(n / d * 100) : 0; }
+
+  function dayKey(d){
+    function p(x){ return (x<10?"0":"") + x; }
+    return d.getFullYear() + "-" + p(d.getMonth()+1) + "-" + p(d.getDate());
+  }
+  function streakDays(){
+    if(!store.days.length) return 0;
+    var set = {};
+    store.days.forEach(function(d){ set[d] = true; });
+    var n = 0, cur = new Date();
+    if(!set[dayKey(cur)]) cur.setDate(cur.getDate() - 1);   // 今日まだなら昨日から数える
+    while(set[dayKey(cur)]){ n++; cur.setDate(cur.getDate() - 1); }
+    return n;
+  }
+
+  function calendarHTML(){
+    var now = new Date();
+    var year = now.getFullYear(), month = now.getMonth();
+    var first = new Date(year, month, 1).getDay();
+    var last = new Date(year, month+1, 0).getDate();
+    var set = {};
+    store.days.forEach(function(d){ set[d] = true; });
+    var html = '<div class="cal">';
+    ["日","月","火","水","木","金","土"].forEach(function(w){ html += '<span class="head">' + w + '</span>'; });
+    for(var i=0;i<first;i++) html += '<span></span>';
+    for(var d=1; d<=last; d++){
+      var cls = [];
+      if(set[dayKey(new Date(year, month, d))]) cls.push("on");
+      if(d === now.getDate()) cls.push("today");
+      html += '<span class="' + cls.join(" ") + '">' + d + '</span>';
+    }
+    return html + '</div>';
+  }
+
+  function renderStats(){
+    var uids = Object.keys(store.units);
+    var totalAttempts = 0, totalAsked = 0, totalCorrect = 0;
+    uids.forEach(function(u){
+      totalAttempts += store.units[u].attempts;
+      totalAsked    += store.units[u].asked;
+      totalCorrect  += store.units[u].correct;
+    });
+
+    var html = "";
+    if(!storageOK){
+      html += '<p class="stats-empty">このブラウザでは記録を保存できない設定になっています（プライベートモードなど）。'
+           +  'その場合でも、いま解いている分の「間違えた問題だけもう一度」は使えます。</p>';
+    }
+    if(!totalAttempts){
+      html += '<p class="stats-empty">まだ記録がありません。範囲を選んで10問解くと、ここに正答率と学習した日が残ります。</p>';
+      els.statsBody.innerHTML = html;
+      return;
+    }
+
+    html += '<div class="stat-grid">'
+         +  '<div class="stat-tile"><span class="k">挑戦した回数</span><span class="v">' + totalAttempts + '<small>回</small></span></div>'
+         +  '<div class="stat-tile"><span class="k">解いた問題</span><span class="v">' + totalAsked + '<small>問</small></span></div>'
+         +  '<div class="stat-tile"><span class="k">通算の正答率</span><span class="v">' + pct(totalCorrect, totalAsked) + '<small>%</small></span></div>'
+         +  '<div class="stat-tile"><span class="k">連続学習日数</span><span class="v">' + streakDays() + '<small>日</small></span></div>'
+         +  '</div>';
+
+    var wn = wrongBoxCount();
+    html += '<div class="stats-section-title">苦手ボックス</div>';
+    if(wn){
+      html += '<div class="wrongbox-line"><span>間違えたまま正解していない問題が <strong>' + wn + '問</strong> あります。</span>'
+           +  '<button type="button" class="btn btn-primary" id="btn-wrongbox-2">ここから10問解く</button></div>';
+    } else {
+      html += '<p class="stats-empty">いまは空です。間違えた問題がここにたまり、正解すると消えます。</p>';
+    }
+
+    uids.sort(function(a,b){
+      return pct(store.units[a].correct, store.units[a].asked) - pct(store.units[b].correct, store.units[b].asked);
+    });
+    html += '<div class="stats-section-title">' + CONFIG.unitWord + 'ごとの成績（正答率の低い順）</div>';
+    html += '<div style="overflow-x:auto"><table class="stat-table"><thead><tr>'
+         +  '<th>' + CONFIG.unitWord + '</th><th class="num">挑戦</th><th class="num">正答率</th><th style="width:90px"></th><th class="num">最終</th>'
+         +  '</tr></thead><tbody>';
+    uids.forEach(function(uid){
+      var u = store.units[uid];
+      var r = pct(u.correct, u.asked);
+      var cls = r < 50 ? "low" : (r < 80 ? "mid" : "");
+      html += '<tr><td>' + escapeHTML(unitLabelOf(uid)) + '</td>'
+           +  '<td class="num">' + u.attempts + '回</td>'
+           +  '<td class="num">' + r + '%</td>'
+           +  '<td><span class="rate-bar"><i class="' + cls + '" style="width:' + r + '%"></i></span></td>'
+           +  '<td class="num">' + (u.last || "-").slice(5).replace("-", "/") + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+    html += '<div class="stats-section-title">今月の学習した日</div>' + calendarHTML();
+
+    els.statsBody.innerHTML = html;
+    var btn2 = document.getElementById("btn-wrongbox-2");
+    if(btn2) btn2.addEventListener("click", openWrongBox);
+  }
+
+  function openWrongBox(){
+    clearError();
+    var qs = wrongBoxQuestions(SET_SIZE);
+    if(!qs.length){
+      showError("苦手ボックスは空です。まずは範囲を選んで挑戦してみましょう。");
+      switchView("setup");
+      return;
+    }
+    startQuizWith(qs, "苦手ボックス(" + qs.length + "問)");
+  }
+
+  function showStats(){ clearError(); renderStats(); switchView("stats"); }
+
+  els.btnStats.addEventListener("click", showStats);
+  els.btnStatsFromResult.addEventListener("click", showStats);
+  els.btnStatsBack.addEventListener("click", function(){ clearError(); refreshWrongBoxButton(); switchView("setup"); });
+  els.btnWrongbox.addEventListener("click", openWrongBox);
+
+  els.btnStatsReset.addEventListener("click", function(){
+    if(!window.confirm("これまでの記録と苦手ボックスをすべて消します。よろしいですか？")) return;
+    store = emptyStore();
+    try{ window.localStorage.removeItem(CONFIG.storeKey); }catch(e){}
+    renderStats();
+  });
+
+  els.btnWrongOnly.addEventListener("click", function(){
+    var wrong = quizData.filter(function(_, i){ return results[i] === "wrong"; });
+    if(!wrong.length) return;
+    startQuizWith(wrong, "間違えた問題の解き直し(" + wrong.length + "問)");
+  });
+
+  function refreshWrongBoxButton(){
+    var n = wrongBoxCount();
+    els.btnWrongbox.textContent = n ? ("苦手ボックスから10問(" + n + "問たまっています)") : "苦手ボックスから10問";
+    els.btnWrongbox.disabled = (n === 0);
+  }
+  refreshWrongBoxButton();
+
+  els.btnMakeQuiz.addEventListener("click", function(){ startQuiz(); });
+  els.btnViewGuide.addEventListener("click", function(){ showGuide(); });
+})();
+</script>
+</body>
+</html>
