@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="古文文法道場の生徒アンケートから、選択肢の作りの偏りを見つけて直した実践報告">
+<title>正解だけが長かった</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* 古文文法道場そのものの配色（藍・山吹・若竹・紅梅）から起こしている */
+:root{
+  --bg:#F4EFE1; --surface:#FFFDF8; --surface-2:#EFE8D6;
+  --ink:#2A251C; --ink-soft:#6D6553; --ink-faint:#8B8371;
+  --line:#D9CCA7; --line-strong:#C3B287;
+  --ai:#2C3E66; --ai-deep:#1D2C4D; --ai-bg:#E4E7F0;
+  --yamabuki:#B07813;
+  --wakatake:#3F8A63; --wakatake-bg:#E6F0E8;
+  --kobai:#B8483F; --kobai-bg:#F6E6E2;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141726; --surface:#1C2038; --surface-2:#242844;
+    --ink:#ECE5D3; --ink-soft:#A9A08B; --ink-faint:#8A8271;
+    --line:#38406A; --line-strong:#4A5385;
+    --ai:#8FA3D6; --ai-deep:#C2CFEC; --ai-bg:#212845;
+    --yamabuki:#E0AC47;
+    --wakatake:#7FC39E; --wakatake-bg:#1C3329;
+    --kobai:#E2938C; --kobai-bg:#3A2320;
+  }
+}
+
+body{
+  margin:0;
+  background:var(--bg); color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+  font-size:15px; line-height:1.9;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:800px; margin:0 auto; padding:0 24px 100px;}
+h1,h2,h3,.mincho{font-family:"Shippori Mincho","Hiragino Mincho ProN",serif;}
+p{margin:0;}
+.num{font-variant-numeric:tabular-nums;}
+
+/* 見出し */
+header{padding:60px 0 30px;}
+.kicker{font-size:.74rem; letter-spacing:.16em; color:var(--yamabuki); font-weight:700;}
+h1{font-size:2.6rem; font-weight:800; line-height:1.35; margin:14px 0 18px; letter-spacing:.02em; text-wrap:balance;}
+.standfirst{font-size:1.05rem; color:var(--ink-soft); line-height:1.95; max-width:40em;}
+.byline{display:flex; flex-wrap:wrap; gap:6px 20px; font-size:.8rem; color:var(--ink-faint);
+  border-top:1px solid var(--line); margin-top:28px; padding-top:14px; font-variant-numeric:tabular-nums;}
+
+section{margin-top:52px;}
+h2{font-size:1.45rem; font-weight:700; margin:0 0 6px; letter-spacing:.02em; text-wrap:balance;}
+.sec-note{font-size:.85rem; color:var(--ink-faint); margin-bottom:22px;}
+h3{font-size:1.02rem; font-weight:700; margin:0 0 8px;}
+.body p + p{margin-top:14px;}
+.body{max-width:40em;}
+
+/* 結論 */
+.lede{background:var(--surface); border:1px solid var(--line); border-left:5px solid var(--ai);
+  padding:24px 26px; display:flex; flex-direction:column; gap:14px; font-size:1rem;}
+.lede b{color:var(--ai); font-weight:700;}
+
+/* 数値の帯 */
+.likert{display:flex; flex-direction:column; gap:11px; margin:18px 0 8px;}
+.lk{display:grid; grid-template-columns:1fr; gap:4px;}
+.lk-top{display:flex; justify-content:space-between; align-items:baseline; gap:14px; font-size:.87rem;}
+.lk-val{font-variant-numeric:tabular-nums; color:var(--ink-soft); font-size:.8rem; white-space:nowrap;}
+.lk-val b{color:var(--ink); font-size:1rem; font-weight:700;}
+.track{height:9px; border-radius:5px; background:var(--surface-2); overflow:hidden;}
+.track i{display:block; height:100%; border-radius:5px; background:var(--ai);}
+.track i.top{background:var(--yamabuki);}
+
+/* 相関 */
+.corr{display:flex; flex-direction:column; gap:10px; margin:16px 0 6px;}
+.cr{display:grid; grid-template-columns:minmax(110px,auto) 1fr auto; gap:14px; align-items:center; font-size:.87rem;}
+.cr .bar{height:16px; border-radius:3px; background:var(--surface-2); position:relative;}
+.cr .bar i{position:absolute; left:0; top:0; bottom:0; border-radius:3px; background:var(--ai);}
+.cr .bar i.weak{background:var(--kobai);}
+.cr .r{font-variant-numeric:tabular-nums; font-weight:700; min-width:3em; text-align:right;}
+
+/* 引用 */
+.voice{border-left:3px solid var(--yamabuki); background:var(--surface); padding:16px 20px;
+  margin:18px 0; font-size:.95rem; line-height:1.95;}
+.voice + .voice{margin-top:12px;}
+.voice cite{display:block; margin-top:8px; font-size:.76rem; color:var(--ink-faint); font-style:normal;}
+
+/* 改善カード */
+.fixes{display:flex; flex-direction:column; gap:0; margin-top:8px;}
+.fix{border-top:1px solid var(--line); padding:22px 0;}
+.fix:last-child{border-bottom:1px solid var(--line);}
+.fix-head{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:8px;}
+.tag{font-size:.7rem; font-weight:700; letter-spacing:.1em; padding:3px 10px; border-radius:2px;
+  background:var(--ai); color:var(--surface); white-space:nowrap;}
+.fix h3{margin:0;}
+.fix p{font-size:.92rem; color:var(--ink-soft);}
+.fix .detail{margin-top:10px; font-size:.87rem;}
+
+/* 表 */
+.scroll{overflow-x:auto; margin:16px 0;}
+table{width:100%; border-collapse:collapse; font-size:.88rem;}
+th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line);}
+th{font-size:.72rem; letter-spacing:.08em; color:var(--ink-faint); font-weight:700;
+  border-bottom:1px solid var(--line-strong); white-space:nowrap;}
+td.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
+td.before{color:var(--kobai); font-weight:700;}
+td.after{color:var(--wakatake); font-weight:700;}
+tbody tr:hover{background:var(--surface);}
+
+/* 教訓 */
+.lessons{display:flex; flex-direction:column; gap:18px; margin-top:8px;}
+.lesson{background:var(--surface); border:1px solid var(--line); padding:20px 22px;}
+.lesson h3{color:var(--ai); margin-bottom:8px;}
+.lesson p{font-size:.92rem; color:var(--ink-soft);}
+
+.note{background:var(--surface-2); padding:16px 20px; font-size:.84rem; color:var(--ink-soft); line-height:1.85;}
+.note b{color:var(--ink);}
+
+footer{margin-top:56px; border-top:1px solid var(--line-strong); padding-top:18px;
+  font-size:.78rem; color:var(--ink-faint); line-height:1.85;}
+a{color:var(--ai); text-underline-offset:3px;}
+:focus-visible{outline:2px solid var(--yamabuki); outline-offset:2px;}
+
+@media (max-width:560px){
+  h1{font-size:1.95rem;}
+  .cr{grid-template-columns:1fr auto; }
+  .cr .bar{grid-column:1 / -1;}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <div class="kicker">古文文法道場 — 生徒アンケートからの改善</div>
+  <h1>正解だけが長かった</h1>
+  <p class="standfirst">
+    高校2年生88人に、自作の古典文法ドリルを使ってもらって感想を聞きました。
+    評価は概ね良好でしたが、一人の生徒の何気ない一言をきっかけに問題データを調べたところ、
+    このドリルが<strong>内容を知らなくても消去法で解けてしまう</strong>状態だったことが分かりました。
+  </p>
+  <div class="byline">
+    <span>回答 88件（高校2年）</span>
+    <span>2026年9月</span>
+    <span>対象 1,810問／35単元</span>
+    <span>upopotennis-gif.github.io/kobun-dojo/</span>
+  </div>
+</header>
+
+<section>
+  <div class="lede">
+    <p>アンケートの数字だけを見れば「よくできている」で終わる内容でした。<b>操作性は4.66／5、98%の生徒が肯定</b>しています。</p>
+    <p>しかし自由記述に「明らかに答えがこれでしょみたいな一つだけ気合が入っているのがだいたい答えになっている」という一文がありました。これを問題データで検証すると、<b>正解が4つの中で単独で最も長い問題が46.1%</b>（偶然なら25%）。生徒の直感は正しかったことになります。</p>
+    <p>結果として直したのは、使い勝手ではなく<b>問題そのものの作り</b>でした。</p>
+  </div>
+</section>
+
+<section>
+  <h2>聞いたこと</h2>
+  <p class="sec-note">5段階評価5問と、自由記述4問。授業で使ったあとGoogleフォームで回答。</p>
+
+  <div class="likert">
+    <div class="lk">
+      <div class="lk-top"><span>操作方法や画面の見やすさ</span><span class="lk-val">平均 <b class="num">4.66</b> ／ 肯定 98%</span></div>
+      <div class="track"><i class="top" style="width:93.2%"></i></div>
+    </div>
+    <div class="lk">
+      <div class="lk-top"><span>復習や定着に役立つ</span><span class="lk-val">平均 <b class="num">4.32</b> ／ 肯定 91%</span></div>
+      <div class="track"><i style="width:86.4%"></i></div>
+    </div>
+    <div class="lk">
+      <div class="lk-top"><span>今後も使いたい</span><span class="lk-val">平均 <b class="num">4.08</b> ／ 肯定 85%</span></div>
+      <div class="track"><i style="width:81.6%"></i></div>
+    </div>
+    <div class="lk">
+      <div class="lk-top"><span>難易度が自分の実力に合っていた</span><span class="lk-val">平均 <b class="num">4.06</b> ／ 肯定 77%</span></div>
+      <div class="track"><i style="width:81.2%"></i></div>
+    </div>
+    <div class="lk">
+      <div class="lk-top"><span>解説が分かりやすい</span><span class="lk-val">平均 <b class="num">4.00</b> ／ 肯定 76%</span></div>
+      <div class="track"><i style="width:80%"></i></div>
+    </div>
+  </div>
+  <p class="sec-note" style="margin-top:12px">好評だったのは「その場で出る解説」（41人が言及）、「単元を自分で選べること」（26人）、「10問で終わる手軽さ」（25人）。</p>
+</section>
+
+<section>
+  <h2>分かったこと（一）操作性を磨いても、使い続けてはもらえない</h2>
+  <p class="sec-note">「今後も使いたい」と各項目の相関係数（n=88）</p>
+
+  <div class="corr">
+    <div class="cr"><span>復習・定着の手応え</span><span class="bar"><i style="width:62%"></i></span><span class="r num">0.62</span></div>
+    <div class="cr"><span>解説の分かりやすさ</span><span class="bar"><i style="width:47%"></i></span><span class="r num">0.47</span></div>
+    <div class="cr"><span>難易度の合致</span><span class="bar"><i style="width:42%"></i></span><span class="r num">0.42</span></div>
+    <div class="cr"><span>操作性・見やすさ</span><span class="bar"><i class="weak" style="width:21%"></i></span><span class="r num">0.21</span></div>
+  </div>
+
+  <div class="body" style="margin-top:18px">
+    <p>操作性はいちばん高い評価を得ていながら、継続して使うかどうかにはほとんど関係していませんでした。効いているのは「やった手応えがあるか」です。</p>
+    <p>「今後は使わない」と答えた13人（15%）を見ると、この傾向がはっきりします。この生徒たちも<strong>操作性だけは4.54と高いまま</strong>で、手応え・解説・難易度の3つだけが3.3〜3.5に落ちていました。離れていく生徒は「使いにくい」のではなく「手応えがない」と言っています。</p>
+  </div>
+</section>
+
+<section>
+  <h2>分かったこと（二）選択肢の作りが壊れていた</h2>
+  <p class="sec-note">生徒の記述をきっかけに、1,810問すべてを機械的に検査しました。</p>
+
+  <div class="voice">
+    「明らかに答えがこれでしょみたいな一つだけ気合が入っているのがだいたい答えになっている」
+    <cite>— 評価の高かった生徒の記述</cite>
+  </div>
+  <div class="voice">
+    「接続や活用の型、意味の種類などの確認にはいいと思ったが、難易度が少し低いのと、<strong>選択肢を見ただけでわかる消去法の問題</strong>があり、あまり授業で習った手順に沿って考える必要がなかった」
+    <cite>— 最も評価の低かった生徒の記述</cite>
+  </div>
+
+  <div class="body" style="margin-top:18px">
+    <p>調べると、正解が単独で最も長い問題が46.1%（偶然なら25%）、逆に正解が最も短い問題はわずか4.1%でした。つまり<strong>迷ったら長いものを選べば当たる</strong>。典型例はこうです。</p>
+  </div>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>助動詞「す」の接続として正しいものはどれか</th><th class="n">字数</th></tr></thead>
+      <tbody>
+        <tr><td><strong>四段・ナ変・ラ変動詞の未然形</strong>（正解）</td><td class="n">14</td></tr>
+        <tr><td>連用形</td><td class="n">3</td></tr>
+        <tr><td>終止形</td><td class="n">3</td></tr>
+        <tr><td>体言</td><td class="n">2</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="body">
+    <p>未然形接続という知識がなくても、<strong>一語だけのものを外せば正解に届いてしまいます</strong>。授業で教えた識別の手順を踏まなくても正答できる以上、これは文法の練習になっていません。</p>
+  </div>
+</section>
+
+<section>
+  <h2>直したこと</h2>
+  <p class="sec-note">要望の多かった順ではなく、学習の成立に関わる順に着手しました。</p>
+
+  <div class="fixes">
+
+    <div class="fix">
+      <div class="fix-head"><span class="tag">問題の作り</span><h3>475問の誤答を書き直した</h3></div>
+      <p>正解と誤答の字数・文体をそろえ、「明らかに捨てられる誤答」をなくしました。代わりに置いたのは、<strong>生徒が実際にしやすい誤り</strong>です。接続の取り違え、用語の定義の入れ替え、敬意の方向の逆転など。</p>
+      <p class="detail">たとえば「まかる」の意味を問う問題では、誤答のひとつに「まゐる」の正しい意味を置きました。取り違えていれば必ず引っかかります。文節数を問う問題は、誤答にも区切りを示させ、実際に数えないと選べない形にしました。</p>
+    </div>
+
+    <div class="fix">
+      <div class="fix-head"><span class="tag">手応え</span><h3>学習の記録が残るようにした</h3></div>
+      <p>単元ごとの正答率、取り組んだ日のカレンダー、間違えた問題をためる「苦手ボックス」、10問終了後の「間違えた◯問だけもう一度」。要望の1位と2位（各10人）はどちらもこれでした。</p>
+      <p class="detail">記録は端末のブラウザ内だけに保存し、サーバーには送りません。生徒の学習履歴を教員が集めない設計にしています。</p>
+    </div>
+
+    <div class="fix">
+      <div class="fix-head"><span class="tag">表示</span><h3>スマホで実寸表示になるようにした</h3></div>
+      <p>ページに画面幅の指定が抜けており、<strong>スマホでは約980px幅で描画してから縮小表示</strong>していました。生徒が読んでいた文字は本来の4割ほどの大きさだったことになります。</p>
+      <p class="detail">「解説の文字をもっと大きくしてもいい」という記述は、解説の設定ではなくこれが原因だった可能性が高いと考えています。あわせて「パソコンだと次の問題のボタンがスクロールしないと映らない」という指摘にも対応しました。</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>効果</h2>
+  <p class="sec-note">文法問題1,700問全体での実測値。問題文・正解・解説は一切変更していません。</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>指標</th><th class="n">修正前</th><th class="n">修正後</th><th class="n">偶然なら</th></tr></thead>
+      <tbody>
+        <tr><td>正解が単独で最も長い問題</td><td class="n before">46.1%</td><td class="n after">34.1%</td><td class="n">25%</td></tr>
+        <tr><td>正解と誤答平均の字数差</td><td class="n before">+6.9字</td><td class="n after">+1.7字</td><td class="n">0字</td></tr>
+        <tr><td>差が10字以上ある問題</td><td class="n before">27.9%</td><td class="n after">0.2%</td><td class="n">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="body">
+    <p>34.1%がまだ25%より高いのは、今回手を入れなかった軽度のもの（差が10字未満）が残っているためです。生徒が手がかりにできる水準ではありません。</p>
+    <p><strong>この修正により、生徒の正答率は以前より下がるはずです。</strong>消去法が効かなくなったぶん実力が素直に出るためで、それ自体は狙いどおりです。今後しばらく様子を見ます。</p>
+  </div>
+</section>
+
+<section>
+  <h2>他の教材にも当てはまりそうなこと</h2>
+  <p class="sec-note">ご自身の作られた小テストやプリントを見直す際の参考に。</p>
+
+  <div class="lessons">
+    <div class="lesson">
+      <h3>4択問題は、正解だけが長くなる</h3>
+      <p>正解には根拠を書きたくなり、誤答は思いつきで短く済ませがちです。作っているときには気づきませんが、生徒の側からは<strong>内容を読む前に形で分かってしまいます</strong>。手作りの問題でも、生成AIに作らせた問題でも同じ癖が出ます。字数をそろえるだけで、かなり改善します。</p>
+    </div>
+    <div class="lesson">
+      <h3>「使いやすさ」を聞いても、改善の手がかりにはなりにくい</h3>
+      <p>操作性は評価が高くても、使い続けるかどうかとはほとんど関係していませんでした。教材アンケートで見るべきなのは<strong>満足度そのものより、何と何が結びついているか</strong>だと感じます。今回は「今後も使いたいか」を軸にして各項目との関係を見たことで、手を入れる場所が決まりました。</p>
+    </div>
+    <div class="lesson">
+      <h3>生徒の「なんとなく変」は、たいてい当たっている</h3>
+      <p>「一つだけ気合が入っているのが答え」という書き方は、一見すると雑談のような記述です。しかし調べてみると統計的に裏づけられました。<strong>言語化されていない違和感ほど、確かめる価値があります。</strong></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>この報告の限界</h2>
+  <div class="body">
+    <p>相関は88件の順序尺度に対するもので、因果関係を示すものではありません。ただし操作性だけが突出して低い（0.21）という差は十分に大きいと考えています。</p>
+    <p>自由記述の件数は、同趣旨の表現をまとめた手作業の分類です。境界は厳密ではありません。</p>
+    <p>書き直した475問の誤答は、まだ生徒に解いてもらった実績がありません。難しすぎる誤答が混じっている可能性があり、正答率の推移を見ながら個別に直していく予定です。</p>
+  </div>
+</section>
+
+<footer>
+  引用した生徒の記述は、個人が特定されない範囲に限って掲載しています。<br>
+  ご質問やお気づきの点があればお知らせください。問題データの作り方や、同じ検査を他の教材にかける方法もお伝えできます。
+</footer>
+
+</div>
+
+</body>
+</html>
