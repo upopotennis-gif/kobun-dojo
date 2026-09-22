@@ -484,6 +484,12 @@
 :root[data-theme="dark"] .diff-badge .stars{ color:var(--yamabuki); }
 .source-tag{ font-size:.76rem; color:var(--ink-soft); margin:6px 0 0; }
 </style>
+<style>
+nav.sister{ display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin:0 0 18px; }
+nav.sister a{ font-size:.82rem; padding:6px 14px; border-radius:999px; border:1px solid var(--line);
+  color:var(--ink-soft); text-decoration:none; background:var(--surface); }
+nav.sister a:hover{ border-color:var(--ai); color:var(--ai); }
+</style>
 </head>
 <body>
 <div class="stage">
@@ -493,6 +499,8 @@
   <h1>古文実戦道場</h1>
   <p>大学入試レベルの助動詞演習。★1〜3の難易度混在で、実戦力を鍛えます。</p>
 </header>
+
+<nav class="sister" aria-label="道場の切り替え"><a href="https://upopotennis-gif.github.io/kokugo-dojo/">国語道場トップ</a><a href="./">文法道場</a><a href="tango.html">単語道場</a><a href="joshiki.html">常識道場</a></nav>
 
 <div id="error-banner" hidden>
   <span id="error-text"></span>
@@ -7561,6 +7569,7 @@
     var correct = (i === q.correctIndex);
     q._wasCorrect = correct;
     if (correct) { state.score++; }
+    if (window.Tsukumo) { Tsukumo.answer(correct); }   // 付喪神（道場共通/tsukumo）
 
     var buttons = $("q-choices").querySelectorAll(".choice");
     buttons.forEach(function(btn, idx){
@@ -7602,6 +7611,7 @@
     $("view-result").hidden = false;
     $("r-score").textContent = String(state.score);
     $("r-total").textContent = String(state.quiz.length);
+    if (window.Tsukumo) { Tsukumo.finish(state.quiz.length, state.score); }
     var pct = state.score / state.quiz.length;
     var msg;
     if (pct >= 0.9) { msg = "見事です。この単元はほぼ完璧に理解できています。"; }
@@ -7627,5 +7637,6 @@
   renderUnitChips();
 })();
 </script>
+<script src="tsukumo.js" data-subject="kobun"></script>
 </body>
 </html>
