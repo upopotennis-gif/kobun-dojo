@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="助動詞・助詞の接続の表「まほしば」をスマホで覚える10問の早押しクイズ">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>まほしば早押し</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Shippori+Mincho+B1:wght@700;800&display=swap">
+<style>
+/* スマホ1台で遊ぶ早押し。上に問題・下に大きな押しボタン。助動詞カルタと同じ臙脂＋七宝 */
+:root{
+  --bg:#f6f0ee; --card:#ffffff; --ink:#2a1a1c; --muted:#6e5a5d; --line:#e2d3d2;
+  --enji:#9b2d3a; --enji-soft:#f3e1e2; --ok:#1f7a55; --ok-soft:#dff1e8; --ng:#c2412d; --ng-soft:#fbe4df; --kin:#b7821b;
+  --f-display:"Dela Gothic One","Zen Kaku Gothic New",system-ui,sans-serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans",system-ui,sans-serif;
+  --f-kobun:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1c1416; --card:#2a1f21; --ink:#f3e9e8; --muted:#bba7a9; --line:#47373a;
+  --enji:#e0707d; --enji-soft:#3d2529; --ok:#5fcf9b; --ok-soft:#1d3a2d; --ng:#f08a74; --ng-soft:#41241f; --kin:#e2b14e; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1c1416; --card:#2a1f21; --ink:#f3e9e8; --muted:#bba7a9; --line:#47373a;
+  --enji:#e0707d; --enji-soft:#3d2529; --ok:#5fcf9b; --ok-soft:#1d3a2d; --ng:#f08a74; --ng-soft:#41241f; --kin:#e2b14e; color-scheme:dark}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;
+  background-image:radial-gradient(circle at 50% 50%, transparent 58%, color-mix(in srgb,var(--enji) 9%,transparent) 59%, color-mix(in srgb,var(--enji) 9%,transparent) 63%, transparent 64%);
+  background-size:44px 44px}
+.wrap{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px;display:flex;flex-direction:column;gap:14px}
+h1{margin:0;font-family:var(--f-display);font-weight:400;color:var(--enji);font-size:clamp(40px,12vw,64px);line-height:1.05;letter-spacing:.04em;text-align:center}
+.lead{margin:0;text-align:center;color:var(--muted);font-weight:700}
+.card{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px}
+button{font:inherit;font-weight:900;min-height:48px;border-radius:12px;border:2px solid var(--enji);background:var(--card);color:var(--enji);cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:3px solid var(--kin);outline-offset:2px}
+.primary{background:var(--enji);color:#fff;font-size:20px;min-height:60px;width:100%}
+.ghost{border-color:var(--line);color:var(--ink);width:100%}
+.row{display:flex;gap:10px}
+.row > *{flex:1;min-width:0}
+.best{text-align:center;color:var(--muted);font-weight:700;margin:0}
+.best b{color:var(--kin);font-family:var(--f-display);font-weight:400;font-size:1.3em}
+/* play */
+.hud{display:flex;justify-content:space-between;align-items:center;font-weight:900;color:var(--muted)}
+.hud .t{font-family:var(--f-display);font-weight:400;color:var(--enji);font-size:22px;font-variant-numeric:tabular-nums}
+.prog{height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.prog i{display:block;height:100%;background:var(--enji);transition:width .3s}
+.qbox{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px 16px;text-align:center;display:flex;flex-direction:column;gap:8px;min-height:170px;justify-content:center}
+.qlabel{font-weight:900;color:var(--muted);font-size:15px}
+.qword{font-family:var(--f-kobun);font-weight:800;font-size:clamp(44px,15vw,72px);line-height:1.15;color:var(--ink)}
+.qword.small{font-size:clamp(22px,6.4vw,30px);line-height:1.5}
+.qword .blank{display:inline-block;min-width:3em;border-bottom:3px solid var(--enji);color:transparent}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.choices.six{grid-template-columns:repeat(3,minmax(0,1fr))}
+.choices button{min-height:64px;font-size:20px;color:var(--ink);border-color:var(--line);background:var(--card)}
+.choices.words button{font-family:var(--f-kobun);font-size:22px}
+.choices button.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.choices button.ng{background:var(--ng-soft);border-color:var(--ng);color:var(--ng)}
+.choices button:disabled{cursor:default}
+.fb{min-height:52px;border-radius:12px;padding:10px 12px;font-weight:700;line-height:1.6}
+.fb.ok{background:var(--ok-soft);color:var(--ok)}
+.fb.ng{background:var(--ng-soft);color:var(--ng)}
+.fb .sp{display:block;color:var(--ink);font-weight:500;font-size:15px}
+.count{font-family:var(--f-display);font-weight:400;font-size:120px;text-align:center;color:var(--enji);line-height:1.2;animation:pop .8s ease-out}
+@keyframes pop{from{transform:scale(1.5);opacity:.2}to{transform:scale(1);opacity:1}}
+/* result */
+.score{text-align:center}
+.score .big{font-family:var(--f-display);font-weight:400;font-size:64px;color:var(--enji);line-height:1.1}
+.score p{margin:4px 0;font-weight:700}
+.rank{display:inline-block;background:var(--kin);color:#fff;font-weight:900;border-radius:999px;padding:4px 14px}
+.miss{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.miss li{border-left:4px solid var(--ng);background:var(--card);border-radius:8px;padding:8px 12px;line-height:1.6;font-size:15px}
+.miss li b{font-family:var(--f-kobun);font-size:18px}
+/* table */
+.tbl{display:flex;flex-direction:column;gap:10px}
+.tr{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px 14px;display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:4px 12px;align-items:start}
+.tr .k{grid-row:span 2;font-weight:900;color:#fff;background:var(--enji);border-radius:10px;text-align:center;padding:8px 4px;font-size:16px}
+.tr .w{font-family:var(--f-kobun);font-weight:800;font-size:19px;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
+.tr .s{font-size:15px;color:var(--muted);line-height:1.6}
+.tr .s::before{content:"呪文 ";font-weight:900;color:var(--enji)}
+.note{font-size:14px;color:var(--muted);line-height:1.7;margin:0}
+nav.dojo-nav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;max-width:560px;margin:0 auto;padding:12px max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px))}
+nav.dojo-nav::-webkit-scrollbar{display:none}
+nav.dojo-nav a{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted);font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap}
+nav.dojo-nav a[aria-current]{background:var(--enji);border-color:var(--enji);color:#fff}
+@media (prefers-reduced-motion:reduce){.count{animation:none}.prog i{transition:none}}
+</style>
+</head>
+<body>
+
+<nav class="dojo-nav" aria-label="道場の切り替え"><a href="https://upopotennis-gif.github.io/kokugo-dojo/">国語道場トップ</a><a href="./">文法道場</a><a href="tango.html">単語道場</a><a href="joshiki.html">常識道場</a><a href="mahoshiba.html" aria-current="page">まほしば</a></nav>
+<div class="wrap" id="app"></div>
+
+<script>
+// まほしば（接続ごとの表）。「ば」「なり」「たり」は2か所に出るので、2つの活用形をセットで答える
+const ROWS = [
+  {k:"未然形", words:["まほし","ば","じ","まし","しむ","で","む","ず","むず","す","らる","さす","る"], spell:"「まほしば！」じんま疹で、ムズムズすらる。さする。"},
+  {k:"連用形", words:["、（読点）","き","けむ","つ","て","つつ","けり","ながら","用言","たし","たり","ぬ"], spell:"天気けむって、筒蹴りながら、用足したりぬ。"},
+  {k:"終止形", words:["。（句点）","べし","まじ","らむ","なり","めり","らし","と"], spell:"メリー、ラッシー、泊まるべし。まじらんなり。"},
+  {k:"連体形", words:["を","に","の","は","が","もの","こと","ごとし","体言","なり","たり"], spell:"鬼の歯が、物事ごとし。体言なりたり。"},
+  {k:"已然形", words:["ど","ども","ば","り"], spell:"ドドモバリ！"},
+  {k:"命令形", words:["！"], spell:"！（命令して言い切る）"},
+];
+const FORMS = ROWS.map(r=>r.k);
+const TWICE = new Set(["ば","なり","たり"]);
+const UNIQUE = ROWS.flatMap(r=>r.words.filter(w=>!TWICE.has(w)).map(w=>({w,k:r.k})));
+const PAIRS = [
+  {w:"ば", ks:["未然形","已然形"]},
+  {w:"なり", ks:["終止形","連体形"]},
+  {w:"たり", ks:["連用形","連体形"]},
+];
+const PAIR_OPTS = ["未然形・已然形","終止形・連体形","連用形・連体形","未然形・連用形"];
+const rowOf = k => ROWS.find(r=>r.k===k);
+const ksOf = q => q.ks || [q.k];
+const spells = q => ksOf(q).map(k=>`${k}：${rowOf(k).spell}`).join("<br>");
+
+// 呪文の穴うめ
+const BLANKS = [
+  {pre:"「まほしば！」じんま疹で、ムズムズ", post:"。さする。", a:"すらる", opts:["すらる","たりぬ","べし","ごとし"], k:"未然形"},
+  {pre:"天気けむって、筒蹴りながら、用足し", post:"。", a:"たりぬ", opts:["たりぬ","すらる","なりたり","まじらん"], k:"連用形"},
+  {pre:"メリー、ラッシー、泊まる", post:"。まじらんなり。", a:"べし", opts:["べし","けむ","ごとし","さする"], k:"終止形"},
+  {pre:"鬼の歯が、物事", post:"。体言なりたり。", a:"ごとし", opts:["ごとし","べし","まほし","けむって"], k:"連体形"},
+  {pre:"", post:"！（已然形）", a:"ドドモバリ", opts:["ドドモバリ","ムズムズ","メリー","鬼の歯が"], k:"已然形"},
+  {pre:"「まほしば！」", post:"で、ムズムズすらる。", a:"じんま疹", opts:["じんま疹","天気","筒蹴り","物事"], k:"未然形"},
+];
+
+const N = 10;
+const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const pickN = (a,n) => shuffle(a).slice(0,n);
+const app = document.getElementById("app");
+let qs=[], qi=0, results=[], tStart=0, tickId=null;
+
+function getBest(){ try{ return JSON.parse(localStorage.getItem("mahoshiba-best10")||"null"); }catch(e){ return null; } }
+function setBest(v){ try{ localStorage.setItem("mahoshiba-best10", JSON.stringify(v)); }catch(e){} }
+
+function makeQuestions(){
+  const list=[];
+  // A: 「〜」は何形につく？ 6問。ば・なり・たりは「2つセット」の4択
+  const poolA = [...UNIQUE.map(x=>({w:x.w,k:x.k})), ...PAIRS, ...PAIRS];  // セットの語も出やすくする
+  const seen = new Set();
+  [pickN(PAIRS,1)[0], ...shuffle(poolA)].forEach(x=>{  // セットの問題は毎回かならず1問以上
+    if (list.length>=6 || seen.has(x.w)) return; seen.add(x.w);
+    if (x.ks) list.push({type:"P", label:"何形につく？（2つセット）", word:x.w, a:x.ks.join("・"), opts:shuffle(PAIR_OPTS), ks:x.ks});
+    else list.push({type:"A", label:"何形につく？", word:x.w, a:x.k, opts:FORMS, k:x.k});
+  });
+  // B: 〇〇形につくのはどれ？ 2問（誤答はその形につかない語から）
+  pickN(FORMS.filter(k=>k!=="命令形"),2).forEach(k=>{
+    const right = pickN(rowOf(k).words,1)[0];
+    const others = [...new Set(ROWS.filter(r=>r.k!==k).flatMap(r=>r.words))].filter(w=>!rowOf(k).words.includes(w));
+    const wrong = pickN(others,3);
+    list.push({type:"B", label:`${k}につくのはどれ？`, word:k, a:right, opts:shuffle([right,...wrong]), k});
+  });
+  // C: 呪文の穴うめ 2問
+  pickN(BLANKS,2).forEach(b=>list.push({type:"C", label:"呪文の（　）に入るのは？", b, a:b.a, opts:shuffle(b.opts), k:b.k}));
+  return shuffle(list).slice(0,N);
+}
+
+function home(){
+  clearInterval(tickId);
+  const best=getBest();
+  app.innerHTML = `
+    <h1>まほしば<br>早押し</h1>
+    <p class="lead">下につく言葉は、何形の下？</p>
+    <div class="card" style="display:flex;flex-direction:column;gap:12px">
+      <p style="margin:0;line-height:1.7">全${N}問。表示されたらすぐタップ。<br>正解が<b>速いほど高得点</b>（1問最大20点）。</p>
+      <button class="primary" id="go">スタート</button>
+      <p class="best">${best?`自己ベスト <b>${best.score}</b> 点（${best.correct}/${N}問）`:"まだ記録はありません"}</p>
+    </div>
+    <button class="ghost" id="tbl">まほしばの表を見る</button>`;
+  document.getElementById("go").onclick=countdown;
+  document.getElementById("tbl").onclick=table;
+}
+
+function countdown(){
+  qs=makeQuestions(); qi=0; results=[];
+  let n=3; app.innerHTML=`<div class="count" id="c">3</div>`;
+  const id=setInterval(()=>{ n--; if(n<=0){clearInterval(id); ask(); return;}
+    const c=document.getElementById("c"); c.textContent=n; c.style.animation="none"; void c.offsetWidth; c.style.animation=""; },700);
+}
+
+function qHtml(q){
+  if(q.type==="C") return `<div class="qword small">${q.b.pre}<span class="blank">　　　</span>${q.b.post}</div>`;
+  if(q.type==="B") return `<div class="qword" style="font-family:var(--f-display);font-weight:400;font-size:clamp(34px,11vw,52px);color:var(--enji)">${q.word}</div>`;
+  return `<div class="qword">${q.word}</div>`;
+}
+
+function ask(){
+  const q=qs[qi];
+  const score = results.reduce((s,r)=>s+r.pt,0);
+  app.innerHTML = `
+    <div class="hud"><span>${qi+1} / ${N}</span><span class="t" id="tm">0.0</span><span>${score}点</span></div>
+    <div class="prog"><i style="width:${qi/N*100}%"></i></div>
+    <div class="qbox"><div class="qlabel">${q.label}</div>${qHtml(q)}</div>
+    <div class="choices ${q.type==="A"?"six":""} ${q.type==="B"||q.type==="C"?"words":""}" id="ch">
+      ${q.opts.map((o,i)=>`<button type="button" data-i="${i}">${o}</button>`).join("")}
+    </div>
+    <div class="fb" id="fb" aria-live="polite"></div>`;
+  tStart=performance.now();
+  clearInterval(tickId);
+  tickId=setInterval(()=>{ const el=document.getElementById("tm"); if(el) el.textContent=((performance.now()-tStart)/1000).toFixed(1); },100);
+  document.querySelectorAll("#ch button").forEach(b=>b.onclick=()=>answer(q,q.opts[+b.dataset.i],b));
+}
+
+function answer(q,choice,btn){
+  clearInterval(tickId);
+  const sec=(performance.now()-tStart)/1000;
+  const ok = choice===q.a;
+  const pt = ok ? 10 + Math.max(0, Math.round(10 - Math.max(0,sec-1)*10/7)) : 0;  // 1秒以内で20点、8秒で10点
+  results.push({q,choice,ok,sec,pt});
+  if(window.Tsukumo) Tsukumo.answer(ok);   // 古文道場の付喪神（単独版には無いので何もしない）
+  document.querySelectorAll("#ch button").forEach(b=>{
+    b.disabled=true;
+    const v=q.opts[+b.dataset.i];
+    if(v===q.a) b.classList.add("ok"); else if(b===btn) b.classList.add("ng");
+  });
+  const fb=document.getElementById("fb");
+  fb.className="fb "+(ok?"ok":"ng");
+  fb.innerHTML = (ok?`○ 正解！ +${pt}点（${sec.toFixed(1)}秒）`:`× 正解は「${q.a}」`) + `<span class="sp">${spells(q)}</span>`;
+  setTimeout(()=>{ qi++; qi<N ? ask() : result(); }, ok?900:2200);
+}
+
+function result(){
+  const score=results.reduce((s,r)=>s+r.pt,0);
+  const correct=results.filter(r=>r.ok).length;
+  const time=results.reduce((s,r)=>s+r.sec,0);
+  const best=getBest();
+  const isBest=!best||score>best.score;
+  if(window.Tsukumo) Tsukumo.finish(N, correct);
+  if(isBest) setBest({score,correct});
+  const rank = correct===N&&score>=N*17 ? "まほしば名人" : correct===N ? "全問正解" : correct>=N-2 ? "あと少し" : "表を見てもう一度";
+  const miss=results.filter(r=>!r.ok);
+  app.innerHTML = `
+    <div class="card score">
+      <span class="rank">${rank}</span>
+      <div class="big">${score}<span style="font-size:.4em">点</span></div>
+      <p>${correct} / ${N}問 正解　合計 ${time.toFixed(1)}秒</p>
+      <p style="color:var(--kin)">${isBest?"自己ベスト更新！":`自己ベスト ${best.score}点`}</p>
+    </div>
+    ${miss.length?`<div><p class="lead" style="text-align:left;margin-bottom:8px">まちがえたところ</p><ul class="miss">${miss.map(m=>{
+      const what = m.q.type==="A"||m.q.type==="P" ? `<b>${m.q.word}</b> は ${m.q.a}につく` : m.q.type==="B" ? `${m.q.k}につくのは <b>${m.q.a}</b>` : `呪文の（　）は <b>${m.q.a}</b>`;
+      return `<li>${what}<br><span style="color:var(--muted)">${spells(m.q)}</span></li>`; }).join("")}</ul></div>`:""}
+    <div class="row"><button class="primary" id="again">もう一回</button></div>
+    <div class="row"><button class="ghost" id="tbl">表を見る</button><button class="ghost" id="hm">はじめに戻る</button></div>`;
+  document.getElementById("again").onclick=countdown;
+  document.getElementById("tbl").onclick=table;
+  document.getElementById("hm").onclick=home;
+}
+
+function table(){
+  clearInterval(tickId);
+  app.innerHTML = `
+    <h1 style="font-size:40px">まほしば</h1>
+    <p class="lead">下につく言葉（接続）で見分ける活用形</p>
+    <div class="tbl">${ROWS.map(r=>`<div class="tr"><div class="k">${r.k}</div><div class="w">${r.words.join("　")}</div><div class="s">${r.spell}</div></div>`).join("")}</div>
+    <p class="note">「ば」は未然形と已然形、「なり」は終止形と連体形、「たり」は連用形と連体形の両方に出てくる。クイズでは2つをセットで答える。</p>
+    <button class="primary" id="go">スタート</button>
+    <button class="ghost" id="hm">はじめに戻る</button>`;
+  document.getElementById("go").onclick=countdown;
+  document.getElementById("hm").onclick=home;
+  window.scrollTo(0,0);
+}
+
+home();
+</script>
+
+<script>(function(){var n=document.querySelector("nav.dojo-nav"),a=n&&n.querySelector("[aria-current]");if(a)n.scrollLeft=a.offsetLeft-n.clientWidth+a.offsetWidth+16;})();</script>
+<script src="tsukumo.js" data-subject="kobun"></script>
+<script src="riyou.js" data-site="kobun"></script>
+</body>
+</html>
