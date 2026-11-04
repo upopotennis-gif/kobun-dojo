@@ -35,6 +35,8 @@ button{font:inherit;font-weight:900;min-height:48px;border-radius:12px;border:2p
 button:focus-visible{outline:3px solid var(--kin);outline-offset:2px}
 .primary{background:var(--enji);color:#fff;font-size:20px;min-height:60px;width:100%}
 .ghost{border-color:var(--line);color:var(--ink);width:100%}
+a.print{display:flex;align-items:center;justify-content:center;gap:6px;min-height:48px;border-radius:12px;border:2px dashed var(--enji);background:var(--card);color:var(--enji);font-weight:900;text-decoration:none;box-sizing:border-box;width:100%}
+a.print:focus-visible{outline:3px solid var(--kin);outline-offset:2px}
 .row{display:flex;gap:10px}
 .row > *{flex:1;min-width:0}
 .best{text-align:center;color:var(--muted);font-weight:700;margin:0}
@@ -165,7 +167,8 @@ function home(){
       <button class="primary" id="go">スタート</button>
       <p class="best">${best?`自己ベスト <b>${best.score}</b> 点（${best.correct}/${N}問）`:"まだ記録はありません"}</p>
     </div>
-    <button class="ghost" id="tbl">まほしばの表を見る</button>`;
+    <button class="ghost" id="tbl">まほしばの表を見る</button>
+    <a class="print" href="https://upopotennis-gif.github.io/kobun-dojo/mahoshiba.pdf" target="_blank" rel="noopener">まほしばのプリント（A4・PDF）</a>`;
   document.getElementById("go").onclick=countdown;
   document.getElementById("tbl").onclick=table;
 }
@@ -253,7 +256,8 @@ function table(){
     <div class="tbl">${ROWS.map(r=>`<div class="tr"><div class="k">${r.k}</div><div class="w">${r.words.join("　")}</div><div class="s">${r.spell}</div></div>`).join("")}</div>
     <p class="note">「ば」は未然形と已然形、「なり」は終止形と連体形、「たり」は連用形と連体形の両方に出てくる。クイズでは2つをセットで答える。</p>
     <button class="primary" id="go">スタート</button>
-    <button class="ghost" id="hm">はじめに戻る</button>`;
+    <button class="ghost" id="hm">はじめに戻る</button>
+    <a class="print" href="https://upopotennis-gif.github.io/kobun-dojo/mahoshiba.pdf" target="_blank" rel="noopener">まほしばのプリント（A4・PDF）</a>`;
   document.getElementById("go").onclick=countdown;
   document.getElementById("hm").onclick=home;
   window.scrollTo(0,0);
